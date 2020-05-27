@@ -7,6 +7,7 @@ using System.Numerics;
 
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Media;
 
@@ -160,6 +161,7 @@ namespace Sharpnado.Shades.UWP
                     Fill = Xamarin.Forms.Color.White.ToBrush(),
                     Width = width,
                     Height = height,
+                    
                     RadiusX = _cornerRadius,
                     RadiusY = _cornerRadius,
                 };
@@ -200,6 +202,10 @@ namespace Sharpnado.Shades.UWP
                 return;
             }
 
+            InternalLogger.Debug(
+                LogTag,
+                $"shadowSource: {{ ActualOffset: {_shadowSource.ActualOffset}, ActualSize: {_shadowSource.ActualSize}, Margin: {_shadowSource.Margin} }}");
+
             for (int i = 0; i < _shadesSource.Count(); i++)
             {
                 var shade = _shadesSource.ElementAt(i);
@@ -211,6 +217,10 @@ namespace Sharpnado.Shades.UWP
 
                 var shadowHost = (Rectangle)_shadowsGrid.Children[i];
                 var shadowVisual = _shadowVisuals[i];
+
+                InternalLogger.Debug(
+                    LogTag,
+                    $"shadowHost: {{ ActualOffset: {shadowHost.ActualOffset}, ActualSize: {shadowHost.ActualSize}, Margin: {shadowHost.Margin} }}");
 
                 shadowHost.Width = width;
                 shadowHost.Height = height;
