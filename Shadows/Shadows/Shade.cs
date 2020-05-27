@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using System.Reflection.Emit;
+using System.Text;
+using Xamarin.Forms;
 
 namespace Sharpnado.Shades
 {
@@ -87,6 +89,15 @@ namespace Sharpnado.Shades
         {
             get => (double)GetValue(BlurRadiusProperty);
             set => SetValue(BlurRadiusProperty, value);
+        }
+
+        public override string ToString()
+        {
+            var builder = new StringBuilder();
+            builder.AppendLine($"Shade {{ Offset: {Offset},");
+            builder.Append($"Color: {Color}, Opacity: {Opacity}, BlurRadius: {BlurRadius} }}");
+
+            return builder.ToString();
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Sharpnado.Shades.Droid
 
         public void UpdateCornerRadius(float cornerRadius)
         {
+            InternalLogger.Debug(LogTag, () => $"UpdateCornerRadius( cornerRadius: {cornerRadius} )");
             bool hasChanged = _cornerRadius != cornerRadius;
             _cornerRadius = cornerRadius;
 
@@ -32,6 +33,7 @@ namespace Sharpnado.Shades.Droid
                 return;
             }
 
+            InternalLogger.Debug(LogTag, () => $"UpdateShades( shadesSource: {shadesSource} )");
             if (_shadesSource is INotifyCollectionChanged previousNotifyCollectionChanged)
             {
                 previousNotifyCollectionChanged.CollectionChanged -= ShadesSourceCollectionChanged;
@@ -82,6 +84,7 @@ namespace Sharpnado.Shades.Droid
 
         private void InsertShade(int insertIndex, Shade shade)
         {
+            InternalLogger.Debug(LogTag, () => $"InsertShade( insertIndex: {insertIndex}, shade: {shade} )");
             CreateBitmap(insertIndex);
             DrawBitmap(insertIndex, shade);
             shade.PropertyChanged += ShadePropertyChanged;
@@ -89,6 +92,7 @@ namespace Sharpnado.Shades.Droid
 
         private void RemoveShade(int removedIndex, Shade shade)
         {
+            InternalLogger.Debug(LogTag, () => $"RemoveShade( insertIndex: {removedIndex} )");
             shade.PropertyChanged -= ShadePropertyChanged;
             DisposeBitmap(removedIndex);
         }
@@ -99,11 +103,12 @@ namespace Sharpnado.Shades.Droid
             var index = _shadesSource.IndexOf(shade);
             if (index < 0)
             {
-                System.Diagnostics.Debug.WriteLine(
-                    $"ShadowView::ShadePropertyChanged => shade property {e.PropertyName} changed but we can't find the shade in the source");
+                InternalLogger.Warn(
+                    LogTag, $"ShadePropertyChanged => shade property {e.PropertyName} changed but we can't find the shade in the source");
                 return;
             }
 
+            InternalLogger.Debug(LogTag, () => $"ShadePropertyChanged( shadeIndex: {index}, propertyName: {e.PropertyName} )");
             switch (e.PropertyName)
             {
                 case nameof(Shade.BlurRadius):

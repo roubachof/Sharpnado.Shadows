@@ -67,7 +67,7 @@ namespace Sharpnado.Shades.Droid
         {
             base.OnLayout(changed, l, t, r, b);
 
-            System.Diagnostics.Debug.WriteLine($"OnLayout( {l}l, {t}t, {r}r, {b}b )");
+            InternalLogger.Debug("Renderer", $"OnLayout( {l}l, {t}t, {r}r, {b}b )");
 
             var children = GetChildAt(1);
             if (children == null)
@@ -75,9 +75,9 @@ namespace Sharpnado.Shades.Droid
                 return;
             }
 
-            System.Diagnostics.Debug.WriteLine($"this: {GetX()}x, {GetY()}y, {MeasuredWidth}w, {MeasuredHeight}h");
+            InternalLogger.Debug("Renderer", $"this: {GetX()}x, {GetY()}y, {MeasuredWidth}w, {MeasuredHeight}h");
 
-            System.Diagnostics.Debug.WriteLine($"child: {children.GetX()}x, {children.GetY()}y, {children.MeasuredWidth}w, {children.MeasuredHeight}h");
+            InternalLogger.Debug("Renderer", $"child: {children.GetX()}x, {children.GetY()}y, {children.MeasuredWidth}w, {children.MeasuredHeight}h");
 
             _shadowView?.Layout(MeasuredWidth, MeasuredHeight);
         }

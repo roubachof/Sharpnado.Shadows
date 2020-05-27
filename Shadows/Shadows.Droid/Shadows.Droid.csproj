@@ -70,7 +70,6 @@
     <Compile Include="JniExtensions.cs" />
     <Compile Include="JniWeakReference.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
-    <Compile Include="ShadowShape.cs" />
     <Compile Include="ShadowView.PropertyChanged.cs" />
     <Compile Include="ShadowView.cs" />
   </ItemGroup>

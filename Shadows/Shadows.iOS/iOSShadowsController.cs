@@ -14,6 +14,8 @@ namespace Sharpnado.Shades.iOS
 {
     public class iOSShadowsController
     {
+        private const string LogTag = "iOSShadowsController";
+
         [Weak]
         private readonly UIView _shadowSource;
 
@@ -32,6 +34,7 @@ namespace Sharpnado.Shades.iOS
 
         public void DestroyShadow(int shadowIndex)
         {
+            InternalLogger.Debug(LogTag, $"DestroyShadow( shadowIndex: {shadowIndex} )");
             var shadowSubLayer = _shadowsLayer.Sublayers[shadowIndex];
             shadowSubLayer.RemoveFromSuperLayer();
             shadowSubLayer.Dispose();
@@ -44,6 +47,7 @@ namespace Sharpnado.Shades.iOS
                 return;
             }
 
+            InternalLogger.Debug(LogTag, "DestroyShadows()");
             foreach (var subLayer in _shadowsLayer.Sublayers.ToArray())
             {
                 subLayer.RemoveFromSuperLayer();
@@ -63,7 +67,7 @@ namespace Sharpnado.Shades.iOS
             foreach (var subLayer in _shadowsLayer.Sublayers)
             {
                 SetLayerFrame(subLayer);
-                subLayer.LogInfo();
+                InternalLogger.Debug(LogTag, () => subLayer.ToInfo());
             }
         }
 
@@ -74,6 +78,7 @@ namespace Sharpnado.Shades.iOS
                 return;
             }
 
+            InternalLogger.Debug(LogTag, () => $"UpdateCornerRadius( cornerRadius: {cornerRadius} )");
             bool hasChanged = _cornerRadius != cornerRadius;
             _cornerRadius = cornerRadius;
 
@@ -93,6 +98,7 @@ namespace Sharpnado.Shades.iOS
                 return;
             }
 
+            InternalLogger.Debug(LogTag, () => $"UpdateShades( shadesSource: {shadesSource} )");
             if (_shadowsLayer == null && _shadowSource == null)
             {
                 return;
@@ -165,6 +171,7 @@ namespace Sharpnado.Shades.iOS
 
         private void InsertShade(int insertIndex, Shade shade)
         {
+            InternalLogger.Debug(LogTag, () => $"InsertShade( insertIndex: {insertIndex}, shade: {shade} )");
             var shadeSubLayer = shade.ToCALayer();
             shadeSubLayer.CornerRadius = _cornerRadius;
             SetLayerFrame(shadeSubLayer);
@@ -177,6 +184,7 @@ namespace Sharpnado.Shades.iOS
 
         private void RemoveShade(int removedIndex, Shade shade)
         {
+            InternalLogger.Debug(LogTag, () => $"RemoveShade( insertIndex: {removedIndex} )");
             shade.PropertyChanged -= ShadePropertyChanged;
             DestroyShadow(removedIndex);
             _shadowsLayer.SetNeedsDisplay();
@@ -188,11 +196,11 @@ namespace Sharpnado.Shades.iOS
             var index = _shadesSource.IndexOf(shade);
             if (index < 0)
             {
-                InternalLogger.Warn(
-                    $"ShadowView::ShadePropertyChanged => shade property {e.PropertyName} changed but we can't find the shade in the source");
+                InternalLogger.Warn(LogTag, $"ShadePropertyChanged => shade property {e.PropertyName} changed but we can't find the shade in the source");
                 return;
             }
 
+            InternalLogger.Debug(LogTag, () => $"ShadePropertyChanged( shadeIndex: {index}, propertyName: {e.PropertyName} )");
             switch (e.PropertyName)
             {
                 case nameof(Shade.BlurRadius):

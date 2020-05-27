@@ -18,6 +18,8 @@ namespace Sharpnado.Shades.Droid
     {
         private const int MaxRadius = 100;
 
+        private const string LogTag = nameof(ShadowView);
+
         private readonly JniWeakReference<View> _weakSource;
         private readonly RenderScript _renderScript;
         private readonly List<Bitmap> _shadesBitmaps;
@@ -59,7 +61,7 @@ namespace Sharpnado.Shades.Droid
                 return;
             }
 
-            InternalLogger.Debug($"ShadowView::Layout( width: {width}, height: {height} )");
+            InternalLogger.Debug(LogTag, () => $"Layout( width: {width}, height: {height} )");
 
             Measure(width, height);
             Layout(0, 0, width, height);
@@ -71,6 +73,8 @@ namespace Sharpnado.Shades.Droid
 
             if (disposing)
             {
+                InternalLogger.Debug(LogTag, "Dispose()");
+
                 _renderScript.Destroy();
 
                 DisposeBitmaps();
@@ -83,7 +87,7 @@ namespace Sharpnado.Shades.Droid
 
             if ((w != oldw || h != oldh) && _weakSource.TryGetTarget(out var source))
             {
-                InternalLogger.Debug($"ShadowView::OnSizeChanged( {source.MeasuredWidth}w, {source.MeasuredHeight}h )");
+                InternalLogger.Debug(LogTag, () => $"OnSizeChanged( {source.MeasuredWidth}w, {source.MeasuredHeight}h )");
 
                 CreateAndDrawBitmaps();
             }
@@ -110,7 +114,7 @@ namespace Sharpnado.Shades.Droid
                 float x = source.GetX() + info.OffsetX - MaxRadius;
                 float y = source.GetY() + info.OffsetY - MaxRadius;
 
-                InternalLogger.Debug($"ShadowView::OnDraw( {x}x, {y}y )");
+                InternalLogger.Debug(LogTag, () => $"OnDraw( {x}x, {y}y )");
 
                 canvas.DrawBitmap(shadow, x, y, null);
             }
@@ -127,7 +131,7 @@ namespace Sharpnado.Shades.Droid
                 return;
             }
 
-            InternalLogger.Debug($"ShadowView::CreateBitmaps()");
+            InternalLogger.Debug(LogTag, "CreateBitmaps()");
             var immutableSource = _shadesSource.ToArray();
             for (int i = 0; i < immutableSource.Length; i++)
             {
@@ -144,7 +148,7 @@ namespace Sharpnado.Shades.Droid
                 return;
             }
 
-            InternalLogger.Debug($"ShadowView::CreateBitmaps( shadeInfoIndex: {shadeInfoIndex}, sourceWidth: {source.MeasuredWidth}, sourceHeight: {source.MeasuredHeight})");
+            InternalLogger.Debug(LogTag, () => $"CreateBitmaps( shadeInfoIndex: {shadeInfoIndex}, sourceWidth: {source.MeasuredWidth}, sourceHeight: {source.MeasuredHeight})");
 
             _shadesBitmaps.Insert(
                 shadeInfoIndex,
@@ -156,7 +160,7 @@ namespace Sharpnado.Shades.Droid
 
         private void DrawBitmap(int shadeInfoIndex, Shade shade)
         {
-            InternalLogger.Debug($"ShadowView::DrawBitmap( shadeInfoIndex: {shadeInfoIndex})");
+            InternalLogger.Debug(LogTag, () => $"DrawBitmap( shadeInfoIndex: {shadeInfoIndex})");
             if (!_weakSource.TryGetTarget(out var source))
             {
                 return;
@@ -164,8 +168,8 @@ namespace Sharpnado.Shades.Droid
 
             if (shadeInfoIndex >= _shadesBitmaps.Count)
             {
-                InternalLogger.Debug(
-                    $"ShadowView::DrawBitmap => Couldn't find a bitmap at index {shadeInfoIndex}, possibly CreateBitmap wasn't run because the measurement has not have been made yet");
+                InternalLogger.Warn(
+                    LogTag, $"DrawBitmap => Couldn't find a bitmap at index {shadeInfoIndex}, possibly CreateBitmap wasn't run because the measurement has not have been made yet");
                 return;
             }
 
@@ -174,8 +178,11 @@ namespace Sharpnado.Shades.Droid
 
             shadow.EraseColor(Color.Transparent);
 
-            InternalLogger.Debug($"ShadowView::DrawBitmap( shadeInfoIndex: {shadeInfoIndex}, sourceWidth: {source.MeasuredWidth}, sourceHeight: {source.MeasuredHeight}, bitmapWidth: {shadow.Width}, bitmapHeight: {shadow.Height})");
-            InternalLogger.Debug(info.ToString());
+            InternalLogger.Debug(
+                LogTag,
+                () =>
+                    $"DrawBitmap( shadeInfoIndex: {shadeInfoIndex}, sourceWidth: {source.MeasuredWidth}, sourceHeight: {source.MeasuredHeight}, bitmapWidth: {shadow.Width}, bitmapHeight: {shadow.Height})");
+            InternalLogger.Debug(LogTag, () => info.ToString());
 
             using var bitmapCanvas = new Canvas(shadow);
             using var paint = new Paint { Color = info.Color };
@@ -226,7 +233,7 @@ namespace Sharpnado.Shades.Droid
 
         private void DrawBitmaps(Shade[] immutableSource)
         {
-            InternalLogger.Debug($"ShadowView::DrawBitmaps()");
+            InternalLogger.Debug(LogTag, "DrawBitmaps()");
             for (int i = 0; i < immutableSource.Length; i++)
             {
                 DrawBitmap(i, immutableSource[i]);
@@ -235,6 +242,7 @@ namespace Sharpnado.Shades.Droid
 
         private void DisposeBitmap(int index)
         {
+            InternalLogger.Debug(LogTag, () => $"DisposeBitmap( index: {index} )");
             var bitmap = _shadesBitmaps[index];
             _shadesBitmaps.RemoveAt(index);
             bitmap.Recycle();
@@ -248,6 +256,7 @@ namespace Sharpnado.Shades.Droid
                 return;
             }
 
+            InternalLogger.Debug(LogTag, $"DisposeBitmaps()");
             foreach (var bitmap in _shadesBitmaps)
             {
                 bitmap.Recycle();

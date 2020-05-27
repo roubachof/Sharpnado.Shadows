@@ -121,8 +121,9 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="UWPShadowsController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UWPShadowsRenderer.cs" />
     <EmbeddedResource Include="Properties\Shadows.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +149,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shadows\Shadows.csproj">
+      <Project>{793936a7-04dd-4c8f-a8c1-524cf432c905}</Project>
+      <Name>Shadows</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
