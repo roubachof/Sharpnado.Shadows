@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel;
-using System.Runtime.Remoting.Contexts;
 
+using CoreAnimation;
+using CoreGraphics;
 using Sharpnado.Shades.iOS;
-
+using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
@@ -12,9 +13,20 @@ namespace Sharpnado.Shades.iOS
 {
     public class iOSShadowsRenderer : VisualElementRenderer<Shadows>
     {
+        private iOSShadowsController _shadowsController;
+
+        private CALayer _shadowsLayer;
+
         public static new void Init()
         {
             var preserveRenderer = typeof(iOSShadowsRenderer);
+        }
+
+        public override void LayoutSublayersOfLayer(CALayer layer)
+        {
+            base.LayoutSublayersOfLayer(layer);
+
+            _shadowsController?.OnLayoutSubLayers();
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<Shadows> e)
@@ -23,6 +35,17 @@ namespace Sharpnado.Shades.iOS
 
             if (e.NewElement == null)
             {
+                _shadowsController?.DestroyShadows();
+                _shadowsController = null;
+
+                _shadowsLayer.Dispose();
+                _shadowsLayer = null;
+                return;
+            }
+
+            if (_shadowsController == null && Subviews.Length > 0)
+            {
+                CreateShadowController(Subviews[0], e.NewElement);
             }
         }
 
@@ -36,11 +59,25 @@ namespace Sharpnado.Shades.iOS
                     break;
 
                 case nameof(Element.CornerRadius):
+                    _shadowsController?.UpdateCornerRadius(Element.CornerRadius);
                     break;
 
                 case nameof(Element.Shades):
+                    _shadowsController?.UpdateShades(Element.Shades);
                     break;
             }
+        }
+
+        private void CreateShadowController(UIView shadowSource, Shadows formsElement)
+        {
+            Layer.BackgroundColor = new CGColor(0, 0, 0, 0);
+            Layer.MasksToBounds = false;
+
+            _shadowsLayer = new CALayer { MasksToBounds = false };
+            Layer.InsertSublayer(_shadowsLayer, 0);
+
+            _shadowsController = new iOSShadowsController(shadowSource, _shadowsLayer,  formsElement.CornerRadius);
+            _shadowsController.UpdateShades(formsElement.Shades);
         }
     }
 }

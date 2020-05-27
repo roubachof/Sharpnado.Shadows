@@ -56,6 +56,7 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CALayerExtensions.cs" />
     <Compile Include="iOSShadowsController.cs" />
     <Compile Include="iOSShadowsRenderer.cs" />
     <Compile Include="ShadeExtensions.cs" />

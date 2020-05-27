@@ -17,14 +17,13 @@ namespace Sharpnado.Shades.iOS
             return new CALayer
                 {
                     ShadowColor = shade.Color.ToCGColor(),
-                    ShadowRadius = (nfloat)shade.BlurRadius,
+                    ShadowRadius = (nfloat)shade.BlurRadius / UIScreen.MainScreen.Scale,
                     ShadowOffset = new CGSize(shade.Offset.X, shade.Offset.Y),
-                    ShadowOpacity = (float)shade.Opacity,
+                    ShadowOpacity = 1,
                     MasksToBounds = false,
                     RasterizationScale = UIScreen.MainScreen.Scale,
                     ShouldRasterize = true,
                 };
         }
-
     }
 }

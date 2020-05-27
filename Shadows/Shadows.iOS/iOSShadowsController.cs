@@ -15,15 +15,19 @@ namespace Sharpnado.Shades.iOS
     public class iOSShadowsController
     {
         [Weak]
+        private readonly UIView _shadowSource;
+
+        [Weak]
         private readonly CALayer _shadowsLayer;
 
         private float _cornerRadius;
         private IEnumerable<Shade> _shadesSource;
 
-        public iOSShadowsController(CALayer shadowsLayer)
+        public iOSShadowsController(UIView shadowSource, CALayer shadowLayer, float cornerRadius)
         {
-            _shadowsLayer = shadowsLayer;
-            _shadowsLayer.MasksToBounds = false;
+            _shadowSource = shadowSource;
+            _shadowsLayer = shadowLayer;
+            _cornerRadius = cornerRadius;
         }
 
         public void DestroyShadow(int shadowIndex)
@@ -35,6 +39,11 @@ namespace Sharpnado.Shades.iOS
 
         public void DestroyShadows()
         {
+            if (_shadowsLayer?.Sublayers == null)
+            {
+                return;
+            }
+
             foreach (var subLayer in _shadowsLayer.Sublayers.ToArray())
             {
                 subLayer.RemoveFromSuperLayer();
@@ -44,17 +53,27 @@ namespace Sharpnado.Shades.iOS
 
         public void OnLayoutSubLayers()
         {
-            if (_shadowsLayer.Bounds.Width > 0)
+            if (_shadowsLayer == null || _shadowSource == null || _shadowSource.Frame == CGRect.Empty)
             {
-                foreach (var subLayer in _shadowsLayer.Sublayers)
-                {
-                    subLayer.ShadowPath = UIBezierPath.FromRoundedRect(_shadowsLayer.Bounds, _cornerRadius).CGPath;
-                }
+                return;
+            }
+
+            _shadowsLayer.Frame = _shadowSource.Frame;
+
+            foreach (var subLayer in _shadowsLayer.Sublayers)
+            {
+                SetLayerFrame(subLayer);
+                subLayer.LogInfo();
             }
         }
 
         public void UpdateCornerRadius(float cornerRadius)
         {
+            if (_shadowsLayer == null && _shadowSource == null)
+            {
+                return;
+            }
+
             bool hasChanged = _cornerRadius != cornerRadius;
             _cornerRadius = cornerRadius;
 
@@ -70,6 +89,11 @@ namespace Sharpnado.Shades.iOS
         public void UpdateShades(IEnumerable<Shade> shadesSource)
         {
             if (shadesSource == null)
+            {
+                return;
+            }
+
+            if (_shadowsLayer == null && _shadowSource == null)
             {
                 return;
             }
@@ -90,6 +114,23 @@ namespace Sharpnado.Shades.iOS
             {
                 InsertShade(i, _shadesSource.ElementAt(i));
             }
+        }
+
+        private void SetLayerFrame(CALayer shadeLayer)
+        {
+            if (_shadowSource == null)
+            {
+                return;
+            }
+
+            var sourceFrame = _shadowSource.Bounds;
+            if (sourceFrame.Width < 1 && sourceFrame.Height < 1)
+            {
+                return;
+            }
+
+            shadeLayer.Frame = sourceFrame;
+            shadeLayer.ShadowPath = UIBezierPath.FromRoundedRect(sourceFrame, _cornerRadius).CGPath;
         }
 
         private void ShadesSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -125,6 +166,9 @@ namespace Sharpnado.Shades.iOS
         private void InsertShade(int insertIndex, Shade shade)
         {
             var shadeSubLayer = shade.ToCALayer();
+            shadeSubLayer.CornerRadius = _cornerRadius;
+            SetLayerFrame(shadeSubLayer);
+
             _shadowsLayer.InsertSublayer(shadeSubLayer, insertIndex);
 
             shadeSubLayer.SetNeedsDisplay();
@@ -144,7 +188,7 @@ namespace Sharpnado.Shades.iOS
             var index = _shadesSource.IndexOf(shade);
             if (index < 0)
             {
-                System.Diagnostics.Debug.WriteLine(
+                InternalLogger.Warn(
                     $"ShadowView::ShadePropertyChanged => shade property {e.PropertyName} changed but we can't find the shade in the source");
                 return;
             }
@@ -163,9 +207,10 @@ namespace Sharpnado.Shades.iOS
         {
             var layer = _shadowsLayer.Sublayers[index];
             layer.ShadowColor = shade.Color.ToCGColor();
-            layer.ShadowRadius = (nfloat)shade.BlurRadius;
+            layer.ShadowRadius = (nfloat)shade.BlurRadius / 2;
             layer.ShadowOffset = new CGSize(shade.Offset.X, shade.Offset.Y);
             layer.ShadowOpacity = (float)shade.Opacity;
+            layer.CornerRadius = _cornerRadius;
 
             layer.SetNeedsDisplay();
         }

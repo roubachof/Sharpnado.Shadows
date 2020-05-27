@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Reflection.AssemblyTitle("Sharpnado.Shadows.Droid")]
+[assembly: System.Reflection.AssemblyTitle("Sharpnado.Shadows.Android")]
 [assembly: System.Reflection.AssemblyCompany("Sharpnado")]
 [assembly: System.Reflection.AssemblyDescription("Modern Frame supporting theming such as Blur styles, Acrylic style, Dark/Light mo" +
     "des for Xamarin.Forms (Android, iOS, UWP).")]
