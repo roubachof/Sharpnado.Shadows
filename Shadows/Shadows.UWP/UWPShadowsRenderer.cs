@@ -24,7 +24,7 @@ namespace Sharpnado.Shades.UWP
     {
         private const string LogTag = nameof(UWPShadowsRenderer);
 
-        private Grid _shadowsGrid;
+        private Canvas _shadowsCanvas;
 
         private UWPShadowsController _shadowsController;
 
@@ -94,12 +94,12 @@ namespace Sharpnado.Shades.UWP
             IVisualElementRenderer renderer = Element.Content.GetOrCreateRenderer();
             FrameworkElement frameworkElement = renderer.ContainerElement;
 
-            _shadowsGrid = new Grid();
+            _shadowsCanvas = new Canvas();
 
-            Control.Children.Add(_shadowsGrid);
+            Control.Children.Add(_shadowsCanvas);
             Control.Children.Add(frameworkElement);
 
-            _shadowsController = new UWPShadowsController(_shadowsGrid, frameworkElement, Element.CornerRadius);
+            _shadowsController = new UWPShadowsController(_shadowsCanvas, frameworkElement, Element.CornerRadius);
             _shadowsController.UpdateShades(Element.Shades);
         }
     }

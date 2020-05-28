@@ -22,7 +22,7 @@ namespace Sharpnado.Shades.UWP
     {
         private const string LogTag = nameof(UWPShadowsController);
 
-        private readonly Grid _shadowsGrid;
+        private readonly Canvas _shadowsCanvas;
 
         private readonly FrameworkElement _shadowSource;
 
@@ -33,9 +33,9 @@ namespace Sharpnado.Shades.UWP
 
         private Compositor _compositor;
 
-        public UWPShadowsController(Grid shadowGrid, FrameworkElement shadowSource, float cornerRadius)
+        public UWPShadowsController(Canvas shadowCanvas, FrameworkElement shadowSource, float cornerRadius)
         {
-            _shadowsGrid = shadowGrid;
+            _shadowsCanvas = shadowCanvas;
             _shadowSource = shadowSource;
             _cornerRadius = cornerRadius;
 
@@ -46,11 +46,11 @@ namespace Sharpnado.Shades.UWP
         {
             InternalLogger.Debug(LogTag, $"DestroyShadow( shadowIndex: {shadowIndex} )");
 
-            var shadowHost = _shadowsGrid.Children[shadowIndex];
+            var shadowHost = _shadowsCanvas.Children[shadowIndex];
             var visual = _shadowVisuals[shadowIndex];
             ElementCompositionPreview.SetElementChildVisual(shadowHost, null);
 
-            _shadowsGrid.Children.RemoveAt(shadowIndex);
+            _shadowsCanvas.Children.RemoveAt(shadowIndex);
             _shadowVisuals.RemoveAt(shadowIndex);
             visual.Dispose();
         }
@@ -58,7 +58,7 @@ namespace Sharpnado.Shades.UWP
         public void DestroyShadows()
         {
             InternalLogger.Debug(LogTag, "DestroyShadows()");
-            for (int i = _shadowsGrid.Children.Count - 1; i >= 0; i++)
+            for (int i = _shadowsCanvas.Children.Count - 1; i >= 0; i++)
             {
                 DestroyShadow(i);
             }
@@ -66,7 +66,7 @@ namespace Sharpnado.Shades.UWP
 
         public void UpdateCornerRadius(float cornerRadius)
         {
-            if (_shadowsGrid == null && _shadowSource == null)
+            if (_shadowsCanvas == null && _shadowSource == null)
             {
                 return;
             }
@@ -77,9 +77,9 @@ namespace Sharpnado.Shades.UWP
 
             if (hasChanged && _shadesSource.Any())
             {
-                for (int i = 0; i < _shadowsGrid.Children.Count; i++)
+                for (int i = 0; i < _shadowsCanvas.Children.Count; i++)
                 {
-                    var shadowHost = (Rectangle)_shadowsGrid.Children[i];
+                    var shadowHost = (Rectangle)_shadowsCanvas.Children[i];
                     shadowHost.RadiusX = cornerRadius;
                     shadowHost.RadiusY = cornerRadius;
 
@@ -158,19 +158,21 @@ namespace Sharpnado.Shades.UWP
 
             var shadowHost = new Rectangle()
                 {
-                    Fill = Xamarin.Forms.Color.White.ToBrush(),
+                    Fill = Xamarin.Forms.Color.Black.ToBrush(),
                     Width = width,
                     Height = height,
-                    
                     RadiusX = _cornerRadius,
                     RadiusY = _cornerRadius,
                 };
 
-            _shadowsGrid.Children.Insert(insertIndex, shadowHost);
+            Canvas.SetLeft(shadowHost, _shadowSource.ActualOffset.X);
+            Canvas.SetTop(shadowHost, _shadowSource.ActualOffset.Y);
+
+            _shadowsCanvas.Children.Insert(insertIndex, shadowHost);
 
             if (_compositor == null)
             {
-                Visual hostVisual = ElementCompositionPreview.GetElementVisual(_shadowsGrid);
+                Visual hostVisual = ElementCompositionPreview.GetElementVisual(_shadowsCanvas);
                 _compositor = hostVisual.Compositor;
             }
 
@@ -215,13 +217,15 @@ namespace Sharpnado.Shades.UWP
                 //    continue;
                 //}
 
-                var shadowHost = (Rectangle)_shadowsGrid.Children[i];
+                var shadowHost = (Rectangle)_shadowsCanvas.Children[i];
                 var shadowVisual = _shadowVisuals[i];
 
                 InternalLogger.Debug(
                     LogTag,
                     $"shadowHost: {{ ActualOffset: {shadowHost.ActualOffset}, ActualSize: {shadowHost.ActualSize}, Margin: {shadowHost.Margin} }}");
 
+                Canvas.SetLeft(shadowHost, _shadowSource.ActualOffset.X);
+                Canvas.SetTop(shadowHost, _shadowSource.ActualOffset.Y);
                 shadowHost.Width = width;
                 shadowHost.Height = height;
 
