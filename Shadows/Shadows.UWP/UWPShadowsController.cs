@@ -13,7 +13,6 @@ using Windows.UI.Xaml.Media;
 
 using Xamarin.Forms.Internals;
 
-using Grid = Windows.UI.Xaml.Controls.Grid;
 using Rectangle = Windows.UI.Xaml.Shapes.Rectangle;
 
 namespace Sharpnado.Shades.UWP
@@ -21,6 +20,8 @@ namespace Sharpnado.Shades.UWP
     public class UWPShadowsController
     {
         private const string LogTag = nameof(UWPShadowsController);
+
+        private const float SafeMargin = 1;
 
         private readonly Canvas _shadowsCanvas;
 
@@ -149,16 +150,11 @@ namespace Sharpnado.Shades.UWP
             double width = _shadowSource.ActualSize.X;
             double height = _shadowSource.ActualSize.Y;
 
-            //if (width < 1 || height < 1)
-            //{
-            //    return;
-            //}
-
             shade.PropertyChanged -= ShadePropertyChanged;
 
             var shadowHost = new Rectangle()
                 {
-                    Fill = Xamarin.Forms.Color.Black.ToBrush(),
+                    Fill = Xamarin.Forms.Color.White.ToBrush(),
                     Width = width,
                     Height = height,
                     RadiusX = _cornerRadius,
@@ -177,10 +173,10 @@ namespace Sharpnado.Shades.UWP
             }
 
             var dropShadow = _compositor.CreateDropShadow();
-            dropShadow.BlurRadius = (float)shade.BlurRadius;
+            dropShadow.BlurRadius = (float)shade.BlurRadius * 2;
             dropShadow.Opacity = 1;
             dropShadow.Color = shade.Color.ToWindowsColor();
-            dropShadow.Offset = new Vector3((float)shade.Offset.X, (float)shade.Offset.Y, 0);
+            dropShadow.Offset = new Vector3((float)shade.Offset.X - SafeMargin, (float)shade.Offset.Y - SafeMargin, 0);
             dropShadow.Mask = shadowHost.GetAlphaMask();
 
             var shadowVisual = _compositor.CreateSpriteVisual();
@@ -210,13 +206,6 @@ namespace Sharpnado.Shades.UWP
 
             for (int i = 0; i < _shadesSource.Count(); i++)
             {
-                var shade = _shadesSource.ElementAt(i);
-                //if (i > _shadowVisuals.Count - 1)
-                //{
-                //    InsertShade(i, shade);
-                //    continue;
-                //}
-
                 var shadowHost = (Rectangle)_shadowsCanvas.Children[i];
                 var shadowVisual = _shadowVisuals[i];
 
@@ -224,13 +213,16 @@ namespace Sharpnado.Shades.UWP
                     LogTag,
                     $"shadowHost: {{ ActualOffset: {shadowHost.ActualOffset}, ActualSize: {shadowHost.ActualSize}, Margin: {shadowHost.Margin} }}");
 
-                Canvas.SetLeft(shadowHost, _shadowSource.ActualOffset.X);
-                Canvas.SetTop(shadowHost, _shadowSource.ActualOffset.Y);
-                shadowHost.Width = width;
-                shadowHost.Height = height;
+                Canvas.SetLeft(shadowHost, _shadowSource.ActualOffset.X + SafeMargin);
+                Canvas.SetTop(shadowHost, _shadowSource.ActualOffset.Y + SafeMargin);
 
-                ((DropShadow)shadowVisual.Shadow).Mask = shadowHost.GetAlphaMask();
-                shadowVisual.Size = _shadowSource.ActualSize;
+                double newWidth = width - 2 * SafeMargin;
+                double newHeight = height - 2 * SafeMargin;
+
+                shadowHost.Width = newWidth;
+                shadowHost.Height = newHeight;
+
+                shadowVisual.Size = new Vector2((float)width, (float)height);
             }
         }
 
