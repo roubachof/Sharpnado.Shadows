@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:fontAwesome="clr-namespace:ShadowsSample.Styles;assembly=ShadowsSample">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Colors.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <OnPlatform x:Key="FontAwesome" x:TypeArguments="x:String">
+        <OnPlatform.Platforms>
+            <On Platform="Android" Value="Font-Awesome-5-Free-Solid-900.otf#Font Awesome 5 Free" />
+            <On Platform="iOS" Value="Font Awesome 5 Free Solid" />
+            <On Platform="UWP" Value="Assets/Fonts/FontAwesome5Free-Solid.ttf#Font Awesome 5 Free Solid" />
+        </OnPlatform.Platforms>
+    </OnPlatform>
+
+    <OnPlatform x:Key="FontAwesomeRegular" x:TypeArguments="x:String">
+        <OnPlatform.Platforms>
+            <On Platform="Android" Value="Font-Awesome-5-Free-Regular-400.otf#Font Awesome 5 Free" />
+            <On Platform="iOS" Value="Font Awesome 5 Free Regular" />
+            <On Platform="UWP" Value="Assets/Fonts/FontAwesome5Free-Regular.ttf#Font Awesome 5 Free Regular" />
+        </OnPlatform.Platforms>
+    </OnPlatform>
+
+    <x:Double x:Key="SizeTinyIcon">10</x:Double>
+    <x:Double x:Key="SizeSmallIcon">15</x:Double>
+    <x:Double x:Key="SizeMediumSmallIcon">20</x:Double>
+    <x:Double x:Key="SizeMediumIcon">30</x:Double>
+    <x:Double x:Key="SizeLargeIcon">45</x:Double>
+
+    <x:Double x:Key="SizeTabIcon">24</x:Double>
+
+    <FontImageSource x:Key="IconCog"
+                     FontFamily="{StaticResource FontAwesome}"
+                     Glyph="{x:Static fontAwesome:IconFont.Cog}"
+                     Size="{StaticResource SizeMediumSmallIcon}"
+                     Color="{DynamicResource DynamicPrimaryOnBackgroundColor}" />
+
+    <FontImageSource x:Key="IconCogWhite"
+                     FontFamily="{StaticResource FontAwesome}"
+                     Glyph="{x:Static fontAwesome:IconFont.Cog}"
+                     Size="{StaticResource SizeMediumSmallIcon}"
+                     Color="White" />
+
+    <FontImageSource x:Key="IconSun"
+                     FontFamily="{StaticResource FontAwesome}"
+                     Glyph="{x:Static fontAwesome:IconFont.Sun}"
+                     Size="{StaticResource SizeSmallIcon}"
+                     Color="{DynamicResource DynamicSecondaryOnBackgroundColor}" />
+
+    <FontImageSource x:Key="IconSearch"
+                     FontFamily="{StaticResource FontAwesome}"
+                     Glyph="{x:Static fontAwesome:IconFont.Search}"
+                     Size="{StaticResource SizeSmallIcon}"
+                     Color="{DynamicResource DynamicPrimaryColor}" />
+
+    <FontImageSource x:Key="IconSearchWhite"
+                     FontFamily="{StaticResource FontAwesome}"
+                     Glyph="{x:Static fontAwesome:IconFont.Search}"
+                     Size="{StaticResource SizeSmallIcon}"
+                     Color="White" />
+
+    <FontImageSource x:Key="IconPlus"
+                     FontFamily="{StaticResource FontAwesome}"
+                     Glyph="{x:Static fontAwesome:IconFont.Plus}"
+                     Size="{StaticResource SizeMediumIcon}"
+                     Color="{DynamicResource DynamicPrimaryColor}" />
+
+    <FontImageSource x:Key="IconPlusWhite"
+                     FontFamily="{StaticResource FontAwesome}"
+                     Glyph="{x:Static fontAwesome:IconFont.Plus}"
+                     Size="{StaticResource SizeMediumIcon}"
+                     Color="White" />
+
+    <FontImageSource x:Key="IconPlusGray"
+                     FontFamily="{StaticResource FontAwesome}"
+                     Glyph="{x:Static fontAwesome:IconFont.Plus}"
+                     Size="{StaticResource SizeMediumIcon}"
+                     Color="Gray" />
+
+    <FontImageSource x:Key="IconSquare"
+                     FontFamily="{StaticResource FontAwesomeRegular}"
+                     Glyph="{x:Static fontAwesome:IconFont.Square}"
+                     Size="{StaticResource SizeSmallIcon}"
+                     Color="{DynamicResource DynamicPrimaryColor}" />
+
+    <FontImageSource x:Key="IconCheck"
+                     FontFamily="{StaticResource FontAwesome}"
+                     Glyph="{x:Static fontAwesome:IconFont.Check}"
+                     Size="{StaticResource SizeSmallIcon}"
+                     Color="{DynamicResource DynamicPrimaryColor}" />
+
+    <FontImageSource x:Key="IconMic"
+                     FontFamily="{StaticResource FontAwesome}"
+                     Glyph="{x:Static fontAwesome:IconFont.Microphone}"
+                     Size="{StaticResource SizeSmallIcon}"
+                     Color="{DynamicResource DynamicPrimaryColor}" />
+
+    <FontImageSource x:Key="IconMicWhite"
+                     FontFamily="{StaticResource FontAwesome}"
+                     Glyph="{x:Static fontAwesome:IconFont.Microphone}"
+                     Size="{StaticResource SizeSmallIcon}"
+                     Color="White" />
+
+    <FontImageSource x:Key="IconDots"
+                     FontFamily="{StaticResource FontAwesome}"
+                     Glyph="{x:Static fontAwesome:IconFont.EllipsisH}"
+                     Size="{StaticResource SizeMediumSmallIcon}"
+                     Color="{DynamicResource DynamicPrimaryOnBackgroundColor}" />
+
+</ResourceDictionary>

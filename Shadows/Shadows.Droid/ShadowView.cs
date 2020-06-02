@@ -16,6 +16,7 @@ namespace Sharpnado.Shades.Droid
 {
     public partial class ShadowView : View
     {
+        private const int MinimumSize = 5;
         private const int MaxRadius = 100;
 
         private const string LogTag = nameof(ShadowView);
@@ -54,9 +55,14 @@ namespace Sharpnado.Shades.Droid
         {
         }
 
+        private bool ShouldDrawBitmaps => _shadesBitmaps.Count != _shadesSource.Count();
+
+        private static Predicate<View> HasMinimumSize =>
+            (view) => view.MeasuredWidth >= MinimumSize && view.MeasuredHeight >= 5;
+
         public void Layout(int width, int height)
         {
-            if (width < 1 || height < 1)
+            if (width <= MinimumSize || height <= MinimumSize)
             {
                 return;
             }
@@ -65,6 +71,12 @@ namespace Sharpnado.Shades.Droid
 
             Measure(width, height);
             Layout(0, 0, width, height);
+
+            if (ShouldDrawBitmaps)
+            {
+                CreateAndDrawBitmaps();
+                Invalidate();
+            }
         }
 
         protected override void Dispose(bool disposing)
@@ -85,7 +97,7 @@ namespace Sharpnado.Shades.Droid
         {
             base.OnSizeChanged(w, h, oldw, oldh);
 
-            if ((w != oldw || h != oldh) && _weakSource.TryGetTarget(out var source))
+            if (_weakSource.TryGetTarget(out var source) && (ShouldDrawBitmaps || (w != oldw || h != oldh)))
             {
                 InternalLogger.Debug(LogTag, () => $"OnSizeChanged( {source.MeasuredWidth}w, {source.MeasuredHeight}h )");
 
@@ -126,12 +138,12 @@ namespace Sharpnado.Shades.Droid
         {
             DisposeBitmaps();
 
-            if (!_weakSource.TryGetTarget(out var source) || source.MeasuredHeight < 1 || source.MeasuredWidth < 1)
+            if (!_weakSource.TryGetTarget(out var source) || !HasMinimumSize(source))
             {
                 return;
             }
 
-            InternalLogger.Debug(LogTag, "CreateBitmaps()");
+            InternalLogger.Debug(LogTag, "CreateAndDrawBitmaps()");
             var immutableSource = _shadesSource.ToArray();
             for (int i = 0; i < immutableSource.Length; i++)
             {
@@ -143,7 +155,7 @@ namespace Sharpnado.Shades.Droid
 
         private void CreateBitmap(int shadeInfoIndex)
         {
-            if (!_weakSource.TryGetTarget(out var source) || source.MeasuredHeight < 1 || source.MeasuredWidth < 1)
+            if (!_weakSource.TryGetTarget(out var source) || !HasMinimumSize(source))
             {
                 return;
             }
@@ -286,6 +298,8 @@ namespace Sharpnado.Shades.Droid
 
             public static ShadeInfo FromShade(Context context, Shade shade)
             {
+                // float blurCoeff = 1f + (float)shade.BlurRadius / 20f;
+
                 return new ShadeInfo(
                     shade.Color.ToAndroid(),
                     context.ToPixels(shade.BlurRadius) * 2,

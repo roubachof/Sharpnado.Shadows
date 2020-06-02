@@ -64,6 +64,11 @@ namespace Sharpnado.Shades.iOS
 
             _shadowsLayer.Frame = _shadowSource.Frame;
 
+            if (_shadowsLayer.Sublayers == null)
+            {
+                return;
+            }
+
             foreach (var subLayer in _shadowsLayer.Sublayers)
             {
                 SetLayerFrame(subLayer);

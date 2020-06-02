@@ -1,0 +1,70 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\ableton.png" />
+    <None Remove="Images\azure.png" />
+    <None Remove="Images\dota.png" />
+    <None Remove="Images\duckduckgo.png" />
+    <None Remove="Images\file_gpx.png" />
+    <None Remove="Images\file_mp3.png" />
+    <None Remove="Images\file_pdf.png" />
+    <None Remove="Images\file_word.png" />
+    <None Remove="Images\me.jpg" />
+    <None Remove="Images\nyan_cat.jpg" />
+    <None Remove="Images\nyan_cat.png" />
+    <None Remove="Images\piedpiper.png" />
+    <None Remove="Images\powerpoint.png" />
+    <None Remove="Images\slack.png" />
+    <None Remove="Images\visualstudio.png" />
+    <None Remove="Images\winamp.png" />
+    <None Remove="Images\word.png" />
+    <None Remove="Images\xamarin.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\ableton.png" />
+    <EmbeddedResource Include="Images\azure.png" />
+    <EmbeddedResource Include="Images\dota.png" />
+    <EmbeddedResource Include="Images\duckduckgo.png" />
+    <EmbeddedResource Include="Images\file_gpx.png" />
+    <EmbeddedResource Include="Images\file_mp3.png" />
+    <EmbeddedResource Include="Images\file_pdf.png" />
+    <EmbeddedResource Include="Images\file_word.png" />
+    <EmbeddedResource Include="Images\me.jpg" />
+    <EmbeddedResource Include="Images\nyan_cat.png" />
+    <EmbeddedResource Include="Images\piedpiper.png" />
+    <EmbeddedResource Include="Images\powerpoint.png" />
+    <EmbeddedResource Include="Images\slack.png" />
+    <EmbeddedResource Include="Images\visualstudio.png" />
+    <EmbeddedResource Include="Images\winamp.png" />
+    <EmbeddedResource Include="Images\word.png" />
+    <EmbeddedResource Include="Images\xamarin.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Sharpnado.Presentation.Forms" Version="1.6.0" />
+    <PackageReference Include="Sharpnado.TaskMonitor" Version="1.0.0" />
+    <PackageReference Include="Xamarin.Forms" Version="4.6.0.726" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shadows\Shadows\Shadows.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="MainPageBackup.xaml.cs">
+      <DependentUpon>MainPageBackup.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>

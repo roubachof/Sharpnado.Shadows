@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AndroidShadowsRenderer.cs" />
+    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="JniExtensions.cs" />
     <Compile Include="JniWeakReference.cs" />
     <Compile Include="Resources\Resource.designer.cs" />

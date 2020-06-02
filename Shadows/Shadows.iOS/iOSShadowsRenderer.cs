@@ -17,7 +17,7 @@ namespace Sharpnado.Shades.iOS
 
         private CALayer _shadowsLayer;
 
-        public static new void Init()
+        public static void Initialize()
         {
             var preserveRenderer = typeof(iOSShadowsRenderer);
         }

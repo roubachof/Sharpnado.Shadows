@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Text.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Color x:Key="LabelAppsColor">#B0000000</Color>
+    <Color x:Key="LabelAppsDarkColor">#B0FFFFFF</Color>
+
+    <Style x:Key="LabelApps" TargetType="Label">
+        <Setter Property="FontFamily" Value="{StaticResource FontSemiBold}" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="TextColor" Value="{DynamicResource DynamicLabelAppsColor}" />
+    </Style>
+
+    <Style x:Key="LabelSharpnado" TargetType="Label">
+        <Setter Property="FontFamily" Value="{StaticResource FontItalic}" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="TextColor" Value="{DynamicResource TextPrimaryColor}" />
+    </Style>
+
+    <Style TargetType="Span">
+        <Setter Property="FontFamily" Value="{StaticResource FontLight}" />
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+
+    <Style x:Key="SpanBold" TargetType="Span">
+        <Setter Property="FontFamily" Value="{StaticResource FontSemiBold}" />
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+
+    <Style x:Key="LabelHint"
+           BasedOn="{StaticResource TextSmallCaptionSecondary}"
+           TargetType="Label">
+        <Setter Property="Margin" Value="5,0" />
+        <Setter Property="VerticalOptions" Value="End" />
+    </Style>
+
+</ResourceDictionary>
