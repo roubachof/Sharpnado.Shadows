@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <?xaml-comp compile="true" ?>
 
-<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                    xmlns:system="clr-namespace:System;assembly=netstandard">
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Text.xaml" />
@@ -12,8 +10,8 @@
     <Style TargetType="Entry">
         <Setter Property="HorizontalTextAlignment" Value="Start" />
         <Setter Property="Margin" Value="5,0" />
-        <Setter Property="FontSize" Value="15" />
-        <Setter Property="FontFamily" Value="{StaticResource FontRegular}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="{StaticResource FontSemiBold}" />
     </Style>
 
 </ResourceDictionary>

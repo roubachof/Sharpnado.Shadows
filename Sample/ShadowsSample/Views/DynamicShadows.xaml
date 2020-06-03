@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<sh:Shadows x:Class="ShadowsSample.Views.DynamicShadows"
+            xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            mc:Ignorable="d"
+            xmlns:images="clr-namespace:ShadowsSample.Images;assembly=ShadowsSample"
+            xmlns:sh="http://sharpnado.com/schemas/shadows"
+            xmlns:system="clr-namespace:System;assembly=netstandard">
+    <Frame Padding="0" StyleId="3333">
+        <Grid ColumnSpacing="0" RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="150" />
+                <RowDefinition Height="60" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Style="{StaticResource TextBodySecondary}"
+                   Margin="15,15"
+                   Text="Add dynamically as many shadows as you want to any Xamarin.Forms views." />
+
+            <Grid Grid.Row="1"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
+                  Margin="5,0"
+                  ColumnSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.8*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="0.6*" />
+                    <ColumnDefinition Width="0.6*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Style="{StaticResource LabelHint}"
+                       Text="Offset" />
+                <Label Grid.Row="0"
+                       Grid.Column="1"
+                       Style="{StaticResource LabelHint}"
+                       Text="Color" />
+                <Label Grid.Row="0"
+                       Grid.Column="2"
+                       Style="{StaticResource LabelHint}"
+                       Text="Opacity" />
+                <Label Grid.Row="0"
+                       Grid.Column="3"
+                       Style="{StaticResource LabelHint}"
+                       Text="Blur" />
+                <Entry x:Name="OffsetEntry"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       WidthRequest="80"
+                       Placeholder="Offset" />
+                <Entry x:Name="ColorEntry"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       WidthRequest="100"
+                       Placeholder="Color" />
+                <Entry x:Name="OpacityEntry"
+                       Grid.Row="1"
+                       Grid.Column="2"
+                       Placeholder="Blur" />
+                <Entry x:Name="BlurEntry"
+                       Grid.Row="1"
+                       Grid.Column="3"
+                       Placeholder="Blur" />
+            </Grid>
+
+            <sh:Shadows x:Name="CatShadows"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        CornerRadius="10">
+                <sh:Shadows.Shades>
+                    <sh:ShadeStack />
+                </sh:Shadows.Shades>
+                <Frame WidthRequest="80"
+                       Padding="10"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       BackgroundColor="White"
+                       CornerRadius="10">
+                    <Image Source="{images:ImageResource nyan_cat.png}" />
+                </Frame>
+            </sh:Shadows>
+
+            <ScrollView Grid.Row="2" Grid.Column="1">
+                <StackLayout x:Name="StackLayout">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Offset " />
+                                        <Span Style="{StaticResource SpanBold}" Text="{Binding Offset}" />
+                                        <Span Text=" Blur " />
+                                        <Span Style="{StaticResource SpanBold}" Text="{Binding Blur}" />
+                                        <Span Text="{x:Static system:Environment.NewLine}" />
+                                        <Span Text="Color " />
+                                        <Span Style="{StaticResource SpanBold}"
+                                              ForegroundColor="{Binding Color}"
+                                              Text="{Binding ColorHex}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </ScrollView>
+
+            <sh:Shadows Grid.Row="3"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        CornerRadius="3">
+                <sh:Shadows.Shades>
+                    <sh:ImmutableShades>
+                        <sh:Shade BlurRadius="10"
+                                  Opacity="0.2"
+                                  Offset="0,-8"
+                                  Color="DarkGray" />
+                    </sh:ImmutableShades>
+                </sh:Shadows.Shades>
+                <Grid BackgroundColor="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0"
+                            Style="{StaticResource TextHeadline}"
+                            HorizontalOptions="Fill"
+                            VerticalOptions="Fill"
+                            BackgroundColor="White"
+                            Clicked="AddShade"
+                            CornerRadius="10"
+                            Text="Add"
+                            TextColor="Gray" />
+                    <Button Grid.Column="1"
+                            Style="{StaticResource TextHeadline}"
+                            HorizontalOptions="Fill"
+                            VerticalOptions="Fill"
+                            BackgroundColor="White"
+                            Clicked="RemoveShade"
+                            CornerRadius="10"
+                            Text="Remove"
+                            TextColor="Gray" />
+                </Grid>
+            </sh:Shadows>
+        </Grid>
+    </Frame>
+</sh:Shadows>

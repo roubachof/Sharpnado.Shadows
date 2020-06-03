@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<sh:Shadows x:Class="ShadowsSample.Views.Logo"
+            xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            mc:Ignorable="d"
+            xmlns:sh="http://sharpnado.com/schemas/shadows"
+            CornerRadius="3">
+
+    <sh:Shadows.Shades>
+        <sh:ImmutableShades>
+            <sh:Shade BlurRadius="10"
+                      Opacity="1"
+                      Offset="-15,-15"
+                      Color="Yellow" />
+            <sh:Shade BlurRadius="10"
+                      Opacity="1"
+                      Offset="15,15"
+                      Color="Yellow" />
+            <sh:Shade BlurRadius="10"
+                      Opacity="1"
+                      Offset="-15,15"
+                      Color="Violet" />
+            <sh:Shade BlurRadius="10"
+                      Opacity="1"
+                      Offset="15,-15"
+                      Color="Violet" />
+            <sh:Shade BlurRadius="5"
+                      Opacity="1"
+                      Offset="-5,-5"
+                      Color="DeepSkyBlue" />
+            <sh:Shade BlurRadius="5"
+                      Opacity="1"
+                      Offset="5,5"
+                      Color="DeepSkyBlue" />
+            <sh:Shade BlurRadius="5"
+                      Opacity="1"
+                      Offset="0,0"
+                      Color="White" />
+        </sh:ImmutableShades>
+    </sh:Shadows.Shades>
+
+    <Label Style="{StaticResource TextHuge}"
+           VerticalOptions="Center"
+           FontFamily="{StaticResource FontKarmatic}"
+           Text="Shadows"
+           TextColor="{StaticResource TextPrimaryColor}" />
+</sh:Shadows>

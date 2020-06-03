@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <?xaml-comp compile="true" ?>
 
-<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                    xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=netstandard"
-                    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
-                    xmlns:system="clr-namespace:System;assembly=netstandard">
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms" xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Colors.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style TargetType="sh:Shadows">
+    <Style ApplyToDerivedTypes="True" TargetType="sh:Shadows">
         <Setter Property="CornerRadius" Value="10" />
         <Setter Property="Shades">
             <sh:ImmutableShades>
@@ -24,16 +20,6 @@
                           Offset="10, 10"
                           Color="#19000000" />
             </sh:ImmutableShades>
-            <!--<sh:ImmutableShades>
-                <sh:Shade BlurRadius="30"
-                          Opacity="1"
-                          Offset="-10,-10"
-                          Color="White" />
-                <sh:Shade BlurRadius="30"
-                          Opacity="0.5"
-                          Offset="10, 10"
-                          Color="#AEAEC0" />
-            </sh:ImmutableShades>-->
         </Setter>
     </Style>
 </ResourceDictionary>

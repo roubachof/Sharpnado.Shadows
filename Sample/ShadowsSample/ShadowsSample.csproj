@@ -13,6 +13,7 @@
   <ItemGroup>
     <None Remove="Images\ableton.png" />
     <None Remove="Images\azure.png" />
+    <None Remove="Images\background.jpg" />
     <None Remove="Images\dota.png" />
     <None Remove="Images\duckduckgo.png" />
     <None Remove="Images\file_gpx.png" />
@@ -29,11 +30,13 @@
     <None Remove="Images\winamp.png" />
     <None Remove="Images\word.png" />
     <None Remove="Images\xamarin.png" />
+    <None Remove="original.mp3" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Images\ableton.png" />
     <EmbeddedResource Include="Images\azure.png" />
+    <EmbeddedResource Include="Images\background.jpg" />
     <EmbeddedResource Include="Images\dota.png" />
     <EmbeddedResource Include="Images\duckduckgo.png" />
     <EmbeddedResource Include="Images\file_gpx.png" />
@@ -49,13 +52,15 @@
     <EmbeddedResource Include="Images\winamp.png" />
     <EmbeddedResource Include="Images\word.png" />
     <EmbeddedResource Include="Images\xamarin.png" />
+    <EmbeddedResource Include="original.mp3" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Sharpnado.Presentation.Forms" Version="1.6.0" />
     <PackageReference Include="Sharpnado.TaskMonitor" Version="1.0.0" />
-    <PackageReference Include="Xamarin.Forms" Version="4.6.0.726" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.1" />
+    <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.4.0" />
+    <PackageReference Include="Xamarin.Forms" Version="4.6.0.800" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -63,8 +68,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="MainPageBackup.xaml.cs">
-      <DependentUpon>MainPageBackup.xaml</DependentUpon>
-    </Compile>
+    <EmbeddedResource Update="Views\BeCreative.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ColoredShadows.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\DynamicShadows.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Logo.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Neumorphism.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

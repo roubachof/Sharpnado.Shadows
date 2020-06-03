@@ -25,6 +25,9 @@ namespace Sharpnado.Shades.Droid
         private readonly RenderScript _renderScript;
         private readonly List<Bitmap> _shadesBitmaps;
 
+        private int _lastSourceWidth = 0;
+        private int _lastSourceHeight = 0;
+
         public ShadowView(Context context, View shadowSource, float cornerRadius)
             : base(context)
         {
@@ -55,10 +58,15 @@ namespace Sharpnado.Shades.Droid
         {
         }
 
-        private bool ShouldDrawBitmaps => _shadesBitmaps.Count != _shadesSource.Count();
-
         private static Predicate<View> HasMinimumSize =>
-            (view) => view.MeasuredWidth >= MinimumSize && view.MeasuredHeight >= 5;
+            view => view.MeasuredWidth >= MinimumSize && view.MeasuredHeight >= 5;
+
+        private Predicate<View> SourceSizeChanged =>
+            view => view.MeasuredWidth != _lastSourceWidth || view.MeasuredHeight != _lastSourceHeight;
+
+        private bool ShouldDrawBitmaps =>
+            _shadesBitmaps.Count != _shadesSource.Count()
+            || (_weakSource.TryGetTarget(out var source) && SourceSizeChanged(source));
 
         public void Layout(int width, int height)
         {
@@ -160,13 +168,16 @@ namespace Sharpnado.Shades.Droid
                 return;
             }
 
-            InternalLogger.Debug(LogTag, () => $"CreateBitmaps( shadeInfoIndex: {shadeInfoIndex}, sourceWidth: {source.MeasuredWidth}, sourceHeight: {source.MeasuredHeight})");
+            _lastSourceWidth = source.MeasuredWidth;
+            _lastSourceHeight = source.MeasuredHeight;
+
+            InternalLogger.Debug(LogTag, () => $"CreateBitmaps( shadeInfoIndex: {shadeInfoIndex}, sourceWidth: {_lastSourceWidth}, sourceHeight: {_lastSourceHeight})");
 
             _shadesBitmaps.Insert(
                 shadeInfoIndex,
                 Bitmap.CreateBitmap(
-                    source.MeasuredWidth + 2 * MaxRadius,
-                    source.MeasuredHeight + 2 * MaxRadius,
+                    _lastSourceWidth + 2 * MaxRadius,
+                    _lastSourceHeight + 2 * MaxRadius,
                     Bitmap.Config.Argb8888));
         }
 

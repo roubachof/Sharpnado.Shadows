@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<sh:Shadows x:Class="ShadowsSample.Views.Neumorphism"
+            xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            mc:Ignorable="d"
+            xmlns:sh="http://sharpnado.com/schemas/shadows"
+            xmlns:tabs="clr-namespace:Sharpnado.Presentation.Forms.CustomViews.Tabs;assembly=Sharpnado.Presentation.Forms">
+    <Frame IsClippedToBounds="False" StyleId="3333">
+        <Grid RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="100" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Style="{StaticResource TextBodySecondary}"
+                   Text="Since you can apply many shadows to any view, implementing #neumorphism is a walking piece of cake in the park!" />
+
+            <sh:Shadows Grid.Row="1"
+                        Grid.Column="0"
+                        CornerRadius="40">
+                <sh:Shadows.Shades>
+                    <sh:ImmutableShades>
+                        <sh:Shade BlurRadius="10"
+                                  Opacity="1"
+                                  Offset="-10,-10"
+                                  Color="White" />
+                        <sh:Shade BlurRadius="10"
+                                  Opacity="1"
+                                  Offset="6, 6"
+                                  Color="#19000000" />
+                    </sh:ImmutableShades>
+                </sh:Shadows.Shades>
+                <ImageButton WidthRequest="60"
+                             HeightRequest="60"
+                             Padding="20"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
+                             CornerRadius="30"
+                             Source="{StaticResource IconPlusGray}" />
+            </sh:Shadows>
+
+            <sh:Shadows Grid.Row="1"
+                        Grid.Column="1"
+                        CornerRadius="10">
+                <sh:Shadows.Shades>
+                    <sh:ImmutableShades>
+                        <sh:Shade BlurRadius="10"
+                                  Opacity="1"
+                                  Offset="-10,-10"
+                                  Color="White" />
+                        <sh:Shade BlurRadius="10"
+                                  Opacity="1"
+                                  Offset="6, 6"
+                                  Color="#19000000" />
+                    </sh:ImmutableShades>
+                </sh:Shadows.Shades>
+                <Button Style="{StaticResource TextHeadline}"
+                        WidthRequest="120"
+                        HeightRequest="60"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
+                        CornerRadius="10"
+                        Text="Reset"
+                        TextColor="Gray" />
+            </sh:Shadows>
+
+            <sh:Shadows Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        CornerRadius="30">
+                <sh:Shadows.Shades>
+                    <sh:ImmutableShades>
+                        <sh:Shade BlurRadius="10"
+                                  Opacity="1"
+                                  Offset="-10,-10"
+                                  Color="White" />
+                        <sh:Shade BlurRadius="10"
+                                  Opacity="1"
+                                  Offset="6, 6"
+                                  Color="#19000000" />
+                    </sh:ImmutableShades>
+                </sh:Shadows.Shades>
+
+                <Frame HeightRequest="60"
+                       Margin="15,20"
+                       Padding="0"
+                       VerticalOptions="Center"
+                       BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
+                       CornerRadius="30"
+                       IsClippedToBounds="True">
+                    <tabs:TabHostView SelectedIndex="0">
+                        <tabs:TabHostView.Tabs>
+                            <tabs:BottomTabItem IconImageSource="{StaticResource IconCogWhite}"
+                                                IsTextVisible="False"
+                                                SelectedTabColor="Gray"
+                                                UnselectedIconColor="White" />
+                            <tabs:BottomTabItem IconImageSource="{StaticResource IconSearchWhite}"
+                                                IsTextVisible="False"
+                                                SelectedTabColor="Gray"
+                                                UnselectedIconColor="White" />
+                            <tabs:BottomTabItem IconImageSource="{StaticResource IconMicWhite}"
+                                                IsTextVisible="False"
+                                                SelectedTabColor="Gray"
+                                                UnselectedIconColor="White" />
+                        </tabs:TabHostView.Tabs>
+                    </tabs:TabHostView>
+                </Frame>
+            </sh:Shadows>
+        </Grid>
+    </Frame>
+</sh:Shadows>

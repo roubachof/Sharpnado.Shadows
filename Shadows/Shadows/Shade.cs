@@ -1,5 +1,4 @@
-﻿using System.Reflection.Emit;
-using System.Text;
+﻿using System.Text;
 using Xamarin.Forms;
 
 namespace Sharpnado.Shades

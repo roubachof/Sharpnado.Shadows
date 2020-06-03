@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<sh:Shadows x:Class="ShadowsSample.Views.ColoredShadows"
+            xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            mc:Ignorable="d"
+            xmlns:images="clr-namespace:ShadowsSample.Images;assembly=ShadowsSample"
+            xmlns:sh="http://sharpnado.com/schemas/shadows"
+            xmlns:tabs="clr-namespace:Sharpnado.Presentation.Forms.CustomViews.Tabs;assembly=Sharpnado.Presentation.Forms">
+    <Frame Padding="0" StyleId="3333">
+        <Grid RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="80" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Style="{StaticResource TextBodySecondary}"
+                   Margin="15,15"
+                   Text="Enter a world of colored shadows." />
+
+            <sh:Shadows Grid.Row="1"
+                        Grid.Column="0"
+                        CornerRadius="40"
+                        Shades="{sh:SingleShade Offset='0, 10',
+                                                Opacity=0.5,
+                                                Color=Violet}">
+                <ImageButton WidthRequest="60"
+                             HeightRequest="60"
+                             Padding="20"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             BackgroundColor="Violet"
+                             CornerRadius="30"
+                             Source="{StaticResource IconPlusWhite}" />
+            </sh:Shadows>
+
+            <sh:Shadows Grid.Row="1"
+                        Grid.Column="1"
+                        CornerRadius="40">
+                <sh:Shadows.Shades>
+                    <sh:ImmutableShades>
+                        <sh:Shade BlurRadius="10"
+                                  Opacity="0.5"
+                                  Offset="-8,-6"
+                                  Color="Violet" />
+                        <sh:Shade BlurRadius="10"
+                                  Opacity="0.5"
+                                  Offset="8,8"
+                                  Color="DarkGray" />
+
+                    </sh:ImmutableShades>
+                </sh:Shadows.Shades>
+                <Image WidthRequest="120"
+                       Margin="-20,0,0,0"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       Source="{images:ImageResource nyan_cat.png}" />
+            </sh:Shadows>
+
+            <sh:Shadows Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        CornerRadius="3">
+                <sh:Shadows.Shades>
+                    <sh:ImmutableShades>
+                        <sh:Shade BlurRadius="10"
+                                  Opacity="0.5"
+                                  Offset="0,-8"
+                                  Color="DeepSkyBlue" />
+                    </sh:ImmutableShades>
+                </sh:Shadows.Shades>
+                <tabs:TabHostView HeightRequest="60"
+                                  VerticalOptions="End"
+                                  BackgroundColor="DeepSkyBlue"
+                                  SelectedIndex="0">
+                    <tabs:TabHostView.Tabs>
+                        <tabs:BottomTabItem IconImageSource="{StaticResource IconCogWhite}"
+                                            IsTextVisible="False"
+                                            SelectedTabColor="Yellow"
+                                            UnselectedIconColor="White" />
+                        <tabs:BottomTabItem IconImageSource="{StaticResource IconSearchWhite}"
+                                            IsTextVisible="False"
+                                            SelectedTabColor="Yellow"
+                                            UnselectedIconColor="White" />
+                        <tabs:BottomTabItem IconImageSource="{StaticResource IconMicWhite}"
+                                            IsTextVisible="False"
+                                            SelectedTabColor="Yellow"
+                                            UnselectedIconColor="White" />
+                    </tabs:TabHostView.Tabs>
+                </tabs:TabHostView>
+            </sh:Shadows>
+        </Grid>
+    </Frame>
+</sh:Shadows>
