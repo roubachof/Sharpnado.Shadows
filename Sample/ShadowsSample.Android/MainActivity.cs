@@ -2,6 +2,7 @@
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using Xamarin.Forms;
 
 namespace ShadowsSample.Droid
 {
@@ -10,6 +11,11 @@ namespace ShadowsSample.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            if (Device.Idiom == TargetIdiom.Tablet)
+            {
+                RequestedOrientation = ScreenOrientation.Landscape;
+            }
+
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 

@@ -1,6 +1,7 @@
 ﻿using Foundation;
-
+using ObjCRuntime;
 using UIKit;
+using Xamarin.Forms;
 
 namespace ShadowsSample.iOS
 {
@@ -25,6 +26,16 @@ namespace ShadowsSample.iOS
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
+        }
+
+        public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, [Transient] UIWindow forWindow)
+        {
+            if (Device.Idiom == TargetIdiom.Tablet)
+            {
+                return UIInterfaceOrientationMask.Landscape;
+            }
+
+            return base.GetSupportedInterfaceOrientations(application, forWindow);
         }
     }
 }

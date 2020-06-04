@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ShadowsSample.MainPageLandscape"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:views="clr-namespace:ShadowsSample.Views;assembly=ShadowsSample"
+             BackgroundColor="{DynamicResource DynamicBackgroundColor}"
+             BackgroundImageSource="{DynamicResource DynamicBackgroundImageSource}">
+
+    <ScrollView>
+        <Grid ColumnSpacing="20" RowSpacing="10">
+            <Grid.Padding>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <OnPlatform.Platforms>
+                        <On Platform="Android" Value="40,80,40,60" />
+                        <On Platform="iOS" Value="40,60,40,60" />
+                        <On Platform="UWP" Value="40,80,40,20" />
+                    </OnPlatform.Platforms>
+                </OnPlatform>
+            </Grid.Padding>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="300" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="300" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <views:Logo Grid.ColumnSpan="2"
+                        HeightRequest="80"
+                        Margin="0,0,0,10"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+
+            <Label Grid.Row="1"
+                   Grid.Column="1"
+                   Style="{StaticResource TextBodySecondary}"
+                   Margin="0,0,0,15"
+                   HorizontalOptions="End"
+                   FontFamily="{StaticResource FontItalic}"
+                   Text="The above logo is made of 7 different shades." />
+
+            <Label Grid.Row="2"
+                   Grid.Column="0"
+                   Style="{StaticResource TextHeadline}"
+                   Margin="{StaticResource HeaderMargin}"
+                   Text="Custom Shadows for any View"
+                   TextColor="{DynamicResource DynamicPrimaryOnBackgroundColor}" />
+
+            <views:DynamicShadows Grid.Row="3" Grid.Column="0" />
+
+            <Label Grid.Row="4"
+                   Grid.Column="0"
+                   Style="{StaticResource TextHeadline}"
+                   Margin="{StaticResource HeaderMargin}"
+                   Text="Colored Shadows for any View"
+                   TextColor="{DynamicResource DynamicPrimaryOnBackgroundColor}" />
+
+            <views:ColoredShadows Grid.Row="5" Grid.Column="0" />
+
+            <Label Grid.Row="2"
+                   Grid.Column="1"
+                   Style="{StaticResource TextHeadline}"
+                   Margin="{StaticResource HeaderMargin}"
+                   Text="Neumorphism made easy"
+                   TextColor="{DynamicResource DynamicPrimaryOnBackgroundColor}" />
+
+            <views:Neumorphism Grid.Row="3" Grid.Column="1" />
+
+            <Label Grid.Row="4"
+                   Grid.Column="1"
+                   Style="{StaticResource TextHeadline}"
+                   Margin="{StaticResource HeaderMargin}"
+                   Text="Be Creative!"
+                   TextColor="{DynamicResource DynamicPrimaryOnBackgroundColor}" />
+
+            <views:BeCreative x:Name="BeCreative"
+                              Grid.Row="5"
+                              Grid.Column="1" />
+
+        </Grid>
+    </ScrollView>
+</ContentPage>

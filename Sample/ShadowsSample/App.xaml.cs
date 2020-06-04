@@ -8,7 +8,14 @@ namespace ShadowsSample
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            if (Device.Idiom == TargetIdiom.Tablet)
+            {
+                MainPage = new MainPageLandscape();
+            }
+            else
+            {
+                MainPage = new MainPage();
+            }
 
             Sharpnado.Shades.Initializer.Initialize(true, false);
         }
