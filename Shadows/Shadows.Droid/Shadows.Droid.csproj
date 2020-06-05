@@ -14,7 +14,6 @@
     <AssemblyName>Sharpnado.Shadows.Android</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <Deterministic>True</Deterministic>
-    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
@@ -40,7 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms">
-      <Version>4.6.0.800</Version>
+      <Version>4.6.0.847</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -70,7 +69,6 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="JniExtensions.cs" />
     <Compile Include="JniWeakReference.cs" />
-    <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="ShadowView.PropertyChanged.cs" />
     <Compile Include="ShadowView.cs" />
   </ItemGroup>

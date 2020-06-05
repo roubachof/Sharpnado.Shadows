@@ -35,19 +35,19 @@ Sharpnado.Shades.iOS.iOSShadowsRenderer.Initialize();
       <dependencies>
 
         <group targetFramework=".NETStandard2.0">
-          <dependency id="Xamarin.Forms" version="3.4.0.1008975" exclude="Build,Analyzers"/>
+          <dependency id="Xamarin.Forms" version="3.6.0.220655" exclude="Build,Analyzers"/>
         </group>
 
         <group targetFramework="Xamarin.iOS10">
-          <dependency id="Xamarin.Forms" version="3.4.0.1008975" exclude="Build,Analyzers"/>
+          <dependency id="Xamarin.Forms" version="3.6.0.220655" exclude="Build,Analyzers"/>
         </group>
 
         <group targetFramework="MonoAndroid10">
-          <dependency id="Xamarin.Forms" version="3.4.0.1008975" exclude="Build,Analyzers"/>
+          <dependency id="Xamarin.Forms" version="3.6.0.220655" exclude="Build,Analyzers"/>
         </group>
 
         <group targetFramework="uap10.0.16299">
-          <dependency id="Xamarin.Forms" version="3.4.0.1008975" exclude="Build,Analyzers"/>
+          <dependency id="Xamarin.Forms" version="3.6.0.220655" exclude="Build,Analyzers"/>
           <dependency id="Microsoft.UI.Xaml" version="2.0.181018004" />
         </group>
         
@@ -56,7 +56,6 @@ Sharpnado.Shades.iOS.iOSShadowsRenderer.Initialize();
     </metadata>
 
     <files>
-
         <!--Net Standard-->
         <file src="Shadows\Shadows\bin\Release\netstandard2.0\Sharpnado.Shadows.dll" target="lib\netstandard2.0\Sharpnado.Shadows.dll" />
         <file src="Shadows\Shadows\bin\Release\netstandard2.0\Sharpnado.Shadows.pdb" target="lib\netstandard2.0\Sharpnado.Shadows.pdb" />
@@ -79,13 +78,11 @@ Sharpnado.Shades.iOS.iOSShadowsRenderer.Initialize();
         <file src="Shadows\Shadows.UWP\bin\Release\Sharpnado.Shadows.dll" target="lib\uap10.0.16299\Sharpnado.Shadows.dll" />
         <file src="Shadows\Shadows.UWP\bin\Release\Sharpnado.Shadows.pdb" target="lib\uap10.0.16299\Sharpnado.Shadows.pdb" />
 
-
         <!--Icon-->
         <file src="Docs\shadows.png" target="images\" />
 
         <!--License-->
         <file src="LICENSE" target="LICENSE" />
-
     </files>
 
 </package>
