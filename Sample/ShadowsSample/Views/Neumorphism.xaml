@@ -29,19 +29,8 @@
 
             <sh:Shadows Grid.Row="1"
                         Grid.Column="0"
-                        CornerRadius="40">
-                <sh:Shadows.Shades>
-                    <sh:ImmutableShades>
-                        <sh:Shade BlurRadius="10"
-                                  Opacity="1"
-                                  Offset="-10,-10"
-                                  Color="White" />
-                        <sh:Shade BlurRadius="10"
-                                  Opacity="1"
-                                  Offset="6, 6"
-                                  Color="#19000000" />
-                    </sh:ImmutableShades>
-                </sh:Shadows.Shades>
+                        CornerRadius="40"
+                        Shades="{sh:NeumorphismShades}">
                 <ImageButton WidthRequest="60"
                              HeightRequest="60"
                              Padding="20"
@@ -54,19 +43,8 @@
 
             <sh:Shadows Grid.Row="1"
                         Grid.Column="1"
-                        CornerRadius="10">
-                <sh:Shadows.Shades>
-                    <sh:ImmutableShades>
-                        <sh:Shade BlurRadius="10"
-                                  Opacity="1"
-                                  Offset="-10,-8"
-                                  Color="White" />
-                        <sh:Shade BlurRadius="10"
-                                  Opacity="1"
-                                  Offset="6, 6"
-                                  Color="#19000000" />
-                    </sh:ImmutableShades>
-                </sh:Shadows.Shades>
+                        CornerRadius="10"
+                        Shades="{sh:NeumorphismShades}">
                 <Button Style="{StaticResource TextHeadline}"
                         WidthRequest="120"
                         HeightRequest="60"
@@ -81,19 +59,8 @@
             <sh:Shadows Grid.Row="2"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
-                        CornerRadius="30">
-                <sh:Shadows.Shades>
-                    <sh:ImmutableShades>
-                        <sh:Shade BlurRadius="10"
-                                  Opacity="1"
-                                  Offset="-10,-10"
-                                  Color="White" />
-                        <sh:Shade BlurRadius="10"
-                                  Opacity="1"
-                                  Offset="6, 6"
-                                  Color="#19000000" />
-                    </sh:ImmutableShades>
-                </sh:Shadows.Shades>
+                        CornerRadius="30"
+                        Shades="{sh:NeumorphismShades}">
 
                 <Frame HeightRequest="60"
                        Margin="15,20"

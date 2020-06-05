@@ -17,7 +17,7 @@
                           Color="White" />
                 <sh:Shade BlurRadius="10"
                           Opacity="1"
-                          Offset="10, 10"
+                          Offset="6, 6"
                           Color="#19000000" />
             </sh:ImmutableShades>
         </Setter>
