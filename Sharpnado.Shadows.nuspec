@@ -5,7 +5,7 @@
       <id>Sharpnado.Shadows</id>
       <version>$version$</version>
       <copyright>Sharpnado 2020</copyright>
-      <title>>Add as many custom shadows as you like to any Xamarin.Forms view (Android, iOS, UWP).</title>
+      <title>>Add as many custom shadows (Color, Offset, Blur, Neumorphism) as you like to any Xamarin.Forms view (Android, iOS, UWP). </title>
       <authors>Jean-Marie Alfonsi</authors>
       <owners></owners>
       <projectUrl>https://github.com/roubachof/Sharpnado.Shadows</projectUrl>
@@ -13,13 +13,14 @@
       <icon>images\shadows.png</icon>
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
       <repository url="https://github.com/roubachof/Sharpnado.Shadows" />
-      <summary>Add as many custom shadows as you like to any Xamarin.Forms view (Android, iOS, UWP). You can set Color, Opacity, Blur, Offset and CornerRadius.</summary>
-      <tags>xamarin.forms android ios netstandard blurview blur UIVisualEffectView acrylic dark mode frame blurred background AcrylicBrush</tags>
-      <releaseNotes>UWP support.</releaseNotes>
+      <summary>Add as many custom shadows as you like to any Xamarin.Forms view (Android, iOS, UWP). You can set Color, Opacity, Blur, Offset and CornerRadius. Easily achieve neumorphism.</summary>
+      <tags>xamarin.forms android ios uwp netstandard shadow blur color shadows neumorphism</tags>
+      <releaseNotes>First release.</releaseNotes>
       <description>
 Add as many custom shadows as you like to any Xamarin.Forms view (Android, iOS, UWP). 
 
 * You can specify each shadow Color, Opacity, Blur, and Offset
+* Simply implement neumorphism
 * You can add one shadow, 3 shadows, 99 shadows, to any Xamarin.Forms element
 * Animate any of these property and make the shadows dance around your elements
 
@@ -64,7 +65,7 @@ Sharpnado.Shades.iOS.iOSShadowsRenderer.Initialize();
         <file src="Shadows\Shadows.Droid\bin\Release\Sharpnado.Shadows.Android.dll" target="lib\MonoAndroid10\Sharpnado.Shadows.Android.dll" />
         <file src="Shadows\Shadows.Droid\bin\Release\Sharpnado.Shadows.Android.pdb" target="lib\MonoAndroid10\Sharpnado.Shadows.Android.pdb" />
         <file src="Shadows\Shadows.Droid\bin\Release\Sharpnado.Shadows.dll" target="lib\MonoAndroid10\Sharpnado.Shadows.dll" />
-        <file src="Shadows\Shadows.Droid\bin\Release\Sharpnado.Shadows.pdb" target="lib\MonoAndroid10\Sharpnado.Shadows.pdb" />>
+        <file src="Shadows\Shadows.Droid\bin\Release\Sharpnado.Shadows.pdb" target="lib\MonoAndroid10\Sharpnado.Shadows.pdb" />
 
         <!--Xamarin.iOS-->
         <file src="Shadows\Shadows.iOS\bin\Release\Sharpnado.Shadows.iOS.dll" target="lib\Xamarin.iOS10\Sharpnado.Shadows.iOS.dll" />
@@ -73,10 +74,10 @@ Sharpnado.Shades.iOS.iOSShadowsRenderer.Initialize();
         <file src="Shadows\Shadows.iOS\bin\Release\Sharpnado.Shadows.pdb" target="lib\Xamarin.iOS10\Sharpnado.Shadows.pdb" />
 
         <!--Xamarin.UWP-->
-        <file src="Shadows\Shadows.UWP\bin\Release\Sharpnado.Shadows.UWP.dll" target="lib\uap10.0.16299\Sharpnado.Shadows.UWP.dll" />
-        <file src="Shadows\Shadows.UWP\bin\Release\Sharpnado.Shadows.UWP.pdb" target="lib\uap10.0.16299\Sharpnado.Shadows.UWP.pdb" />
-        <file src="Shadows\Shadows.UWP\bin\Release\Sharpnado.Shadows.dll" target="lib\uap10.0.16299\Sharpnado.Shadows.dll" />
-        <file src="Shadows\Shadows.UWP\bin\Release\Sharpnado.Shadows.pdb" target="lib\uap10.0.16299\Sharpnado.Shadows.pdb" />
+        <file src="Shadows\Shadows.UWP\bin\x86\Release\Sharpnado.Shadows.UWP.dll" target="lib\uap10.0.16299\Sharpnado.Shadows.UWP.dll" />
+        <file src="Shadows\Shadows.UWP\bin\x86\Release\Sharpnado.Shadows.UWP.pdb" target="lib\uap10.0.16299\Sharpnado.Shadows.UWP.pdb" />
+        <file src="Shadows\Shadows.UWP\bin\x86\Release\Sharpnado.Shadows.dll" target="lib\uap10.0.16299\Sharpnado.Shadows.dll" />
+        <file src="Shadows\Shadows.UWP\bin\x86\Release\Sharpnado.Shadows.pdb" target="lib\uap10.0.16299\Sharpnado.Shadows.pdb" />
 
         <!--Icon-->
         <file src="Docs\shadows.png" target="images\" />
