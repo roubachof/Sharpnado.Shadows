@@ -2,10 +2,10 @@ $formsVersion = "3.4.0.1008975"
 
 echo "  <<<< WARNING >>>>> You need to launch 2 times this script to make sure Xamarin.Forms version was correctly resolved..."
 
-$netstandardProject = ".\MaterialFrame\MaterialFrame\MaterialFrame.csproj"
-$droidProject = ".\MaterialFrame\MaterialFrame.Android\MaterialFrame.Android.csproj"
-$iosProject = ".\MaterialFrame\MaterialFrame.iOS\MaterialFrame.iOS.csproj"
-$uwpProject = ".\MaterialFrame\MaterialFrame.UWP\MaterialFrame.UWP.csproj"
+$netstandardProject = ".\Shadows\Shadows\Shadows.csproj"
+$droidProject = ".\Shadows\Shadows.Droid\Shadows.Droid.csproj"
+$iosProject = ".\Shadows\Shadows.iOS\Shadows.iOS.csproj"
+$uwpProject = ".\Shadows\Shadows.UWP\Shadows.UWP.csproj"
 
 echo "  Setting Xamarin.Forms version to $formsVersion"
 
@@ -17,13 +17,10 @@ $replaceString = "`$1 $formsVersion `$3"
 (Get-Content $iosProject -Raw) -replace $findXFVersion, "$replaceString" | Out-File $iosProject
 (Get-Content $uwpProject -Raw) -replace $findXFVersion, "$replaceString" | Out-File $uwpProject
 
-echo "  building Sharpnado.MaterialFrame solution"
-msbuild .\MaterialFrame\MaterialFrame.sln /t:Clean,Restore,Build /p:Configuration=Release > build.txt
+echo "  building Sharpnado.Shadows solution"
+msbuild .\Shadows\Shadows.sln /t:Clean,Restore,Build /p:Configuration=Release > build.txt
 
-echo "  building Android9"
-msbuild .\MaterialFrame\MaterialFrame.Android\MaterialFrame.Android.csproj /t:Clean,Restore,Build /p:Configuration=ReleaseAndroid9.0 > build.Android9.txt
+$version = (Get-Item Shadows\Shadows\bin\Release\netstandard2.0\Sharpnado.Shadows.dll).VersionInfo.FileVersion
 
-$version = (Get-Item MaterialFrame\MaterialFrame\bin\Release\netstandard2.0\Sharpnado.MaterialFrame.dll).VersionInfo.FileVersion
-
-echo "  packaging Sharpnado.MaterialFrame.nuspec (v$version)"
-nuget pack .\Sharpnado.MaterialFrame.nuspec -Version $version
+echo "  packaging Sharpnado.Shadows.nuspec (v$version)"
+nuget pack .\Sharpnado.Shadows.nuspec -Version $version

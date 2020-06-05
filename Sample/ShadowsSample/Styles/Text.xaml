@@ -66,9 +66,21 @@
         <Setter Property="FontSize" Value="{StaticResource TextSizeHuge}" />
     </Style>
 
+    <Style x:Key="TextHugeSecondary" TargetType="Label">
+        <Setter Property="FontFamily" Value="{StaticResource FontBold}" />
+        <Setter Property="TextColor" Value="{DynamicResource DynamicTextSecondaryColor}" />
+        <Setter Property="FontSize" Value="{StaticResource TextSizeHuge}" />
+    </Style>
+
     <Style x:Key="TextHeadline" TargetType="Label">
-        <Setter Property="FontFamily" Value="{StaticResource FontExtraBold}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontBold}" />
         <Setter Property="TextColor" Value="{DynamicResource DynamicTextPrimaryColor}" />
+        <Setter Property="FontSize" Value="{StaticResource TextSizeHeadline}" />
+    </Style>
+
+    <Style x:Key="TextHeadlineSecondary" TargetType="Label">
+        <Setter Property="FontFamily" Value="{StaticResource FontBold}" />
+        <Setter Property="TextColor" Value="{DynamicResource DynamicTextSecondaryColor}" />
         <Setter Property="FontSize" Value="{StaticResource TextSizeHeadline}" />
     </Style>
 

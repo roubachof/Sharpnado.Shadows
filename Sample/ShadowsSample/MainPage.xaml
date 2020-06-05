@@ -27,7 +27,7 @@
                         VerticalOptions="Center" />
 
             <Label Style="{StaticResource TextBodySecondary}"
-                   Margin="0,0,0,15"
+                   Margin="0,0,0,10"
                    HorizontalOptions="End"
                    FontFamily="{StaticResource FontItalic}"
                    Text="The above logo is made of 7 different shades." />

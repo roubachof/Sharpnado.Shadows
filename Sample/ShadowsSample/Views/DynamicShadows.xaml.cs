@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace ShadowsSample.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class DynamicShadows : Shadows
+    public partial class DynamicShadows : ShadowsElement
     {
         public DynamicShadows()
         {
@@ -23,6 +23,14 @@ namespace ShadowsSample.Views
         }
 
         public ObservableCollection<ShadeInfo> ShadeInfos = new ObservableCollection<ShadeInfo>();
+
+        public override void OnIsCompactChanged()
+        {
+            if (IsCompact)
+            {
+                Description.Height = 0;
+            }
+        }
 
         private void InitNewShade()
         {

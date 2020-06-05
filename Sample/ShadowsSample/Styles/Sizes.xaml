@@ -19,10 +19,16 @@
                Right="5"
                Top="5" />
 
-    <Thickness x:Key="HeaderMargin"
+    <Thickness x:Key="HeaderMarginLandscape"
                Bottom="5"
                Left="5"
                Right="5"
                Top="0" />
+
+    <Thickness x:Key="HeaderMargin"
+               Bottom="5"
+               Left="5"
+               Right="5"
+               Top="15" />
 
 </ResourceDictionary>

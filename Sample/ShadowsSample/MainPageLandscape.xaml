@@ -10,11 +10,11 @@
              BackgroundImageSource="{DynamicResource DynamicBackgroundImageSource}">
 
     <ScrollView>
-        <Grid ColumnSpacing="20" RowSpacing="10">
+        <Grid ColumnSpacing="40" RowSpacing="10">
             <Grid.Padding>
                 <OnPlatform x:TypeArguments="Thickness">
                     <OnPlatform.Platforms>
-                        <On Platform="Android" Value="40,80,40,60" />
+                        <On Platform="Android" Value="100,40,100,60" />
                         <On Platform="iOS" Value="40,60,40,60" />
                         <On Platform="UWP" Value="40,80,40,20" />
                     </OnPlatform.Platforms>
@@ -22,11 +22,8 @@
             </Grid.Padding>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="300" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="300" />
+                <RowDefinition Height="0" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -35,56 +32,57 @@
 
             <views:Logo Grid.ColumnSpan="2"
                         HeightRequest="80"
-                        Margin="0,0,0,10"
                         HorizontalOptions="Center"
                         VerticalOptions="Center" />
 
-            <Label Grid.Row="1"
+            <Label Grid.Row="0"
                    Grid.Column="1"
                    Style="{StaticResource TextBodySecondary}"
                    Margin="0,0,0,15"
                    HorizontalOptions="End"
+                   VerticalOptions="End"
                    FontFamily="{StaticResource FontItalic}"
-                   Text="The above logo is made of 7 different shades." />
+                   Text="The shadows logo is made of 7 different shades." />
 
-            <Label Grid.Row="2"
-                   Grid.Column="0"
-                   Style="{StaticResource TextHeadline}"
-                   Margin="{StaticResource HeaderMargin}"
-                   Text="Custom Shadows for any View"
-                   TextColor="{DynamicResource DynamicPrimaryOnBackgroundColor}" />
+            <StackLayout Grid.Row="2"
+                         Grid.Column="0"
+                         Spacing="10">
 
-            <views:DynamicShadows Grid.Row="3" Grid.Column="0" />
+                <Label Style="{StaticResource TextHeadline}"
+                       Margin="{StaticResource HeaderMarginLandscape}"
+                       Text="Custom Shadows for any View"
+                       TextColor="{DynamicResource DynamicPrimaryOnBackgroundColor}" />
 
-            <Label Grid.Row="4"
-                   Grid.Column="0"
-                   Style="{StaticResource TextHeadline}"
-                   Margin="{StaticResource HeaderMargin}"
-                   Text="Colored Shadows for any View"
-                   TextColor="{DynamicResource DynamicPrimaryOnBackgroundColor}" />
+                <views:DynamicShadows IsCompact="True" />
 
-            <views:ColoredShadows Grid.Row="5" Grid.Column="0" />
+                <Label Style="{StaticResource TextHeadline}"
+                       Margin="{StaticResource HeaderMarginLandscape}"
+                       Text="Colored Shadows for any View"
+                       TextColor="{DynamicResource DynamicPrimaryOnBackgroundColor}" />
 
-            <Label Grid.Row="2"
-                   Grid.Column="1"
-                   Style="{StaticResource TextHeadline}"
-                   Margin="{StaticResource HeaderMargin}"
-                   Text="Neumorphism made easy"
-                   TextColor="{DynamicResource DynamicPrimaryOnBackgroundColor}" />
+                <views:ColoredShadows IsCompact="True" />
 
-            <views:Neumorphism Grid.Row="3" Grid.Column="1" />
+            </StackLayout>
 
-            <Label Grid.Row="4"
-                   Grid.Column="1"
-                   Style="{StaticResource TextHeadline}"
-                   Margin="{StaticResource HeaderMargin}"
-                   Text="Be Creative!"
-                   TextColor="{DynamicResource DynamicPrimaryOnBackgroundColor}" />
+            <StackLayout Grid.Row="2"
+                         Grid.Column="1"
+                         Spacing="10">
 
-            <views:BeCreative x:Name="BeCreative"
-                              Grid.Row="5"
-                              Grid.Column="1" />
+                <Label Style="{StaticResource TextHeadline}"
+                       Margin="{StaticResource HeaderMarginLandscape}"
+                       Text="Neumorphism made easy"
+                       TextColor="{DynamicResource DynamicPrimaryOnBackgroundColor}" />
 
+                <views:Neumorphism IsCompact="True" />
+
+                <Label Style="{StaticResource TextHeadline}"
+                       Margin="{StaticResource HeaderMarginLandscape}"
+                       Text="Be Creative!"
+                       TextColor="{DynamicResource DynamicPrimaryOnBackgroundColor}" />
+
+                <views:BeCreative x:Name="BeCreative" IsCompact="True" />
+
+            </StackLayout>
         </Grid>
     </ScrollView>
 </ContentPage>

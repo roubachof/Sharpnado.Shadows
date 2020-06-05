@@ -1,19 +1,20 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<sh:Shadows x:Class="ShadowsSample.Views.DynamicShadows"
-            xmlns="http://xamarin.com/schemas/2014/forms"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-            mc:Ignorable="d"
-            xmlns:images="clr-namespace:ShadowsSample.Images;assembly=ShadowsSample"
-            xmlns:sh="http://sharpnado.com/schemas/shadows"
-            xmlns:system="clr-namespace:System;assembly=netstandard">
+<views:ShadowsElement x:Class="ShadowsSample.Views.DynamicShadows"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      mc:Ignorable="d"
+                      xmlns:images="clr-namespace:ShadowsSample.Images;assembly=ShadowsSample"
+                      xmlns:sh="http://sharpnado.com/schemas/shadows"
+                      xmlns:system="clr-namespace:System;assembly=netstandard"
+                      xmlns:views="clr-namespace:ShadowsSample.Views;assembly=ShadowsSample">
     <Frame Padding="0" StyleId="3333">
         <Grid ColumnSpacing="0" RowSpacing="10">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
+                <RowDefinition x:Name="Description" Height="Auto" />
                 <RowDefinition Height="60" />
-                <RowDefinition Height="150" />
+                <RowDefinition Height="120" />
                 <RowDefinition Height="60" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -123,16 +124,12 @@
             <sh:Shadows Grid.Row="3"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
-                        CornerRadius="3">
-                <sh:Shadows.Shades>
-                    <sh:ImmutableShades>
-                        <sh:Shade BlurRadius="10"
-                                  Opacity="0.2"
-                                  Offset="0,-8"
-                                  Color="DarkGray" />
-                    </sh:ImmutableShades>
-                </sh:Shadows.Shades>
-                <Grid BackgroundColor="White">
+                        CornerRadius="3"
+                        Shades="{sh:SingleShade Opacity=1,
+                                                Color=White,
+                                                BlurRadius=10,
+                                                Offset='0,-10'}">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
@@ -141,22 +138,22 @@
                             Style="{StaticResource TextHeadline}"
                             HorizontalOptions="Fill"
                             VerticalOptions="Fill"
-                            BackgroundColor="White"
+                            BackgroundColor="{StaticResource NeumorphismSurface}"
                             Clicked="AddShade"
-                            CornerRadius="10"
+                            CornerRadius="0"
                             Text="Add"
                             TextColor="Gray" />
                     <Button Grid.Column="1"
                             Style="{StaticResource TextHeadline}"
                             HorizontalOptions="Fill"
                             VerticalOptions="Fill"
-                            BackgroundColor="White"
+                            BackgroundColor="{StaticResource NeumorphismSurface}"
                             Clicked="RemoveShade"
-                            CornerRadius="10"
+                            CornerRadius="0"
                             Text="Remove"
                             TextColor="Gray" />
                 </Grid>
             </sh:Shadows>
         </Grid>
     </Frame>
-</sh:Shadows>
+</views:ShadowsElement>

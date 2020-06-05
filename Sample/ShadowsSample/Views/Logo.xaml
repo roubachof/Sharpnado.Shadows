@@ -44,6 +44,5 @@
     <Label Style="{StaticResource TextHuge}"
            VerticalOptions="Center"
            FontFamily="{StaticResource FontKarmatic}"
-           Text="Shadows"
-           TextColor="{StaticResource TextPrimaryColor}" />
+           Text="Shadows" />
 </sh:Shadows>

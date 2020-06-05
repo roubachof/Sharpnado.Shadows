@@ -1,18 +1,19 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<sh:Shadows x:Class="ShadowsSample.Views.BeCreative"
-            xmlns="http://xamarin.com/schemas/2014/forms"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-            mc:Ignorable="d"
-            xmlns:images="clr-namespace:ShadowsSample.Images;assembly=ShadowsSample"
-            xmlns:sh="http://sharpnado.com/schemas/shadows">
+<views:ShadowsElement x:Class="ShadowsSample.Views.BeCreative"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      mc:Ignorable="d"
+                      xmlns:images="clr-namespace:ShadowsSample.Images;assembly=ShadowsSample"
+                      xmlns:sh="http://sharpnado.com/schemas/shadows"
+                      xmlns:views="clr-namespace:ShadowsSample.Views;assembly=ShadowsSample">
     <Frame Padding="0" StyleId="3333">
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="150" />
-                <RowDefinition Height="150" />
+                <RowDefinition x:Name="Description" Height="Auto" />
+                <RowDefinition Height="125" />
+                <RowDefinition Height="125" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -24,7 +25,7 @@
                    Grid.ColumnSpan="2"
                    Style="{StaticResource TextBodySecondary}"
                    Margin="15,15"
-                   Text="Think out of the box with Xamarin.Forms and Sharpnado.Shadows." />
+                   Text="Thinking outside the box with Xamarin.Forms and Sharpnado.Shadows." />
 
             <sh:Shadows Grid.Row="2"
                         Grid.Column="0"
@@ -94,6 +95,7 @@
                         Grid.Row="1"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
+                        Margin="0,50,0,0"
                         CornerRadius="10">
                 <sh:Shadows.Shades>
                     <sh:ImmutableShades>
@@ -124,7 +126,6 @@
                     </sh:ImmutableShades>
                 </sh:Shadows.Shades>
                 <ImageButton WidthRequest="100"
-                             Margin="0,50,0,0"
                              Padding="5"
                              HorizontalOptions="Center"
                              VerticalOptions="Center"
@@ -136,4 +137,4 @@
 
         </Grid>
     </Frame>
-</sh:Shadows>
+</views:ShadowsElement>

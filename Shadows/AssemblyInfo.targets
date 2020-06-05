@@ -3,10 +3,10 @@
 
   <PropertyGroup>
     <Copyright>Copyright © Sharpnado 2020</Copyright>
-    <Version>1.1.0</Version>
+    <Version>1.0.0</Version>
     <Company>Sharpnado</Company>
-    <Product>MaterialFrame</Product>
-    <Description>Modern Frame supporting theming such as Blur styles, Acrylic style, Dark/Light modes for Xamarin.Forms (Android, iOS, UWP).</Description>
+    <Product>Shadows</Product>
+    <Description>Add as many custom shadows as you like to any Xamarin.Forms view (Android, iOS, UWP). Set Color, Opacity, Blur, and Offset for each shadow.</Description>
   </PropertyGroup>
 
   <Target Name="GenerateCustomAssemblyInfo" BeforeTargets="BeforeBuild">

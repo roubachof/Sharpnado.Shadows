@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{3D7E0A15
 	ProjectSection(SolutionItems) = preProject
 		..\Shadows\AssemblyInfo.targets = ..\Shadows\AssemblyInfo.targets
 		..\make-package.ps1 = ..\make-package.ps1
-		..\Sharpnado.MaterialFrame.nuspec = ..\Sharpnado.MaterialFrame.nuspec
+		..\Sharpnado.Shadows.nuspec = ..\Sharpnado.Shadows.nuspec
 	EndProjectSection
 EndProject
 Global

@@ -42,7 +42,7 @@
     <FontImageSource x:Key="IconCogWhite"
                      FontFamily="{StaticResource FontAwesome}"
                      Glyph="{x:Static fontAwesome:IconFont.Cog}"
-                     Size="{StaticResource SizeMediumSmallIcon}"
+                     Size="{StaticResource SizeLargeIcon}"
                      Color="White" />
 
     <FontImageSource x:Key="IconSun"
@@ -60,7 +60,7 @@
     <FontImageSource x:Key="IconSearchWhite"
                      FontFamily="{StaticResource FontAwesome}"
                      Glyph="{x:Static fontAwesome:IconFont.Search}"
-                     Size="{StaticResource SizeSmallIcon}"
+                     Size="{StaticResource SizeLargeIcon}"
                      Color="White" />
 
     <FontImageSource x:Key="IconPlus"
@@ -102,7 +102,7 @@
     <FontImageSource x:Key="IconMicWhite"
                      FontFamily="{StaticResource FontAwesome}"
                      Glyph="{x:Static fontAwesome:IconFont.Microphone}"
-                     Size="{StaticResource SizeSmallIcon}"
+                     Size="{StaticResource SizeLargeIcon}"
                      Color="White" />
 
     <FontImageSource x:Key="IconDots"

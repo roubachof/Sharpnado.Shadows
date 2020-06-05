@@ -1,17 +1,18 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<sh:Shadows x:Class="ShadowsSample.Views.Neumorphism"
-            xmlns="http://xamarin.com/schemas/2014/forms"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-            mc:Ignorable="d"
-            xmlns:sh="http://sharpnado.com/schemas/shadows"
-            xmlns:tabs="clr-namespace:Sharpnado.Presentation.Forms.CustomViews.Tabs;assembly=Sharpnado.Presentation.Forms">
+<views:ShadowsElement x:Class="ShadowsSample.Views.Neumorphism"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      mc:Ignorable="d"
+                      xmlns:sh="http://sharpnado.com/schemas/shadows"
+                      xmlns:tabs="clr-namespace:Sharpnado.Presentation.Forms.CustomViews.Tabs;assembly=Sharpnado.Presentation.Forms"
+                      xmlns:views="clr-namespace:ShadowsSample.Views;assembly=ShadowsSample">
     <Frame IsClippedToBounds="False" StyleId="3333">
         <Grid RowSpacing="10">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="100" />
+                <RowDefinition x:Name="Description" Height="Auto" />
+                <RowDefinition Height="70" />
                 <RowDefinition Height="100" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -23,6 +24,7 @@
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Style="{StaticResource TextBodySecondary}"
+                   Margin="0,0,0,20"
                    Text="Since you can apply many shadows to any view, implementing #neumorphism is a walking piece of cake in the park!" />
 
             <sh:Shadows Grid.Row="1"
@@ -57,7 +59,7 @@
                     <sh:ImmutableShades>
                         <sh:Shade BlurRadius="10"
                                   Opacity="1"
-                                  Offset="-10,-10"
+                                  Offset="-10,-8"
                                   Color="White" />
                         <sh:Shade BlurRadius="10"
                                   Opacity="1"
@@ -120,4 +122,4 @@
             </sh:Shadows>
         </Grid>
     </Frame>
-</sh:Shadows>
+</views:ShadowsElement>

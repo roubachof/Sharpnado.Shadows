@@ -3,7 +3,6 @@ using System.Reflection;
 
 using Plugin.SimpleAudioPlayer;
 using Sharpnado.Presentation.Forms.Helpers;
-using Sharpnado.Shades;
 using Sharpnado.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,7 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace ShadowsSample.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BeCreative : Shadows
+    public partial class BeCreative : ShadowsElement
     {
         private ISimpleAudioPlayer _audioPlayer;
 
@@ -34,6 +33,14 @@ namespace ShadowsSample.Views
                 var stream = assembly.GetManifestResourceStream($"{nameof(ShadowsSample)}.original.mp3");
                 _audioPlayer = CrossSimpleAudioPlayer.CreateSimpleAudioPlayer();
                 _audioPlayer.Load(stream);
+            }
+        }
+
+        public override void OnIsCompactChanged()
+        {
+            if (IsCompact)
+            {
+                Description.Height = 0;
             }
         }
 

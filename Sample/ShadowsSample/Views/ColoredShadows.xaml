@@ -1,17 +1,18 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<sh:Shadows x:Class="ShadowsSample.Views.ColoredShadows"
-            xmlns="http://xamarin.com/schemas/2014/forms"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-            mc:Ignorable="d"
-            xmlns:images="clr-namespace:ShadowsSample.Images;assembly=ShadowsSample"
-            xmlns:sh="http://sharpnado.com/schemas/shadows"
-            xmlns:tabs="clr-namespace:Sharpnado.Presentation.Forms.CustomViews.Tabs;assembly=Sharpnado.Presentation.Forms">
+<views:ShadowsElement x:Class="ShadowsSample.Views.ColoredShadows"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      mc:Ignorable="d"
+                      xmlns:images="clr-namespace:ShadowsSample.Images;assembly=ShadowsSample"
+                      xmlns:sh="http://sharpnado.com/schemas/shadows"
+                      xmlns:tabs="clr-namespace:Sharpnado.Presentation.Forms.CustomViews.Tabs;assembly=Sharpnado.Presentation.Forms"
+                      xmlns:views="clr-namespace:ShadowsSample.Views;assembly=ShadowsSample">
     <Frame Padding="0" StyleId="3333">
         <Grid RowSpacing="10">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
+                <RowDefinition x:Name="Description" Height="Auto" />
                 <RowDefinition Height="100" />
                 <RowDefinition Height="80" />
             </Grid.RowDefinitions>
@@ -31,7 +32,7 @@
                         Grid.Column="0"
                         CornerRadius="40"
                         Shades="{sh:SingleShade Offset='0, 10',
-                                                Opacity=0.5,
+                                                Opacity=0.7,
                                                 Color=Violet}">
                 <ImageButton WidthRequest="60"
                              HeightRequest="60"
@@ -45,18 +46,18 @@
 
             <sh:Shadows Grid.Row="1"
                         Grid.Column="1"
+                        Margin="0,10,0,0"
                         CornerRadius="40">
                 <sh:Shadows.Shades>
                     <sh:ImmutableShades>
                         <sh:Shade BlurRadius="10"
                                   Opacity="0.5"
-                                  Offset="-8,-6"
-                                  Color="Violet" />
+                                  Offset="8,8"
+                                  Color="Yellow" />
                         <sh:Shade BlurRadius="10"
                                   Opacity="0.5"
-                                  Offset="8,8"
-                                  Color="DarkGray" />
-
+                                  Offset="-8,-6"
+                                  Color="Violet" />
                     </sh:ImmutableShades>
                 </sh:Shadows.Shades>
                 <Image WidthRequest="120"
@@ -100,4 +101,4 @@
             </sh:Shadows>
         </Grid>
     </Frame>
-</sh:Shadows>
+</views:ShadowsElement>
