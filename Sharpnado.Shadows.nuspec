@@ -20,9 +20,10 @@
 Add as many custom shadows as you like to any Xamarin.Forms view (Android, iOS, UWP). 
 
 * You can specify each shadow Color, Opacity, Blur, and Offset
-* Simply implement neumorphism
 * You can add one shadow, 3 shadows, 99 shadows, to any Xamarin.Forms element
+* Implement easily Neumorphism
 * Animate any of these property and make the shadows dance around your elements
+* The only dependency is `Xamarin.Forms`, no `AndroidX`, no `SkiaSharp` needed!
 
 Performance: Implemented with custom draw on Android, CALayer on iOS and SpriteVisual on UWP.
 
