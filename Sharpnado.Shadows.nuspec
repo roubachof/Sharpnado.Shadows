@@ -5,14 +5,14 @@
       <id>Sharpnado.Shadows</id>
       <version>$version$</version>
       <copyright>Sharpnado 2020</copyright>
-      <title>>Add as many custom shadows (Color, Offset, Blur, Neumorphism) as you like to any Xamarin.Forms view (Android, iOS, UWP). </title>
+      <title>Add as many custom shadows (Color, Offset, Blur, Neumorphism) as you like to any Xamarin.Forms view (Android, iOS, UWP). </title>
       <authors>Jean-Marie Alfonsi</authors>
       <owners></owners>
       <projectUrl>https://github.com/roubachof/Sharpnado.Shadows</projectUrl>
       <license type="file">LICENSE</license>
       <icon>images\shadows.png</icon>
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
-      <repository url="https://github.com/roubachof/Sharpnado.Shadows" />
+      <repository type="git" branch="master" url="https://github.com/roubachof/Sharpnado.Shadows" />
       <summary>Add as many custom shadows as you like to any Xamarin.Forms view (Android, iOS, UWP). You can set Color, Opacity, Blur, Offset and CornerRadius. Easily achieve neumorphism.</summary>
       <tags>xamarin.forms android ios uwp netstandard shadow blur color shadows neumorphism</tags>
       <releaseNotes>First release.</releaseNotes>
@@ -29,8 +29,8 @@ Performance: Implemented with custom draw on Android, CALayer on iOS and SpriteV
 
 Mandatory initialization on iOS: 
 
-Xamarin.Forms.Forms.Init();
-Sharpnado.Shades.iOS.iOSShadowsRenderer.Initialize();
+    Xamarin.Forms.Forms.Init();
+    Sharpnado.Shades.iOS.iOSShadowsRenderer.Initialize();
 
       </description>
 
