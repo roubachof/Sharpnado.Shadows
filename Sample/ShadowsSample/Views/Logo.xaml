@@ -5,7 +5,7 @@
             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             mc:Ignorable="d"
-            xmlns:sh="http://sharpnado.com/schemas/shadows"
+            xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
             CornerRadius="3">
 
     <sh:Shadows.Shades>

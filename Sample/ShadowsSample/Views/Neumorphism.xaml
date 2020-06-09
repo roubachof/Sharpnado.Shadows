@@ -5,7 +5,7 @@
                       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       mc:Ignorable="d"
-                      xmlns:sh="http://sharpnado.com/schemas/shadows"
+                      xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
                       xmlns:tabs="clr-namespace:Sharpnado.Presentation.Forms.CustomViews.Tabs;assembly=Sharpnado.Presentation.Forms"
                       xmlns:views="clr-namespace:ShadowsSample.Views;assembly=ShadowsSample">
     <Frame IsClippedToBounds="False" StyleId="3333">

@@ -6,8 +6,8 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       mc:Ignorable="d"
                       xmlns:images="clr-namespace:ShadowsSample.Images;assembly=ShadowsSample"
-                      xmlns:sh="http://sharpnado.com/schemas/shadows"
-                      xmlns:views="clr-namespace:ShadowsSample.Views;assembly=ShadowsSample">
+                      xmlns:views="clr-namespace:ShadowsSample.Views;assembly=ShadowsSample"
+                      xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows">
     <Frame Padding="0" StyleId="3333">
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>

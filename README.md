@@ -176,6 +176,9 @@ Each shade has 4 properties:
 
 ### Neumorphism
 
+To have a nice `Neumorphism` effect we need to choose a background color.
+I found that `#F0F0F3` was quite good, so I will stick to it for our content **and** our page background color.
+
 Since `Neumorphism` implementation is made of 2 shadows, one bright at the top left, one dark at the bottom right, achieving a `Neumorphism` style with `Shadows` for all the views is really easy:
 
 ```xml
