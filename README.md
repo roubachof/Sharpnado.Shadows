@@ -1,4 +1,4 @@
-# Sharpnado.MaterialFrame
+# Sharpnado.Shadows
 
 <p align="left"><img src="Docs/shadows.png" height="180"/>
 
