@@ -6,10 +6,11 @@ Get it from NuGet:
 
 [![Nuget](https://img.shields.io/nuget/v/Sharpnado.Shadows.svg)](https://www.nuget.org/packages/Sharpnado.Shadows)
 
-Supported platforms:
-* Android
-* iOS
-* UWP
+| Supported platforms        |
+|----------------------------|
+| :heavy_check_mark: Android |
+| :heavy_check_mark: iOS     |
+| :heavy_check_mark: UWP     |
 
 ![Presentation](Docs/tablet.png)
 
@@ -27,16 +28,15 @@ Add as **many** **custom** shadows as you like to any `Xamarin.Forms` view (`And
 * Simply implement `Neumorphism`
 * You can add one shadow, 3 shadows, 99 shadows, to any `Xamarin.Forms` element
 * Animate any of these property and make the shadows dance around your elements
+*  No `AndroidX` or `SkiaSharp` dependency required, only `Xamarin.Forms`
 
 ## Using Shadows
 
 `Shadows` is a container for any `Xamarin.Forms` view. 
 Just wrap your view in it and start adding shadows:
 
-<table>
-	<tbody>
-		<tr>
-			<td>
+**XAML**
+
 ```xml
 <sh:Shadows x:Name="CatShadows"
             CornerRadius="10">
@@ -62,21 +62,16 @@ Just wrap your view in it and start adding shadows:
     </Frame>
 </sh:Shadows>
 ```
-</td>
-			<td>
-![cat](Docs/cat_shadows.png)
-</td>
-		</tr>
-  </tbody>
-</table>
+
+**OUTPUT**
+
+<img src="Docs/cat_shadows.png" height="180"/>
 
 Thanks to the `CornerRadius` property you can match your target corner to achieve a perfect shadow.
 For example, you can add a shadow to a rounded button:
 
-<table>
-	<tbody>
-		<tr>
-			<td>
+**XAML**
+
 ```xml
 <sh:Shadows CornerRadius="30"
             Shades="{sh:SingleShade Offset='0, 10',
@@ -92,13 +87,10 @@ For example, you can add a shadow to a rounded button:
                  Source="{StaticResource IconPlusWhite}" />
 </sh:Shadows>
 ```
-</td>
-			<td>
-![cat](Docs/rounded_button.png)
-</td>
-		</tr>
-  </tbody>
-</table>
+
+**OUTPUT**
+
+<img src="Docs/rounded_button.png" height="180"/>
 
 ### Shades
 
@@ -116,12 +108,8 @@ Each shade has 4 properties:
 3. `double Opacity`: the opacity of the shade
 4. `double BlurRadius`: the amount of blur your want for this shade
 
-`Logo.xaml`
+**Logo.xaml**
 
-<table>
-	<tbody>
-		<tr>
-			<td>
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <sh:Shadows x:Class="ShadowsSample.Views.Logo"
@@ -166,13 +154,10 @@ Each shade has 4 properties:
            Text="Shadows" />
 </sh:Shadows>
 ```
-</td>
-			<td>
-![Logo](Docs/logo.png)
-</td>
-		</tr>
-  </tbody>
-</table>
+
+**OUTPUT**
+
+<img src="Docs/logo.png" height="180"/>
 
 ### Neumorphism
 
@@ -201,10 +186,8 @@ Since `Neumorphism` implementation is made of 2 shadows, one bright at the top l
 
 If you want to add `Neumorphism` to specific elements a `NeumorphismShades` markup extension will help you with that:
 
-<table>
-	<tbody>
-		<tr>
-			<td>
+**XAML**
+
 ```xml
 <sh:Shadows Grid.Row="1"
             Grid.Column="0"
@@ -235,13 +218,10 @@ If you want to add `Neumorphism` to specific elements a `NeumorphismShades` mark
             TextColor="Gray" />
 </sh:Shadows>
 ```
-</td>
-			<td>
-![Logo](Docs/neumorphism.png)
-</td>
-		</tr>
-  </tbody>
-</table>
+
+**OUTPUT**
+
+<img src="Docs/neumorphism.png" height="370"/>
 
 ### Be creative!
 
@@ -282,7 +262,7 @@ Use the first one if the shade collection will not change and the second one if 
 #### SingleShade
 
 You can also use the `SingleShade` markup extension if you just have one shadow.
-It will remove that xaml elements:
+It will remove some xaml elements:
 
 ```xml
 <sh:Shadows CornerRadius="30"
