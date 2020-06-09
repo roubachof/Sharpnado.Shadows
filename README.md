@@ -12,7 +12,7 @@ Get it from NuGet:
 | :heavy_check_mark: iOS     |
 | :heavy_check_mark: UWP     |
 
-![Presentation](Docs/tablet.png)
+![Presentation](Docs/github_banner.png)
 
 ## Initialization
 
