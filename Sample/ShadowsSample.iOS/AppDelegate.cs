@@ -35,7 +35,7 @@ namespace ShadowsSample.iOS
                 return UIInterfaceOrientationMask.Landscape;
             }
 
-            return base.GetSupportedInterfaceOrientations(application, forWindow);
+            return UIInterfaceOrientationMask.Portrait;
         }
     }
 }
