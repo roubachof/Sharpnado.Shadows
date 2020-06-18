@@ -30,6 +30,17 @@ namespace Sharpnado.Shades.Droid
             }
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            InternalLogger.Debug("Renderer", $"Disposed( disposing: {disposing} )");
+            if (disposing)
+            {
+                _shadowView?.Dispose();
+            }
+        }
+
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
