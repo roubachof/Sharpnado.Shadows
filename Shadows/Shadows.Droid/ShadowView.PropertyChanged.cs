@@ -50,6 +50,8 @@ namespace Sharpnado.Shades.Droid
             {
                 InsertShade(i, _shadesSource.ElementAt(i));
             }
+
+            Invalidate();
         }
 
         private void ShadesSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

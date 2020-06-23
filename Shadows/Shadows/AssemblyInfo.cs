@@ -14,7 +14,7 @@
     "WP). Set Color, Opacity, Blur, and Offset for each shadow.")]
 [assembly: System.Reflection.AssemblyProduct("Shadows")]
 [assembly: System.Reflection.AssemblyCopyright("Copyright © Sharpnado 2020")]
-[assembly: System.Reflection.AssemblyVersion("1.0.1")]
-[assembly: System.Reflection.AssemblyFileVersion("1.0.1")]
+[assembly: System.Reflection.AssemblyVersion("1.0.2")]
+[assembly: System.Reflection.AssemblyFileVersion("1.0.2")]
 
 

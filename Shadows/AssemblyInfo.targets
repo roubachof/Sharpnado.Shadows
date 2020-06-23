@@ -3,7 +3,7 @@
 
   <PropertyGroup>
     <Copyright>Copyright © Sharpnado 2020</Copyright>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Company>Sharpnado</Company>
     <Product>Shadows</Product>
     <Description>Add as many custom shadows as you like to any Xamarin.Forms view (Android, iOS, UWP). Set Color, Opacity, Blur, and Offset for each shadow.</Description>
