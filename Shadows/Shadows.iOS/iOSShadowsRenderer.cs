@@ -29,6 +29,20 @@ namespace Sharpnado.Shades.iOS
             _shadowsController?.OnLayoutSubLayers();
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            if (disposing)
+            {
+                _shadowsController?.DestroyShadows();
+                _shadowsController = null;
+
+                _shadowsLayer?.Dispose();
+                _shadowsLayer = null;
+            }
+        }
+
         protected override void OnElementChanged(ElementChangedEventArgs<Shadows> e)
         {
             base.OnElementChanged(e);
@@ -38,7 +52,7 @@ namespace Sharpnado.Shades.iOS
                 _shadowsController?.DestroyShadows();
                 _shadowsController = null;
 
-                _shadowsLayer.Dispose();
+                _shadowsLayer?.Dispose();
                 _shadowsLayer = null;
                 return;
             }

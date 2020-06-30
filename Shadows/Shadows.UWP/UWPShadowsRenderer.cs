@@ -50,6 +50,8 @@ namespace Sharpnado.Shades.UWP
 
             if (disposing)
             {
+                _shadowsController?.DestroyShadows();
+                _shadowsController = null;
             }
         }
 
