@@ -206,14 +206,16 @@ namespace Sharpnado.Shades.Droid
                 () =>
                     $"DrawBitmap( shadeInfoIndex: {shadeInfoIndex}, sourceWidth: {source.MeasuredWidth}, sourceHeight: {source.MeasuredHeight}, bitmapWidth: {shadow.Width}, bitmapHeight: {shadow.Height})");
             InternalLogger.Debug(LogTag, () => info.ToString());
+            RectF rect = new RectF(
+                MaxRadius,
+                MaxRadius,
+                source.MeasuredWidth + MaxRadius,
+                source.MeasuredHeight + MaxRadius);
 
             using var bitmapCanvas = new Canvas(shadow);
             using var paint = new Paint { Color = info.Color };
             bitmapCanvas.DrawRoundRect(
-                MaxRadius,
-                MaxRadius,
-                source.MeasuredWidth + MaxRadius,
-                source.MeasuredHeight + MaxRadius,
+                rect,
                 _cornerRadius,
                 _cornerRadius,
                 paint);
