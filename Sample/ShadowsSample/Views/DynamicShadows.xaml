@@ -10,6 +10,13 @@
                       xmlns:system="clr-namespace:System;assembly=netstandard"
                       xmlns:views="clr-namespace:ShadowsSample.Views;assembly=ShadowsSample">
     <Frame Padding="0" StyleId="3333">
+        <Frame.BorderColor>
+            <OnPlatform x:TypeArguments="Color">
+                <OnPlatform.Platforms>
+                    <On Platform="Tizen" Value="Transparent" />
+                </OnPlatform.Platforms>
+            </OnPlatform>
+        </Frame.BorderColor>
         <Grid ColumnSpacing="0" RowSpacing="10">
             <Grid.RowDefinitions>
                 <RowDefinition x:Name="Description" Height="Auto" />
@@ -93,6 +100,13 @@
                        VerticalOptions="Center"
                        BackgroundColor="White"
                        CornerRadius="10">
+                    <Frame.BorderColor>
+                        <OnPlatform x:TypeArguments="Color">
+                            <OnPlatform.Platforms>
+                                <On Platform="Tizen" Value="Transparent" />
+                            </OnPlatform.Platforms>
+                        </OnPlatform>
+                    </Frame.BorderColor>
                     <Image Source="{images:ImageResource nyan_cat.png}" />
                 </Frame>
             </sh:Shadows>

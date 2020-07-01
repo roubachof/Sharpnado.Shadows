@@ -5,7 +5,7 @@
       <id>Sharpnado.Shadows</id>
       <version>$version$</version>
       <copyright>Sharpnado 2020</copyright>
-      <title>Add as many custom shadows (Color, Offset, Blur, Neumorphism) as you like to any Xamarin.Forms view (Android, iOS, UWP). </title>
+      <title>Add as many custom shadows (Color, Offset, Blur, Neumorphism) as you like to any Xamarin.Forms view (Android, iOS, UWP, Tizen). </title>
       <authors>Jean-Marie Alfonsi</authors>
       <owners></owners>
       <projectUrl>https://github.com/roubachof/Sharpnado.Shadows</projectUrl>
@@ -13,24 +13,29 @@
       <icon>images\shadows.png</icon>
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
       <repository type="git" branch="master" url="https://github.com/roubachof/Sharpnado.Shadows" />
-      <summary>Add as many custom shadows as you like to any Xamarin.Forms view (Android, iOS, UWP). You can set Color, Opacity, Blur, Offset and CornerRadius. Easily achieve neumorphism.</summary>
-      <tags>xamarin.forms android ios uwp netstandard shadow blur color shadows neumorphism</tags>
+      <summary>Add as many custom shadows as you like to any Xamarin.Forms view (Android, iOS, UWP, Tizen). You can set Color, Opacity, Blur, Offset and CornerRadius. Easily achieve neumorphism.</summary>
+      <tags>xamarin.forms android ios uwp tizen netstandard shadow blur color shadows neumorphism</tags>
       <releaseNotes>Fix shadows invalidation on Android.</releaseNotes>
       <description>
-Add as many custom shadows as you like to any Xamarin.Forms view (Android, iOS, UWP).
+Add as many custom shadows as you like to any Xamarin.Forms view (Android, iOS, UWP, Tizen).
 
 * You can specify each shadow Color, Opacity, Blur, and Offset
 * You can add one shadow, 3 shadows, 99 shadows, to any Xamarin.Forms element
 * Implement easily Neumorphism
 * Animate any of these property and make the shadows dance around your elements
-* The only dependency is `Xamarin.Forms`, no `AndroidX`, no `SkiaSharp` needed!
+* The only dependency is `Xamarin.Forms`, no `AndroidX`, no `SkiaSharp` (except Tizen) needed!
 
-Performance: Implemented with custom draw on Android, CALayer on iOS and SpriteVisual on UWP.
+Performance: Implemented with custom draw on Android, CALayer on iOS, SpriteVisual on UWP, SkiaSharp on Tizen.
 
 Mandatory initialization on iOS:
 
     Xamarin.Forms.Forms.Init();
     Sharpnado.Shades.iOS.iOSShadowsRenderer.Initialize();
+
+Mandatory initialization on Tizen:
+
+    Xamarin.Forms.Forms.Init();
+    Sharpnado.Shades.Tizen.TizenShadowsRenderer.Initialize();
 
       </description>
 
@@ -51,6 +56,12 @@ Mandatory initialization on iOS:
         <group targetFramework="uap10.0.16299">
           <dependency id="Xamarin.Forms" version="3.6.0.220655" exclude="Build,Analyzers"/>
           <dependency id="Microsoft.UI.Xaml" version="2.0.181018004" />
+        </group>
+
+        <group targetFramework="tizen40">
+          <dependency id="Xamarin.Forms" version="3.6.0.220655" exclude="Build,Analyzers"/>
+          <dependency id="Tizen.NET" version="4.0.0" />
+          <PackageReference Include="SkiaSharp.Views" Version="1.68.3" />
         </group>
 
       </dependencies>
@@ -79,6 +90,12 @@ Mandatory initialization on iOS:
         <file src="Shadows\Shadows.UWP\bin\x86\Release\Sharpnado.Shadows.UWP.pdb" target="lib\uap10.0.16299\Sharpnado.Shadows.UWP.pdb" />
         <file src="Shadows\Shadows.UWP\bin\x86\Release\Sharpnado.Shadows.dll" target="lib\uap10.0.16299\Sharpnado.Shadows.dll" />
         <file src="Shadows\Shadows.UWP\bin\x86\Release\Sharpnado.Shadows.pdb" target="lib\uap10.0.16299\Sharpnado.Shadows.pdb" />
+
+        <!--Tizen-->
+        <file src="Shadows\Shadows.Tizen\bin\$configuration$\tizen40\Sharpnado.Shadows.Tizen.dll" target="lib\tizen40" />
+        <file src="Shadows\Shadows.Tizen\bin\$configuration$\tizen40\Sharpnado.Shadows.Tizen.pdb" target="lib\tizen40" />
+        <file src="Shadows\Shadows.Tizen\bin\$configuration$\tizen40\Sharpnado.Shadows.dll" target="lib\tizen40" />
+        <file src="Shadows\Shadows.Tizeb\bin\$configuration$\tizen40\Sharpnado.Shadows.pdb" target="lib\tizen40" />
 
         <!--Icon-->
         <file src="Docs\shadows.png" target="images\" />

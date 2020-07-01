@@ -21,7 +21,7 @@ namespace ShadowsSample.Views
 
         public void OnAppearing()
         {
-            if (Device.RuntimePlatform == Device.UWP)
+            if (Device.RuntimePlatform == Device.UWP || Device.RuntimePlatform == Device.Tizen)
             {
                 // fail to load stream on UWP
                 return;

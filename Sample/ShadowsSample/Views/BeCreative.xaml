@@ -9,6 +9,13 @@
                       xmlns:views="clr-namespace:ShadowsSample.Views;assembly=ShadowsSample"
                       xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows">
     <Frame Padding="0" StyleId="3333">
+        <Frame.BorderColor>
+            <OnPlatform x:TypeArguments="Color">
+                <OnPlatform.Platforms>
+                    <On Platform="Tizen" Value="Transparent" />
+                </OnPlatform.Platforms>
+            </OnPlatform>
+        </Frame.BorderColor>
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
                 <RowDefinition x:Name="Description" Height="Auto" />

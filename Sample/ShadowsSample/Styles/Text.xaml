@@ -21,6 +21,7 @@
             <On Platform="Android" Value="ka1.ttf#Karmatic Arcade" />
             <On Platform="iOS" Value="Karmatic Arcade" />
             <On Platform="UWP" Value="Assets/Fonts/ka1.ttf#Karmatic Arcade" />
+            <On Platform="Tizen" Value="KarmaticArcade" />
         </OnPlatform.Platforms>
     </OnPlatform>
 
@@ -28,36 +29,43 @@
         <On Platform="iOS">OpenSans-Bold</On>
         <On Platform="Android">OpenSans-Bold.ttf#Open Sans</On>
         <On Platform="UWP">Assets/Fonts/OpenSans-Bold.ttf#Open Sans</On>
+        <On Platform="Tizen">OpenSans-Bold</On>
     </OnPlatform>
     <OnPlatform x:Key="FontExtraBold" x:TypeArguments="x:String">
         <On Platform="iOS">OpenSans-ExtraBold</On>
         <On Platform="Android">OpenSans-ExtraBold.ttf#Open Sans</On>
         <On Platform="UWP">Assets/Fonts/OpenSans-ExtraBold.ttf#Open Sans</On>
+        <On Platform="Tizen">OpenSans-ExtraBold</On>
     </OnPlatform>
     <OnPlatform x:Key="FontBoldItalic" x:TypeArguments="x:String">
         <On Platform="iOS">OpenSans-BoldItalic</On>
         <On Platform="Android">OpenSans-BoldItalic.ttf#Open Sans</On>
         <On Platform="UWP">Assets/Fonts/OpenSans-BoldItalic.ttf#Open Sans</On>
+        <On Platform="Tizen">OpenSans-BoldItalic</On>
     </OnPlatform>
     <OnPlatform x:Key="FontRegular" x:TypeArguments="x:String">
         <On Platform="iOS">OpenSans-Regular</On>
         <On Platform="Android">OpenSans-Regular.ttf#Open Sans</On>
         <On Platform="UWP">Assets/Fonts/OpenSans-Regular.ttf#Open Sans</On>
+        <On Platform="Tizen">OpenSans-Regular</On>
     </OnPlatform>
     <OnPlatform x:Key="FontItalic" x:TypeArguments="x:String">
         <On Platform="iOS">OpenSans-Italic</On>
         <On Platform="Android">OpenSans-Italic.ttf#Open Sans</On>
         <On Platform="UWP">Assets/Fonts/OpenSans-Italic.ttf#Open Sans</On>
+        <On Platform="Tizen">OpenSans-Italic</On>
     </OnPlatform>
     <OnPlatform x:Key="FontSemiBold" x:TypeArguments="x:String">
         <On Platform="iOS">OpenSans-SemiBold</On>
         <On Platform="Android">OpenSans-SemiBold.ttf#Open Sans</On>
         <On Platform="UWP">Assets/Fonts/OpenSans-SemiBold.ttf#Open Sans</On>
+        <On Platform="Tizen">OpenSans-SemiBold</On>
     </OnPlatform>
     <OnPlatform x:Key="FontLight" x:TypeArguments="x:String">
         <On Platform="iOS">OpenSans-Light</On>
         <On Platform="Android">OpenSans-Light.ttf#Open Sans</On>
         <On Platform="UWP">Assets/Fonts/OpenSans-Light.ttf#Open Sans</On>
+        <On Platform="Tizen">OpenSans-Light</On>
     </OnPlatform>
 
     <Style x:Key="TextHuge" TargetType="Label">

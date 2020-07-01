@@ -9,6 +9,13 @@
                       xmlns:tabs="clr-namespace:Sharpnado.Presentation.Forms.CustomViews.Tabs;assembly=Sharpnado.Presentation.Forms"
                       xmlns:views="clr-namespace:ShadowsSample.Views;assembly=ShadowsSample">
     <Frame IsClippedToBounds="False" StyleId="3333">
+        <Frame.BorderColor>
+            <OnPlatform x:TypeArguments="Color">
+                <OnPlatform.Platforms>
+                    <On Platform="Tizen" Value="Transparent" />
+                </OnPlatform.Platforms>
+            </OnPlatform>
+        </Frame.BorderColor>
         <Grid RowSpacing="10">
             <Grid.RowDefinitions>
                 <RowDefinition x:Name="Description" Height="Auto" />
@@ -69,6 +76,13 @@
                        BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
                        CornerRadius="30"
                        IsClippedToBounds="True">
+                    <Frame.BorderColor>
+                        <OnPlatform x:TypeArguments="Color">
+                            <OnPlatform.Platforms>
+                                <On Platform="Tizen" Value="Transparent" />
+                            </OnPlatform.Platforms>
+                        </OnPlatform>
+                    </Frame.BorderColor>
                     <tabs:TabHostView SelectedIndex="0">
                         <tabs:TabHostView.Tabs>
                             <tabs:BottomTabItem IconImageSource="{StaticResource IconCogWhite}"

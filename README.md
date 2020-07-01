@@ -11,6 +11,7 @@ Get it from NuGet:
 | :heavy_check_mark: Android |
 | :heavy_check_mark: iOS     |
 | :heavy_check_mark: UWP     |
+| :heavy_check_mark: Tizen   |
 
 ![Presentation](Docs/github_banner.png)
 
@@ -20,15 +21,20 @@ On `iOS` add this line after `Xamarin.Forms.Forms.Init()` and before `LoadApplic
 
 `Sharpnado.Shades.iOS.iOSShadowsRenderer.Initialize();`
 
+
+On `Tizen` add this line after `Xamarin.Forms.Forms.Init()` and before `LoadApplication(new App())`.
+
+`Sharpnado.Shades.Tizen.TizenShadowsRenderer.Initialize();`
+
 ## Presentation
 
-Add as **many** **custom** shadows as you like to any `Xamarin.Forms` view (`Android`, `iOS`, `UWP`). 
+Add as **many** **custom** shadows as you like to any `Xamarin.Forms` view (`Android`, `iOS`, `UWP`, `Tizen`).
 
 * You can specify each shadow `Color`, `Opacity`, `BlurRadius`, and `Offset`
 * Simply implement `Neumorphism`
 * You can add one shadow, 3 shadows, 99 shadows, to any `Xamarin.Forms` element
 * Animate any of these property and make the shadows dance around your elements
-*  No `AndroidX` or `SkiaSharp` dependency required, only `Xamarin.Forms`
+*  No `AndroidX` or `SkiaSharp` dependency required (except Tizen), only `Xamarin.Forms`
 
 ## Using Shadows
 
@@ -285,3 +291,4 @@ It will remove some xaml elements:
 * On `Android`, shadows are created thanks to `RenderScript`. Bitmaps are cached and only recreated when needed
 * On `iOS`, a `Shade` is implemented with a simple `CALayer`
 * On `UWP`, `Shade` is implemented with `SpriteVisual` drop shadows.
+* On `Tizen`, `Shade` is implemented with `SkiaSharp`.
