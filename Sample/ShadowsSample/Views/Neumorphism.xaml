@@ -37,6 +37,7 @@
             <sh:Shadows Grid.Row="1"
                         Grid.Column="0"
                         CornerRadius="40"
+                        x:Name="ButtonPlusNeuShadows"
                         Shades="{sh:NeumorphismShades}">
                 <ImageButton WidthRequest="60"
                              HeightRequest="60"
@@ -45,6 +46,7 @@
                              VerticalOptions="Center"
                              BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
                              CornerRadius="30"
+                             Clicked="ImageButtonOnClicked"
                              Source="{StaticResource IconPlusGray}" />
             </sh:Shadows>
 

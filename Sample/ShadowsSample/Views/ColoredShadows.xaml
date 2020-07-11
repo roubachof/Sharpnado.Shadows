@@ -37,6 +37,7 @@
 
             <sh:Shadows Grid.Row="1"
                         Grid.Column="0"
+                        x:Name="ButtonPlusColoredShadows"
                         CornerRadius="40"
                         Shades="{sh:SingleShade Offset='0, 10',
                                                 Opacity=0.7,
@@ -48,6 +49,7 @@
                              VerticalOptions="Center"
                              BackgroundColor="Violet"
                              CornerRadius="30"
+                             Clicked="ImageButtonOnClicked"
                              Source="{StaticResource IconPlusWhite}" />
             </sh:Shadows>
 
