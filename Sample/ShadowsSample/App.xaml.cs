@@ -17,7 +17,7 @@ namespace ShadowsSample
                 MainPage = new MainPage();
             }
 
-            Sharpnado.Shades.Initializer.Initialize(true, false);
+            Sharpnado.Shades.Initializer.Initialize(true, true);
         }
 
         protected override void OnStart()

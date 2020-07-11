@@ -16,7 +16,6 @@ namespace Sharpnado.Shades
         public const string WarningLevel = "WARN";
         public const string ErrorLevel = "ERRO";
 
-
         public static Initializer.LoggerDelegate LoggerDelegate { get; set; }
 
         public static bool EnableLogging { get; set; } = false;
