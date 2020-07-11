@@ -5,6 +5,7 @@ using System.Text;
 [assembly:InternalsVisibleTo("Sharpnado.Shadows.Android")]
 [assembly:InternalsVisibleTo("Sharpnado.Shadows.iOS")]
 [assembly:InternalsVisibleTo("Sharpnado.Shadows.UWP")]
+[assembly:InternalsVisibleTo("Sharpnado.Shadows.Tizen")]
 [assembly:InternalsVisibleTo("Sharpnado.Presentation.Forms")]
 
 namespace Sharpnado.Shades

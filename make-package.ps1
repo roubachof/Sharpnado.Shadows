@@ -6,6 +6,7 @@ $netstandardProject = ".\Shadows\Shadows\Shadows.csproj"
 $droidProject = ".\Shadows\Shadows.Droid\Shadows.Droid.csproj"
 $iosProject = ".\Shadows\Shadows.iOS\Shadows.iOS.csproj"
 $uwpProject = ".\Shadows\Shadows.UWP\Shadows.UWP.csproj"
+$tizenProject = ".\Shadows\Shadows.Tizen\Shadows.Tizen.csproj"
 
 echo "  Setting Xamarin.Forms version to $formsVersion"
 
@@ -16,6 +17,7 @@ $replaceString = "`$1 $formsVersion `$3"
 (Get-Content $droidProject -Raw) -replace $findXFVersion, "$replaceString" | Out-File $droidProject
 (Get-Content $iosProject -Raw) -replace $findXFVersion, "$replaceString" | Out-File $iosProject
 (Get-Content $uwpProject -Raw) -replace $findXFVersion, "$replaceString" | Out-File $uwpProject
+(Get-Content $tizenProject -Raw) -replace $findXFVersion, "$replaceString" | Out-File $tizenProject
 
 echo "  building Sharpnado.Shadows solution"
 msbuild .\Shadows\Shadows.sln /t:Clean,Restore,Build /p:Configuration=Release > build.txt
