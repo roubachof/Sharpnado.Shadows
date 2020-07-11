@@ -17,7 +17,7 @@ using Rectangle = Windows.UI.Xaml.Shapes.Rectangle;
 
 namespace Sharpnado.Shades.UWP
 {
-    public class UWPShadowsController
+ public class UWPShadowsController
     {
         private const string LogTag = nameof(UWPShadowsController);
 
@@ -34,10 +34,14 @@ namespace Sharpnado.Shades.UWP
 
         private Compositor _compositor;
 
+
         public UWPShadowsController(Canvas shadowCanvas, FrameworkElement shadowSource, float cornerRadius)
         {
+
             _shadowsCanvas = shadowCanvas;
+
             _shadowSource = shadowSource;
+
             _cornerRadius = cornerRadius;
 
             _shadowSource.SizeChanged += ShadowSourceSizeChanged;
@@ -45,15 +49,18 @@ namespace Sharpnado.Shades.UWP
 
         public void DestroyShadow(int shadowIndex)
         {
-            InternalLogger.Debug(LogTag, $"DestroyShadow( shadowIndex: {shadowIndex} )");
+            try
+            {
+                InternalLogger.Debug(LogTag, $"DestroyShadow( shadowIndex: {shadowIndex} )");
 
-            var shadowHost = _shadowsCanvas.Children[shadowIndex];
-            var visual = _shadowVisuals[shadowIndex];
-            ElementCompositionPreview.SetElementChildVisual(shadowHost, null);
-
-            _shadowsCanvas.Children.RemoveAt(shadowIndex);
-            _shadowVisuals.RemoveAt(shadowIndex);
-            visual.Dispose();
+                var shadowHost = _shadowsCanvas.Children[shadowIndex];
+                var visual = _shadowVisuals[shadowIndex];
+                ElementCompositionPreview.SetElementChildVisual(shadowHost, null);
+                _shadowsCanvas.Children.RemoveAt(shadowIndex);
+                _shadowVisuals.RemoveAt(shadowIndex);
+                visual.Dispose();
+            }
+            catch { }
         }
 
         public void DestroyShadows()
@@ -144,25 +151,28 @@ namespace Sharpnado.Shades.UWP
 
         private void InsertShade(int insertIndex, Shade shade)
         {
+            shade.PropertyChanged -= ShadePropertyChanged;
             InternalLogger.Debug(LogTag, () => $"InsertShade( insertIndex: {insertIndex}, shade: {shade} )");
 
             // https://docs.microsoft.com/en-US/windows/uwp/composition/using-the-visual-layer-with-xaml
-            double width = _shadowSource.ActualSize.X;
-            double height = _shadowSource.ActualSize.Y;
 
-            shade.PropertyChanged -= ShadePropertyChanged;
+            var ttv = _shadowSource.TransformToVisual(_shadowsCanvas);
+            Windows.Foundation.Point offset = ttv.TransformPoint(new Windows.Foundation.Point(0, 0));
+
+            double width = _shadowSource.ActualWidth;
+            double height = _shadowSource.ActualHeight;
 
             var shadowHost = new Rectangle()
-                {
-                    Fill = Xamarin.Forms.Color.White.ToBrush(),
-                    Width = width,
-                    Height = height,
-                    RadiusX = _cornerRadius,
-                    RadiusY = _cornerRadius,
-                };
+            {
+                Fill = Xamarin.Forms.Color.White.ToBrush(),
+                Width = width,
+                Height = height,
+                RadiusX = _cornerRadius,
+                RadiusY = _cornerRadius,
+            };
 
-            Canvas.SetLeft(shadowHost, _shadowSource.ActualOffset.X);
-            Canvas.SetTop(shadowHost, _shadowSource.ActualOffset.Y);
+                Canvas.SetLeft(shadowHost, offset.X);
+                Canvas.SetTop(shadowHost, offset.Y);
 
             _shadowsCanvas.Children.Insert(insertIndex, shadowHost);
 
@@ -186,35 +196,37 @@ namespace Sharpnado.Shades.UWP
             _shadowVisuals.Insert(insertIndex, shadowVisual);
 
             ElementCompositionPreview.SetElementChildVisual(shadowHost, shadowVisual);
-
             shade.PropertyChanged += ShadePropertyChanged;
         }
 
         private void ShadowSourceSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            double width = _shadowSource.ActualSize.X;
-            double height = _shadowSource.ActualSize.Y;
+            var ttv = _shadowSource.TransformToVisual(_shadowsCanvas);
+            Windows.Foundation.Point offset = ttv.TransformPoint(new Windows.Foundation.Point(0, 0));
+            double width = _shadowSource.ActualWidth;
+            double height = _shadowSource.ActualHeight;
+
 
             if (width < 1 || height < 1)
             {
                 return;
             }
 
-            InternalLogger.Debug(
-                LogTag,
-                $"shadowSource: {{ ActualOffset: {_shadowSource.ActualOffset}, ActualSize: {_shadowSource.ActualSize}, Margin: {_shadowSource.Margin} }}");
+            //InternalLogger.Debug(
+            //    LogTag,
+            //    $"shadowSource: {{ ActualOffset: {_shadowSource.ActualOffset}, ActualSize: {_shadowSource.ActualSize}, Margin: {_shadowSource.Margin} }}");
 
             for (int i = 0; i < _shadesSource.Count(); i++)
             {
                 var shadowHost = (Rectangle)_shadowsCanvas.Children[i];
                 var shadowVisual = _shadowVisuals[i];
 
-                InternalLogger.Debug(
-                    LogTag,
-                    $"shadowHost: {{ ActualOffset: {shadowHost.ActualOffset}, ActualSize: {shadowHost.ActualSize}, Margin: {shadowHost.Margin} }}");
+                //InternalLogger.Debug(
+                //    LogTag,
+                //    $"shadowHost: {{ ActualOffset: {shadowHost.ActualOffset}, ActualSize: {shadowHost.ActualSize}, Margin: {shadowHost.Margin} }}");
+                Canvas.SetLeft(shadowHost, offset.X + SafeMargin);
+                Canvas.SetTop(shadowHost, offset.Y + SafeMargin);
 
-                Canvas.SetLeft(shadowHost, _shadowSource.ActualOffset.X + SafeMargin);
-                Canvas.SetTop(shadowHost, _shadowSource.ActualOffset.Y + SafeMargin);
 
                 double newWidth = width - 2 * SafeMargin;
                 double newHeight = height - 2 * SafeMargin;
@@ -277,4 +289,5 @@ namespace Sharpnado.Shades.UWP
             return Windows.UI.Color.FromArgb((byte)(color.A * 255), (byte)(color.R * 255), (byte)(color.G * 255), (byte)(color.B * 255));
         }
     }
+
 }
