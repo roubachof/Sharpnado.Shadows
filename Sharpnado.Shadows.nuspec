@@ -14,7 +14,7 @@
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
       <repository type="git" branch="master" url="https://github.com/roubachof/Sharpnado.Shadows" />
       <summary>Add as many custom shadows as you like to any Xamarin.Forms view (Android, iOS, UWP, Tizen). You can set Color, Opacity, Blur, Offset and CornerRadius. Easily achieve neumorphism.</summary>
-      <tags>xamarin.forms android ios uwp tizen netstandard shadow blur color shadows neumorphism<
+      <tags>xamarin.forms android ios uwp tizen netstandard shadow blur color shadows neumorphism</tags>
       <releaseNotes>Support for Tizen backend by Kangho Hur.
 * Add support for older Android
 * Fixes BindingContext inheritance for shades
@@ -65,7 +65,7 @@ Mandatory initialization on Tizen:
         <group targetFramework="tizen40">
           <dependency id="Xamarin.Forms" version="3.6.0.220655" exclude="Build,Analyzers"/>
           <dependency id="Tizen.NET" version="4.0.0" />
-          <PackageReference Include="SkiaSharp.Views" Version="1.68.3" />
+          <dependency id="SkiaSharp.Views" version="1.68.3" />
         </group>
 
       </dependencies>
@@ -96,10 +96,10 @@ Mandatory initialization on Tizen:
         <file src="Shadows\Shadows.UWP\bin\x86\Release\Sharpnado.Shadows.pdb" target="lib\uap10.0.16299\Sharpnado.Shadows.pdb" />
 
         <!--Tizen-->
-        <file src="Shadows\Shadows.Tizen\bin\$configuration$\tizen40\Sharpnado.Shadows.Tizen.dll" target="lib\tizen40" />
-        <file src="Shadows\Shadows.Tizen\bin\$configuration$\tizen40\Sharpnado.Shadows.Tizen.pdb" target="lib\tizen40" />
-        <file src="Shadows\Shadows.Tizen\bin\$configuration$\tizen40\Sharpnado.Shadows.dll" target="lib\tizen40" />
-        <file src="Shadows\Shadows.Tizeb\bin\$configuration$\tizen40\Sharpnado.Shadows.pdb" target="lib\tizen40" />
+        <file src="Shadows\Shadows.Tizen\bin\Release\tizen40\Sharpnado.Shadows.Tizen.dll" target="lib\tizen40" />
+        <file src="Shadows\Shadows.Tizen\bin\Release\tizen40\Sharpnado.Shadows.Tizen.pdb" target="lib\tizen40" />
+        <file src="Shadows\Shadows.Tizen\bin\Release\tizen40\Sharpnado.Shadows.dll" target="lib\tizen40" />
+        <file src="Shadows\Shadows.Tizen\bin\Release\tizen40\Sharpnado.Shadows.pdb" target="lib\tizen40" />
 
         <!--Icon-->
         <file src="Docs\shadows.png" target="images\" />
