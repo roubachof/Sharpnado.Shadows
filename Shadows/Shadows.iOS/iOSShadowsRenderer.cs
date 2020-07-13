@@ -35,7 +35,7 @@ namespace Sharpnado.Shades.iOS
 
             if (disposing)
             {
-                _shadowsController?.DestroyShadows();
+                _shadowsController?.Dispose();
                 _shadowsController = null;
 
                 _shadowsLayer?.Dispose();
@@ -49,7 +49,7 @@ namespace Sharpnado.Shades.iOS
 
             if (e.NewElement == null)
             {
-                _shadowsController?.DestroyShadows();
+                _shadowsController?.Dispose();
                 _shadowsController = null;
 
                 _shadowsLayer?.Dispose();

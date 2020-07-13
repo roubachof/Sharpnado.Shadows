@@ -88,6 +88,11 @@ namespace Sharpnado.Shades
             Error($"{exception.Message}{Environment.NewLine}{exception}", tag);
         }
 
+        public static void Error(string tag, string message, Exception exception)
+        {
+            Error($"{message}{Environment.NewLine}{exception}", tag);
+        }
+
         public static void Error(Exception exception)
         {
             Error(null, exception);

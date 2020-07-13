@@ -3,18 +3,23 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 
+using Windows.UI.Composition;
+using Windows.UI.Xaml.Shapes;
+
 using Xamarin.Forms.Internals;
 
-namespace Sharpnado.Shades.Droid
+namespace Sharpnado.Shades.UWP
 {
-    public partial class ShadowView
+    public partial class UWPShadowsController
     {
-        private float _cornerRadius;
-        private IEnumerable<Shade> _shadesSource;
-
         public void UpdateCornerRadius(float cornerRadius)
         {
             if (_isDisposed)
+            {
+                return;
+            }
+
+            if (_shadowsCanvas == null && _shadowSource == null)
             {
                 return;
             }
@@ -25,9 +30,15 @@ namespace Sharpnado.Shades.Droid
 
             if (hasChanged && _shadesSource.Any())
             {
-                var immutableSource = _shadesSource.ToArray();
-                DrawBitmaps(immutableSource);
-                Invalidate();
+                for (int i = 0; i < _shadowsCanvas.Children.Count; i++)
+                {
+                    var shadowHost = (Rectangle)_shadowsCanvas.Children[i];
+                    shadowHost.RadiusX = cornerRadius;
+                    shadowHost.RadiusY = cornerRadius;
+
+                    var shadowVisual = _shadowVisuals[i];
+                    ((DropShadow)shadowVisual.Shadow).Mask = shadowHost.GetAlphaMask();
+                }
             }
         }
 
@@ -44,6 +55,7 @@ namespace Sharpnado.Shades.Droid
             }
 
             InternalLogger.Debug(LogTag, () => $"UpdateShades( shadesSource: {shadesSource} )");
+
             if (_shadesSource is INotifyCollectionChanged previousNotifyCollectionChanged)
             {
                 previousNotifyCollectionChanged.CollectionChanged -= ShadesSourceCollectionChanged;
@@ -55,13 +67,11 @@ namespace Sharpnado.Shades.Droid
                 notifyCollectionChanged.CollectionChanged += ShadesSourceCollectionChanged;
             }
 
-            DisposeBitmaps();
+            DestroyShadows();
             for (int i = 0; i < _shadesSource.Count(); i++)
             {
                 InsertShade(i, _shadesSource.ElementAt(i));
             }
-
-            Invalidate();
         }
 
         private void ShadesSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -79,8 +89,6 @@ namespace Sharpnado.Shades.Droid
                         InsertShade(insertIndex, (Shade)e.NewItems[i]);
                     }
 
-                    Invalidate();
-
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     for (int i = 0, removedIndex = e.OldStartingIndex; i < e.OldItems.Count; i++)
@@ -88,30 +96,19 @@ namespace Sharpnado.Shades.Droid
                         RemoveShade(removedIndex, (Shade)e.OldItems[i]);
                     }
 
-                    Invalidate();
-
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
-                    DisposeBitmaps();
-                    Invalidate();
+                    DestroyShadows();
                     break;
             }
         }
 
-        private void InsertShade(int insertIndex, Shade shade)
-        {
-            InternalLogger.Debug(LogTag, () => $"InsertShade( insertIndex: {insertIndex}, shade: {shade} )");
-            CreateBitmap(insertIndex);
-            DrawBitmap(insertIndex, shade);
-            shade.PropertyChanged += ShadePropertyChanged;
-        }
-
         private void RemoveShade(int removedIndex, Shade shade)
         {
-            InternalLogger.Debug(LogTag, () => $"RemoveShade( removedIndex: {removedIndex} )");
+            InternalLogger.Debug(LogTag, () => $"RemoveShade( insertIndex: {removedIndex} )");
             shade.PropertyChanged -= ShadePropertyChanged;
-            DisposeBitmap(removedIndex);
+            DestroyShadow(removedIndex);
         }
 
         private void UnsubscribeAllShades()
@@ -134,8 +131,7 @@ namespace Sharpnado.Shades.Droid
             var index = _shadesSource.IndexOf(shade);
             if (index < 0)
             {
-                InternalLogger.Warn(
-                    LogTag, $"ShadePropertyChanged => shade property {e.PropertyName} changed but we can't find the shade in the source");
+                InternalLogger.Warn(LogTag, $"ShadePropertyChanged => shade property {e.PropertyName} changed but we can't find the shade in the source");
                 return;
             }
 
@@ -144,12 +140,8 @@ namespace Sharpnado.Shades.Droid
             {
                 case nameof(Shade.BlurRadius):
                 case nameof(Shade.Color):
-                    DrawBitmap(index, shade);
-                    Invalidate();
-                    break;
-
                 case nameof(Shade.Offset):
-                    Invalidate();
+                    UpdateShadeVisual(index, shade);
                     break;
             }
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 
@@ -24,6 +25,8 @@ namespace Sharpnado.Shades.Droid
         private readonly JniWeakReference<View> _weakSource;
         private readonly RenderScript _renderScript;
         private readonly List<Bitmap> _shadesBitmaps;
+
+        private bool _isDisposed;
 
         private int _lastSourceWidth = 0;
         private int _lastSourceHeight = 0;
@@ -95,9 +98,17 @@ namespace Sharpnado.Shades.Droid
             {
                 InternalLogger.Debug(LogTag, "Dispose()");
 
+                if (_shadesSource is INotifyCollectionChanged shadeNotifyCollection)
+                {
+                    shadeNotifyCollection.CollectionChanged -= ShadesSourceCollectionChanged;
+                }
+
                 _renderScript.Destroy();
 
+                UnsubscribeAllShades();
                 DisposeBitmaps();
+
+                _isDisposed = true;
             }
         }
 

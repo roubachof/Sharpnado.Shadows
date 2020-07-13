@@ -5,16 +5,13 @@ using System.Linq;
 
 using Xamarin.Forms.Internals;
 
-namespace Sharpnado.Shades.Droid
+namespace Sharpnado.Shades.iOS
 {
-    public partial class ShadowView
+    public partial class iOSShadowsController
     {
-        private float _cornerRadius;
-        private IEnumerable<Shade> _shadesSource;
-
         public void UpdateCornerRadius(float cornerRadius)
         {
-            if (_isDisposed)
+            if (_isDisposed || _shadowsLayer == null && _shadowSource == null)
             {
                 return;
             }
@@ -25,25 +22,26 @@ namespace Sharpnado.Shades.Droid
 
             if (hasChanged && _shadesSource.Any())
             {
-                var immutableSource = _shadesSource.ToArray();
-                DrawBitmaps(immutableSource);
-                Invalidate();
+                foreach (var subLayer in _shadowsLayer.Sublayers)
+                {
+                    subLayer.CornerRadius = cornerRadius;
+                }
             }
         }
 
         public void UpdateShades(IEnumerable<Shade> shadesSource)
         {
-            if (_isDisposed)
-            {
-                return;
-            }
-
-            if (shadesSource == null)
+            if (_isDisposed || shadesSource == null)
             {
                 return;
             }
 
             InternalLogger.Debug(LogTag, () => $"UpdateShades( shadesSource: {shadesSource} )");
+            if (_shadowsLayer == null && _shadowSource == null)
+            {
+                return;
+            }
+
             if (_shadesSource is INotifyCollectionChanged previousNotifyCollectionChanged)
             {
                 previousNotifyCollectionChanged.CollectionChanged -= ShadesSourceCollectionChanged;
@@ -55,13 +53,11 @@ namespace Sharpnado.Shades.Droid
                 notifyCollectionChanged.CollectionChanged += ShadesSourceCollectionChanged;
             }
 
-            DisposeBitmaps();
+            DestroyShadows();
             for (int i = 0; i < _shadesSource.Count(); i++)
             {
                 InsertShade(i, _shadesSource.ElementAt(i));
             }
-
-            Invalidate();
         }
 
         private void ShadesSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -79,7 +75,7 @@ namespace Sharpnado.Shades.Droid
                         InsertShade(insertIndex, (Shade)e.NewItems[i]);
                     }
 
-                    Invalidate();
+                    _shadowsLayer.SetNeedsDisplay();
 
                     break;
                 case NotifyCollectionChangedAction.Remove:
@@ -88,13 +84,13 @@ namespace Sharpnado.Shades.Droid
                         RemoveShade(removedIndex, (Shade)e.OldItems[i]);
                     }
 
-                    Invalidate();
+                    _shadowsLayer.SetNeedsDisplay();
 
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
-                    DisposeBitmaps();
-                    Invalidate();
+                    DestroyShadows();
+                    _shadowsLayer.SetNeedsDisplay();
                     break;
             }
         }
@@ -102,16 +98,22 @@ namespace Sharpnado.Shades.Droid
         private void InsertShade(int insertIndex, Shade shade)
         {
             InternalLogger.Debug(LogTag, () => $"InsertShade( insertIndex: {insertIndex}, shade: {shade} )");
-            CreateBitmap(insertIndex);
-            DrawBitmap(insertIndex, shade);
+            var shadeSubLayer = shade.ToCALayer();
+            shadeSubLayer.CornerRadius = _cornerRadius;
+            SetLayerFrame(shadeSubLayer);
+
+            _shadowsLayer.InsertSublayer(shadeSubLayer, insertIndex);
+
+            shadeSubLayer.SetNeedsDisplay();
             shade.PropertyChanged += ShadePropertyChanged;
         }
 
         private void RemoveShade(int removedIndex, Shade shade)
         {
-            InternalLogger.Debug(LogTag, () => $"RemoveShade( removedIndex: {removedIndex} )");
+            InternalLogger.Debug(LogTag, () => $"RemoveShade( insertIndex: {removedIndex} )");
             shade.PropertyChanged -= ShadePropertyChanged;
-            DisposeBitmap(removedIndex);
+            DestroyShadow(removedIndex);
+            _shadowsLayer.SetNeedsDisplay();
         }
 
         private void UnsubscribeAllShades()
@@ -134,8 +136,7 @@ namespace Sharpnado.Shades.Droid
             var index = _shadesSource.IndexOf(shade);
             if (index < 0)
             {
-                InternalLogger.Warn(
-                    LogTag, $"ShadePropertyChanged => shade property {e.PropertyName} changed but we can't find the shade in the source");
+                InternalLogger.Warn(LogTag, $"ShadePropertyChanged => shade property {e.PropertyName} changed but we can't find the shade in the source");
                 return;
             }
 
@@ -144,12 +145,8 @@ namespace Sharpnado.Shades.Droid
             {
                 case nameof(Shade.BlurRadius):
                 case nameof(Shade.Color):
-                    DrawBitmap(index, shade);
-                    Invalidate();
-                    break;
-
                 case nameof(Shade.Offset):
-                    Invalidate();
+                    UpdateShadeLayer(index, shade);
                     break;
             }
         }
