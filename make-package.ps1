@@ -33,7 +33,7 @@ msbuild .\Shadows\Shadows.sln /t:Restore > restore.txt
 
 if ($errorCode -gt 0)
 {
-    echo "  Error while cleaning solution, see restore.txt for infos"
+    echo "  Error while restoring packages, see restore.txt for infos"
     return 2
 }
 
@@ -42,7 +42,7 @@ $errorCode = msbuild .\Shadows\Shadows.sln /t:Build /p:Configuration=Release > b
 
 if ($errorCode -gt 0)
 {
-    echo "  Error while cleaning solution, see build.txt for infos"
+    echo "  Error while building solution, see build.txt for infos"
     return 3
 }
 
@@ -51,7 +51,7 @@ $errorCode = msbuild .\Shadows\Shadows.UWP\Shadows.UWP.csproj /t:Build /p:Config
 
 if ($errorCode -gt 0)
 {
-    echo "  Error while cleaning solution, see build.x64.txt for infos"
+    echo "  Error while building UWP x64 dll, see build.x64.txt for infos"
     return 4
 }
 

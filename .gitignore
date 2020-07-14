@@ -336,3 +336,4 @@ ASALocalRun/
 # visual studio code
 .vscode/
 build*.txt
+/*.txt

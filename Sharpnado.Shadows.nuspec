@@ -90,10 +90,10 @@ Mandatory initialization on Tizen:
         <file src="Shadows\Shadows.iOS\bin\Release\Sharpnado.Shadows.pdb" target="lib\Xamarin.iOS10\Sharpnado.Shadows.pdb" />
 
         <!--Xamarin.UWP-->
-        <file src="Shadows\Shadows.UWP\bin\x86\Release\Sharpnado.Shadows.UWP.dll" target="lib\uap10.0.16299\Sharpnado.Shadows.UWP.dll" />
-        <file src="Shadows\Shadows.UWP\bin\x86\Release\Sharpnado.Shadows.UWP.pdb" target="lib\uap10.0.16299\Sharpnado.Shadows.UWP.pdb" />
-        <file src="Shadows\Shadows.UWP\bin\x86\Release\Sharpnado.Shadows.dll" target="lib\uap10.0.16299\Sharpnado.Shadows.dll" />
-        <file src="Shadows\Shadows.UWP\bin\x86\Release\Sharpnado.Shadows.pdb" target="lib\uap10.0.16299\Sharpnado.Shadows.pdb" />
+        <file src="Shadows\Shadows.UWP\bin\x64\Release\Sharpnado.Shadows.UWP.dll" target="lib\uap10.0.16299\Sharpnado.Shadows.UWP.dll" />
+        <file src="Shadows\Shadows.UWP\bin\x64\Release\Sharpnado.Shadows.UWP.pdb" target="lib\uap10.0.16299\Sharpnado.Shadows.UWP.pdb" />
+        <file src="Shadows\Shadows.UWP\bin\x64\Release\Sharpnado.Shadows.dll" target="lib\uap10.0.16299\Sharpnado.Shadows.dll" />
+        <file src="Shadows\Shadows.UWP\bin\x64\Release\Sharpnado.Shadows.pdb" target="lib\uap10.0.16299\Sharpnado.Shadows.pdb" />
 
         <!--Tizen-->
         <file src="Shadows\Shadows.Tizen\bin\Release\tizen40\Sharpnado.Shadows.Tizen.dll" target="lib\tizen40" />
