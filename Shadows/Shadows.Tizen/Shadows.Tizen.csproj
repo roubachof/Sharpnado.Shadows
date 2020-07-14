@@ -1,20 +1,34 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>tizen40</TargetFramework>
     <TargetFrameworkIdentifier>Tizen</TargetFrameworkIdentifier>
     <RootNamespace>Sharpnado.Shades.Tizen</RootNamespace>
     <AssemblyName>Sharpnado.Shadows.Tizen</AssemblyName>
-    <Description>Add as many custom shadows as you like to any Xamarin.Forms view (Android, iOS, UWP and Tizen). Set Color, Opacity, Blur, and Offset for each shadow.</Description>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <CodeAnalysisRuleSet>..\StyleCopRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="SkiaSharp.Views" Version="1.68.3" />
-    <PackageReference Include="Xamarin.Forms" Version="4.6.0.847" />
+    <PackageReference Include="Xamarin.Forms">
+      <Version>4.6.0.847</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Shadows\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Shadows\Shadows.csproj" />
   </ItemGroup>
-
 </Project>
+
+
+
+
+

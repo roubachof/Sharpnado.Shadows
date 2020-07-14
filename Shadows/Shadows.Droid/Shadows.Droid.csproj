@@ -65,8 +65,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Shadows\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="AndroidShadowsRenderer.cs" />
-    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="JniExtensions.cs" />
     <Compile Include="JniWeakReference.cs" />
     <Compile Include="ShadowView.PropertyChanged.cs" />
@@ -79,5 +81,4 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
-  <Import Project="..\AssemblyInfo.targets" />
 </Project>

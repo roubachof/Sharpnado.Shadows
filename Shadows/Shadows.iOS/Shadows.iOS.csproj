@@ -56,6 +56,9 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Shadows\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="CALayerExtensions.cs" />
     <Compile Include="iOSShadowsController.cs" />
     <Compile Include="iOSShadowsController.PropertyChanged.cs" />
@@ -69,5 +72,4 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
-  <Import Project="..\AssemblyInfo.targets" />
 </Project>

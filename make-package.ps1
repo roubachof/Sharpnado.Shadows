@@ -1,12 +1,12 @@
 $formsVersion = "3.6.0.220655"
 
-echo "  <<<< WARNING >>>>> You need to launch 2 times this script to make sure Xamarin.Forms version was correctly resolved..."
-
 $netstandardProject = ".\Shadows\Shadows\Shadows.csproj"
 $droidProject = ".\Shadows\Shadows.Droid\Shadows.Droid.csproj"
 $iosProject = ".\Shadows\Shadows.iOS\Shadows.iOS.csproj"
 $uwpProject = ".\Shadows\Shadows.UWP\Shadows.UWP.csproj"
 $tizenProject = ".\Shadows\Shadows.Tizen\Shadows.Tizen.csproj"
+
+rm *.txt
 
 echo "  Setting Xamarin.Forms version to $formsVersion"
 
@@ -19,8 +19,41 @@ $replaceString = "`$1 $formsVersion `$3"
 (Get-Content $uwpProject -Raw) -replace $findXFVersion, "$replaceString" | Out-File $uwpProject
 (Get-Content $tizenProject -Raw) -replace $findXFVersion, "$replaceString" | Out-File $tizenProject
 
+echo "  cleaning Sharpnado.Shadows solution"
+$errorCode = msbuild .\Shadows\Shadows.sln /t:Clean > clean.txt
+
+if ($errorCode -gt 0)
+{
+    echo "  Error while cleaning solution, see clean.txt for infos"
+    return 1
+}
+
+echo "  restoring Sharpnado.Shadows solution packages"
+msbuild .\Shadows\Shadows.sln /t:Restore > restore.txt
+
+if ($errorCode -gt 0)
+{
+    echo "  Error while cleaning solution, see restore.txt for infos"
+    return 2
+}
+
 echo "  building Sharpnado.Shadows solution"
-msbuild .\Shadows\Shadows.sln /t:Clean,Restore,Build /p:Configuration=Release > build.txt
+$errorCode = msbuild .\Shadows\Shadows.sln /t:Build /p:Configuration=Release > build.txt
+
+if ($errorCode -gt 0)
+{
+    echo "  Error while cleaning solution, see build.txt for infos"
+    return 3
+}
+
+echo "  building Sharpnado.Shadows.UWP x64 solution"
+$errorCode = msbuild .\Shadows\Shadows.UWP\Shadows.UWP.csproj /t:Build /p:Configuration=Release /p:Platform=x64 > build.x64.txt
+
+if ($errorCode -gt 0)
+{
+    echo "  Error while cleaning solution, see build.x64.txt for infos"
+    return 4
+}
 
 $version = (Get-Item Shadows\Shadows\bin\Release\netstandard2.0\Sharpnado.Shadows.dll).VersionInfo.FileVersion
 
