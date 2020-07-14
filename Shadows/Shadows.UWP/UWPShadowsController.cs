@@ -89,7 +89,7 @@ namespace Sharpnado.Shades.UWP
         private void DestroyShadows()
         {
             InternalLogger.Debug(LogTag, "DestroyShadows()");
-            for (int i = _shadowsCanvas.Children.Count - 1; i >= 0; i++)
+            for (int i = _shadowsCanvas.Children.Count - 1; i >= 0; i--)
             {
                 DestroyShadow(i);
             }
