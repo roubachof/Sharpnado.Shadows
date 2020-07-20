@@ -122,7 +122,11 @@ namespace Sharpnado.Shades.Tizen
                 if (bottom < sb) bottom = sb;
             }
 
-            var canvasGeometry = new Rect(geometry.X + (int)left, geometry.Y + (int)top, geometry.Width + (int)right - (int)left, geometry.Height + (int)bottom - (int)top);
+            var canvasGeometry = new Rect(
+                geometry.X + (int)left,
+                geometry.Y + (int)top,
+                geometry.Width + (int)right - (int)left,
+                geometry.Height + (int)bottom - (int)top);
             if (_canvasView != null)
             {
                 _canvasView.Geometry = canvasGeometry;
@@ -163,7 +167,13 @@ namespace Sharpnado.Shades.Tizen
 
                     canvas.Save();
                     canvas.ClipPath(path, SKClipOperation.Difference, true);
-                    paint.ImageFilter = SKImageFilter.CreateDropShadow(scaledOffsetX, scaledOffsetY, scaledBlurRadius, scaledBlurRadius, shade.Color.ToSK(), SKDropShadowImageFilterShadowMode.DrawShadowOnly);
+                    paint.ImageFilter = SKImageFilter.CreateDropShadow(
+                        scaledOffsetX,
+                        scaledOffsetY,
+                        scaledBlurRadius,
+                        scaledBlurRadius,
+                        shade.Color.MultiplyAlpha(shade.Opacity).ToSK(),
+                        SKDropShadowImageFilterShadowMode.DrawShadowOnly);
                     canvas.DrawPath(path, paint);
                     canvas.Restore();
 
@@ -204,6 +214,11 @@ namespace Sharpnado.Shades.Tizen
 
         void ShadePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            if (!Shade.IsShadeProperty(e.PropertyName))
+            {
+                return;
+            }
+
             var shade = (Shade)sender;
             var index = _shadesSource.IndexOf(shade);
             if (index < 0)
@@ -217,6 +232,7 @@ namespace Sharpnado.Shades.Tizen
             {
                 case nameof(Shade.BlurRadius):
                 case nameof(Shade.Color):
+                case nameof(Shade.Opacity):
                 case nameof(Shade.Offset):
                     UpdateGeometry();
                     break;

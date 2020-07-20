@@ -95,8 +95,6 @@ namespace Sharpnado.Shades.UWP
             }
         }
 
-       
-
         private void InsertShade(int insertIndex, Shade shade)
         {
             shade.PropertyChanged -= ShadePropertyChanged;
@@ -132,7 +130,7 @@ namespace Sharpnado.Shades.UWP
 
             var dropShadow = _compositor.CreateDropShadow();
             dropShadow.BlurRadius = (float)shade.BlurRadius * 2;
-            dropShadow.Opacity = 1;
+            dropShadow.Opacity = (float)shade.Opacity;
             dropShadow.Color = shade.Color.ToWindowsColor();
             dropShadow.Offset = new Vector3((float)shade.Offset.X - SafeMargin, (float)shade.Offset.Y - SafeMargin, 0);
             dropShadow.Mask = shadowHost.GetAlphaMask();
@@ -188,7 +186,7 @@ namespace Sharpnado.Shades.UWP
         {
             var dropShadow = (DropShadow)_shadowVisuals[index].Shadow;
             dropShadow.BlurRadius = (float)shade.BlurRadius;
-            dropShadow.Opacity = 1;
+            dropShadow.Opacity = (float)shade.Opacity;
             dropShadow.Color = shade.Color.ToWindowsColor();
             dropShadow.Offset = new Vector3((float)shade.Offset.X, (float)shade.Offset.Y, 0);
         }

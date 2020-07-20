@@ -15,42 +15,13 @@ namespace Sharpnado.Shades
             nameof(Color),
             typeof(Color),
             typeof(Shade),
-            defaultValueCreator: _ => DefaultColor,
-            coerceValue: (bo, v) =>
-                {
-                    var shade = (Shade)bo;
-                    var color = (Color)v;
-                    if (shade.Opacity < 1 && color.A == 1f)
-                    {
-                        // Color is plain and a Opacity is set, add Alpha
-                        return color.MultiplyAlpha(shade.Opacity);
-                    }
-
-                    return color;
-                },
-            propertyChanged: (bo, oldValue, newValue) =>
-                {
-                    var shade = (Shade)bo;
-                    var color = (Color)newValue;
-                    if (color.A < 1 && shade.Opacity == 1f)
-                    {
-                        // Color has alpha and a Opacity is not set, update Opacity
-                        shade.Opacity = color.A;
-                    }
-                });
+            defaultValueCreator: _ => DefaultColor);
 
         public static readonly BindableProperty OpacityProperty = BindableProperty.Create(
             nameof(Opacity),
             typeof(double),
             typeof(Shade),
-            defaultValue: DefaultOpacity,
-            propertyChanged: (bo, oldValue, newValue) =>
-                {
-                    var shade = (Shade)bo;
-                    var previousColor = shade.Color;
-                    var newOpacity = (double)newValue;
-                    shade.Color = new Color(previousColor.R, previousColor.G, previousColor.B, newOpacity);
-                });
+            defaultValue: DefaultOpacity);
 
         public static readonly BindableProperty BlurRadiusProperty = BindableProperty.Create(
             nameof(BlurRadius),
@@ -88,6 +59,14 @@ namespace Sharpnado.Shades
         {
             get => (double)GetValue(BlurRadiusProperty);
             set => SetValue(BlurRadiusProperty, value);
+        }
+
+        public static bool IsShadeProperty(string propertyName)
+        {
+            return propertyName == nameof(Offset)
+                   || propertyName == nameof(Color)
+                   || propertyName == nameof(Opacity)
+                   || propertyName == nameof(BlurRadius);
         }
 
         public override string ToString()

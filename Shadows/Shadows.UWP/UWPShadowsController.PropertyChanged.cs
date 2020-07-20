@@ -127,6 +127,11 @@ namespace Sharpnado.Shades.UWP
                 return;
             }
 
+            if (!Shade.IsShadeProperty(e.PropertyName))
+            {
+                return;
+            }
+
             var shade = (Shade)sender;
             var index = _shadesSource.IndexOf(shade);
             if (index < 0)
@@ -140,6 +145,7 @@ namespace Sharpnado.Shades.UWP
             {
                 case nameof(Shade.BlurRadius):
                 case nameof(Shade.Color):
+                case nameof(Shade.Opacity):
                 case nameof(Shade.Offset):
                     UpdateShadeVisual(index, shade);
                     break;

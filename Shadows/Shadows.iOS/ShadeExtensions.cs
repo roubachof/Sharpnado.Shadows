@@ -19,7 +19,7 @@ namespace Sharpnado.Shades.iOS
                     ShadowColor = shade.Color.ToCGColor(),
                     ShadowRadius = (nfloat)shade.BlurRadius / UIScreen.MainScreen.Scale,
                     ShadowOffset = new CGSize(shade.Offset.X, shade.Offset.Y),
-                    ShadowOpacity = 1,
+                    ShadowOpacity = (float)shade.Opacity,
                     MasksToBounds = false,
                     RasterizationScale = UIScreen.MainScreen.Scale,
                     ShouldRasterize = true,

@@ -59,12 +59,14 @@ namespace Sharpnado.Shades
                 foreach (var shade in (IEnumerable<Shade>)oldvalue)
                 {
                     shade.Parent = null;
+                    shade.BindingContext = null;
                 }
             }
 
             foreach (var shade in (IEnumerable<Shade>)newvalue)
             {
                 shade.Parent = shadows;
+                SetInheritedBindingContext(shade, shadows.BindingContext);
             }
 
             if (newvalue is INotifyCollectionChanged newCollection)

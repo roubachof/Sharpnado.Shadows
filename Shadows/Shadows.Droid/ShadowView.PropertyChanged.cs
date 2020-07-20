@@ -130,6 +130,11 @@ namespace Sharpnado.Shades.Droid
                 return;
             }
 
+            if (!Shade.IsShadeProperty(e.PropertyName))
+            {
+                return;
+            }
+
             var shade = (Shade)sender;
             var index = _shadesSource.IndexOf(shade);
             if (index < 0)
@@ -144,6 +149,7 @@ namespace Sharpnado.Shades.Droid
             {
                 case nameof(Shade.BlurRadius):
                 case nameof(Shade.Color):
+                case nameof(Shade.Opacity):
                     DrawBitmap(index, shade);
                     Invalidate();
                     break;

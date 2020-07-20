@@ -100,7 +100,7 @@ namespace ShadowsSample.Views
             }
 
             ((ObservableCollection<Shade>)CatShadows.Shades).Add(
-                new Shade { Offset = new Point(xOffset, yOffset), Color = color, BlurRadius = blur });
+                new Shade { Offset = new Point(xOffset, yOffset), Color = color, Opacity = opacity, BlurRadius = blur });
 
             ShadeInfos.Add(new ShadeInfo($"{xOffset},{yOffset}", color, blur.ToString()));
         }

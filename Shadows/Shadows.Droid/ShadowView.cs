@@ -325,7 +325,7 @@ namespace Sharpnado.Shades.Droid
                 // float blurCoeff = 1f + (float)shade.BlurRadius / 20f;
 
                 return new ShadeInfo(
-                    shade.Color.ToAndroid(),
+                    shade.Color.MultiplyAlpha(shade.Opacity).ToAndroid(),
                     context.ToPixels(shade.BlurRadius) * 2,
                     context.ToPixels(shade.Offset.X),
                     context.ToPixels(shade.Offset.Y));
