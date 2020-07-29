@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Reflection;
+
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+
+using Sharpnado.Shades.UWP;
 
 namespace Sharpnado.Acrylic.UWP
 {
@@ -39,7 +43,10 @@ namespace Sharpnado.Acrylic.UWP
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
-                Xamarin.Forms.Forms.Init(e);
+
+                var rendererAssemblies = new[] { typeof(UWPShadowsRenderer).GetTypeInfo().Assembly, };
+
+                Xamarin.Forms.Forms.Init(e, rendererAssemblies);
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

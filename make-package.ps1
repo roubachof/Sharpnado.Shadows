@@ -6,6 +6,9 @@ $iosProject = ".\Shadows\Shadows.iOS\Shadows.iOS.csproj"
 $uwpProject = ".\Shadows\Shadows.UWP\Shadows.UWP.csproj"
 $tizenProject = ".\Shadows\Shadows.Tizen\Shadows.Tizen.csproj"
 
+$droidBin = ".\Shadows\Shadows.Droid\bin\Release"
+$droidObj = ".\Shadows\Shadows.Droid\obj\Release"
+
 rm *.txt
 
 echo "  Setting Xamarin.Forms version to $formsVersion"
@@ -19,40 +22,35 @@ $replaceString = "`$1 $formsVersion `$3"
 (Get-Content $uwpProject -Raw) -replace $findXFVersion, "$replaceString" | Out-File $uwpProject
 (Get-Content $tizenProject -Raw) -replace $findXFVersion, "$replaceString" | Out-File $tizenProject
 
-echo "  cleaning Sharpnado.Shadows solution"
-$errorCode = msbuild .\Shadows\Shadows.sln /t:Clean > clean.txt
+echo "  deleting android bin-obj folders"
+rm -Force -Recurse $droidBin
+rm -Force -Recurse $droidObj
 
-if ($errorCode -gt 0)
+echo "  cleaning Sharpnado.Shadows solution"
+msbuild .\Shadows\Shadows.sln /t:Clean
+
+if ($LastExitCode -gt 0)
 {
-    echo "  Error while cleaning solution, see clean.txt for infos"
-    return 1
+    echo "  Error while cleaning solution"
+    return
 }
 
 echo "  restoring Sharpnado.Shadows solution packages"
-msbuild .\Shadows\Shadows.sln /t:Restore > restore.txt
+msbuild .\Shadows\Shadows.sln /t:Restore
 
-if ($errorCode -gt 0)
+if ($LastExitCode -gt 0)
 {
-    echo "  Error while restoring packages, see restore.txt for infos"
-    return 2
+    echo "  Error while restoring packages"
+    return
 }
 
 echo "  building Sharpnado.Shadows solution"
-$errorCode = msbuild .\Shadows\Shadows.sln /t:Build /p:Configuration=Release > build.txt
+$errorCode = msbuild .\Shadows\Shadows.sln /t:Build /p:Configuration=Release
 
-if ($errorCode -gt 0)
+if ($LastExitCode -gt 0)
 {
-    echo "  Error while building solution, see build.txt for infos"
-    return 3
-}
-
-echo "  building Sharpnado.Shadows.UWP x64 solution"
-$errorCode = msbuild .\Shadows\Shadows.UWP\Shadows.UWP.csproj /t:Build /p:Configuration=Release /p:Platform=x64 > build.x64.txt
-
-if ($errorCode -gt 0)
-{
-    echo "  Error while building UWP x64 dll, see build.x64.txt for infos"
-    return 4
+    echo "  Error while building solution"
+    return
 }
 
 $version = (Get-Item Shadows\Shadows\bin\Release\netstandard2.0\Sharpnado.Shadows.dll).VersionInfo.FileVersion

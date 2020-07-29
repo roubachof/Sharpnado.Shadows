@@ -15,11 +15,7 @@
       <repository type="git" branch="master" url="https://github.com/roubachof/Sharpnado.Shadows" />
       <summary>Add as many custom shadows as you like to any Xamarin.Forms view (Android, iOS, UWP, Tizen). You can set Color, Opacity, Blur, Offset and CornerRadius. Easily achieve neumorphism.</summary>
       <tags>xamarin.forms android ios uwp tizen netstandard shadow blur color shadows neumorphism</tags>
-      <releaseNotes>Support for Tizen backend by Kangho Hur.
-* Add support for older Android
-* Fixes BindingContext inheritance for shades
-* Support for older windows sdk by Pavlo Lukianets
-      </releaseNotes>
+      <releaseNotes>Fix for UWP AnyCPU builds.</releaseNotes>
       <description>
 Add as many custom shadows as you like to any Xamarin.Forms view (Android, iOS, UWP, Tizen).
 
@@ -59,7 +55,7 @@ Mandatory initialization on Tizen:
 
         <group targetFramework="uap10.0.16299">
           <dependency id="Xamarin.Forms" version="3.6.0.220655" exclude="Build,Analyzers"/>
-          <dependency id="Microsoft.UI.Xaml" version="2.0.181018004" />
+          <dependency id="Microsoft.UI.Xaml" version="2.1.190606001" />
         </group>
 
         <group targetFramework="tizen40">
@@ -90,10 +86,10 @@ Mandatory initialization on Tizen:
         <file src="Shadows\Shadows.iOS\bin\Release\Sharpnado.Shadows.pdb" target="lib\Xamarin.iOS10\Sharpnado.Shadows.pdb" />
 
         <!--Xamarin.UWP-->
-        <file src="Shadows\Shadows.UWP\bin\x64\Release\Sharpnado.Shadows.UWP.dll" target="lib\uap10.0.16299\Sharpnado.Shadows.UWP.dll" />
-        <file src="Shadows\Shadows.UWP\bin\x64\Release\Sharpnado.Shadows.UWP.pdb" target="lib\uap10.0.16299\Sharpnado.Shadows.UWP.pdb" />
-        <file src="Shadows\Shadows.UWP\bin\x64\Release\Sharpnado.Shadows.dll" target="lib\uap10.0.16299\Sharpnado.Shadows.dll" />
-        <file src="Shadows\Shadows.UWP\bin\x64\Release\Sharpnado.Shadows.pdb" target="lib\uap10.0.16299\Sharpnado.Shadows.pdb" />
+        <file src="Shadows\Shadows.UWP\bin\Release\Sharpnado.Shadows.UWP.dll" target="lib\uap10.0.16299\Sharpnado.Shadows.UWP.dll" />
+        <file src="Shadows\Shadows.UWP\bin\Release\Sharpnado.Shadows.UWP.pdb" target="lib\uap10.0.16299\Sharpnado.Shadows.UWP.pdb" />
+        <file src="Shadows\Shadows.UWP\bin\Release\Sharpnado.Shadows.dll" target="lib\uap10.0.16299\Sharpnado.Shadows.dll" />
+        <file src="Shadows\Shadows.UWP\bin\Release\Sharpnado.Shadows.pdb" target="lib\uap10.0.16299\Sharpnado.Shadows.pdb" />
 
         <!--Tizen-->
         <file src="Shadows\Shadows.Tizen\bin\Release\tizen40\Sharpnado.Shadows.Tizen.dll" target="lib\tizen40" />
