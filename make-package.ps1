@@ -45,7 +45,7 @@ if ($LastExitCode -gt 0)
 }
 
 echo "  building Sharpnado.Shadows solution"
-$errorCode = msbuild .\Shadows\Shadows.sln /t:Build /p:Configuration=Release
+msbuild .\Shadows\Shadows.sln /t:Build /p:Configuration=Release
 
 if ($LastExitCode -gt 0)
 {
