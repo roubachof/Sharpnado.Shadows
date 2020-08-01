@@ -83,15 +83,17 @@ namespace Sharpnado.Shades
                     foreach (Shade newShade in e.NewItems)
                     {
                         newShade.Parent = this;
+                        SetInheritedBindingContext(newShade, BindingContext);
                     }
 
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (Shade newShade in e.OldItems ?? new Shade[0])
+                    foreach (Shade oldShade in e.OldItems ?? new Shade[0])
                     {
-                        newShade.Parent = null;
+                        oldShade.Parent = null;
+                        oldShade.BindingContext = null;
                     }
 
                     break;
