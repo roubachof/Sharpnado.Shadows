@@ -244,7 +244,7 @@ Have a look at the `BeCreative.xaml` file and its code-behind.
 To have a better control of your shades, `Shadows` provides 2 kinds of `MarkupExtension`:
 
 1. One immutable collection of shades: `ImmutableShades`
-2. One mutable collection: `ShadesStack`
+2. One mutable collection: `ShadeStack`
 
 Use the first one if the shade collection will not change and the second one if you want to dynamically add or remove shades.
 
