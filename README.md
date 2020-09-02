@@ -36,6 +36,12 @@ Add as **many** **custom** shadows as you like to any `Xamarin.Forms` view (`And
 * Animate any of these property and make the shadows dance around your elements
 *  No `AndroidX` or `SkiaSharp` dependency required (except Tizen), only `Xamarin.Forms`
 
+## Shadows for Xamarin.Forms components creators
+
+`Shadows` has been developed with modularity in mind, making it really easy to integrate into your own components.
+
+Read the wiki doc: https://github.com/roubachof/Sharpnado.Shadows/wiki/Shadows-for-Xamarin.Forms-components-builders.
+
 ## Using Shadows
 
 `Shadows` is a container for any `Xamarin.Forms` view. 
