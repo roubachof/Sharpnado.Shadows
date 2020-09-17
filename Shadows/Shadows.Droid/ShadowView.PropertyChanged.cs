@@ -25,8 +25,7 @@ namespace Sharpnado.Shades.Droid
 
             if (hasChanged && _shadesSource.Any())
             {
-                var immutableSource = _shadesSource.ToArray();
-                DrawBitmaps(immutableSource);
+                RefreshBitmaps();
                 Invalidate();
             }
         }
@@ -102,8 +101,7 @@ namespace Sharpnado.Shades.Droid
         private void InsertShade(int insertIndex, Shade shade)
         {
             InternalLogger.Debug(LogTag, () => $"InsertShade( insertIndex: {insertIndex}, shade: {shade} )");
-            CreateBitmap(insertIndex);
-            DrawBitmap(insertIndex, shade);
+            InsertBitmap(shade);
             shade.PropertyChanged += ShadePropertyChanged;
         }
 
@@ -111,7 +109,7 @@ namespace Sharpnado.Shades.Droid
         {
             InternalLogger.Debug(LogTag, () => $"RemoveShade( removedIndex: {removedIndex} )");
             shade.PropertyChanged -= ShadePropertyChanged;
-            DisposeBitmap(removedIndex);
+            DisposeBitmap(shade);
         }
 
         private void UnsubscribeAllShades()
@@ -150,11 +148,12 @@ namespace Sharpnado.Shades.Droid
                 case nameof(Shade.BlurRadius):
                 case nameof(Shade.Color):
                 case nameof(Shade.Opacity):
-                    DrawBitmap(index, shade);
+                    RefreshBitmap(shade);
                     Invalidate();
                     break;
 
                 case nameof(Shade.Offset):
+                    UpdateShadeInfo(shade);
                     Invalidate();
                     break;
             }

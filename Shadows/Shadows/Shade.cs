@@ -69,13 +69,7 @@ namespace Sharpnado.Shades
                    || propertyName == nameof(BlurRadius);
         }
 
-        public override string ToString()
-        {
-            var builder = new StringBuilder();
-            builder.AppendLine($"Shade {{ Offset: {Offset},");
-            builder.Append($"Color: {Color}, Opacity: {Opacity}, BlurRadius: {BlurRadius} }}");
-
-            return builder.ToString();
-        }
+        public override string ToString() =>
+            $"{{ Offset: {Offset}, Color: {{A={Color.A}, R={Color.R}, G={Color.G}, B={Color.B}}}, Opacity: {Opacity}, BlurRadius: {BlurRadius} }}";
     }
 }

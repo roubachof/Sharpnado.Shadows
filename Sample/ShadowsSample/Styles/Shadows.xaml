@@ -11,7 +11,7 @@
         <Setter Property="CornerRadius" Value="10" />
         <Setter Property="Shades">
             <sh:ImmutableShades>
-                <sh:Shade BlurRadius="10"
+                <sh:Shade BlurRadius="8"
                           Opacity="1"
                           Offset="-10,-10"
                           Color="White" />

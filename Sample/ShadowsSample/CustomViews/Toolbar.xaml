@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView x:Class="ShadowsSample.CustomViews.Toolbar"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:effects="clr-namespace:Sharpnado.Presentation.Forms.Effects;assembly=Sharpnado.Presentation.Forms"
+             x:Name="RootLayout">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style x:Key="TextTitleStyle"
+                   BasedOn="{StaticResource TextTitle}"
+                   TargetType="Label">
+                <Setter Property="HorizontalOptions">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="LayoutOptions">
+                            <On Platform="iOS">Start</On>
+                            <On Platform="Android">Start</On>
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Margin" Value="30,10" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid x:Name="Grid"
+              ColumnSpacing="0"
+              RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="SafeAreaRowDefinition" Height="24" />
+                <RowDefinition Height="*" />
+                <RowDefinition x:Name="SubtitleRowDefinition" Height="0" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="ButtonColumnDefinition" Width="0" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <BoxView Grid.Row="0"
+                     Grid.ColumnSpan="3"
+                     BackgroundColor="{Binding Source={x:Reference RootLayout}, Path=BackgroundColor}" />
+
+            <ContentView x:Name="BackButton"
+                         Grid.Row="1"
+                         Grid.Column="0"
+                         IsVisible="{Binding Source={x:Reference RootLayout}, Path=ShowBackButton}">
+                <Image Style="{StaticResource ImageMediumSmall}"
+                       effects:ImageEffect.TintColor="{Binding Source={x:Reference RootLayout}, Path=ForegroundColor}"
+                       Source="{StaticResource IconBack}" />
+            </ContentView>
+
+            <Label x:Name="TitleLabel"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Style="{StaticResource TextTitleStyle}"
+                   Text="{Binding Source={x:Reference RootLayout}, Path=Title}"
+                   TextColor="{Binding Source={x:Reference RootLayout}, Path=ForegroundColor}" />
+
+            <Label Grid.Row="2"
+                   Grid.Column="1"
+                   Style="{StaticResource TextBody}"
+                   Margin="30,0,30,30"
+                   Text="{Binding Source={x:Reference RootLayout}, Path=Subtitle}"
+                   TextColor="{Binding Source={x:Reference RootLayout}, Path=ForegroundColor}" />
+
+            <ContentView x:Name="CustomViewRoot"
+                         Grid.Row="1"
+                         Grid.RowSpan="2"
+                         Grid.Column="2" />
+        </Grid>
+    </ContentView.Content>
+</ContentView>

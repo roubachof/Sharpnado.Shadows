@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 using Android.Content;
@@ -20,25 +22,30 @@ namespace Sharpnado.Shades.Droid
         private const int MinimumSize = 5;
         private const int MaxRadius = 100;
 
-        private const string LogTag = nameof(ShadowView);
+        private static int instanceCount = 0;
 
         private readonly JniWeakReference<View> _weakSource;
         private readonly RenderScript _renderScript;
-        private readonly List<Bitmap> _shadesBitmaps;
+        private readonly Dictionary<Shade, ShadeInfo> _shadeInfos;
+
+        private readonly BitmapCache _cache;
 
         private bool _isDisposed;
 
-        private int _lastSourceWidth = 0;
-        private int _lastSourceHeight = 0;
-
-        public ShadowView(Context context, View shadowSource, float cornerRadius)
+        public ShadowView(Context context, View shadowSource, float cornerRadius, string tag = null)
             : base(context)
         {
             _renderScript = RenderScript.Create(context);
             _weakSource = new JniWeakReference<View>(shadowSource);
 
-            _shadesBitmaps = new List<Bitmap>();
+            _cache = BitmapCache.Instance;
+
+            _shadeInfos = new Dictionary<Shade, ShadeInfo>();
             _cornerRadius = cornerRadius;
+
+            LogTag = !string.IsNullOrEmpty(tag) ? $"{nameof(ShadowView)}@{tag}" : nameof(ShadowView);
+
+            InternalLogger.Debug(LogTag, () => $"ShadowView(): {++instanceCount} instances");
         }
 
         public ShadowView(Context context, IAttributeSet attrs)
@@ -61,15 +68,10 @@ namespace Sharpnado.Shades.Droid
         {
         }
 
-        private static Predicate<View> HasMinimumSize =>
+        public string LogTag { get; }
+
+        public static Predicate<View> HasMinimumSize =>
             view => view.MeasuredWidth >= MinimumSize && view.MeasuredHeight >= 5;
-
-        private Predicate<View> SourceSizeChanged =>
-            view => view.MeasuredWidth != _lastSourceWidth || view.MeasuredHeight != _lastSourceHeight;
-
-        private bool ShouldDrawBitmaps =>
-            _shadesBitmaps.Count != _shadesSource.Count()
-            || (_weakSource.TryGetTarget(out var source) && SourceSizeChanged(source));
 
         public void Layout(int width, int height)
         {
@@ -83,10 +85,27 @@ namespace Sharpnado.Shades.Droid
             Measure(width, height);
             Layout(0, 0, width, height);
 
-            if (ShouldDrawBitmaps)
+            //if (ShouldDrawBitmaps)
+            //{
+            //    RefreshBitmaps();
+            //    Invalidate();
+            //}
+        }
+
+        protected override void OnSizeChanged(int w, int h, int oldw, int oldh)
+        {
+            base.OnSizeChanged(w, h, oldw, oldh);
+
+            if (w <= MinimumSize || h <= MinimumSize)
             {
-                CreateAndDrawBitmaps();
-                Invalidate();
+                return;
+            }
+
+            if (_weakSource.TryGetTarget(out var source) && (w != oldw || h != oldh))
+            {
+                InternalLogger.Debug(LogTag, () => $"OnSizeChanged( {source.MeasuredWidth}w, {source.MeasuredHeight}h )");
+
+                RefreshBitmaps();
             }
         }
 
@@ -103,7 +122,10 @@ namespace Sharpnado.Shades.Droid
                     shadeNotifyCollection.CollectionChanged -= ShadesSourceCollectionChanged;
                 }
 
-                _renderScript.Destroy();
+                if (!_renderScript.IsNullOrDisposed())
+                {
+                    _renderScript.Destroy();
+                }
 
                 UnsubscribeAllShades();
                 DisposeBitmaps();
@@ -112,38 +134,22 @@ namespace Sharpnado.Shades.Droid
             }
         }
 
-        protected override void OnSizeChanged(int w, int h, int oldw, int oldh)
-        {
-            base.OnSizeChanged(w, h, oldw, oldh);
-
-            if (_weakSource.TryGetTarget(out var source) && (ShouldDrawBitmaps || (w != oldw || h != oldh)))
-            {
-                InternalLogger.Debug(LogTag, () => $"OnSizeChanged( {source.MeasuredWidth}w, {source.MeasuredHeight}h )");
-
-                CreateAndDrawBitmaps();
-            }
-        }
-
         protected override void OnDraw(Canvas canvas)
         {
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+
             if (!_weakSource.TryGetTarget(out var source))
             {
                 return;
             }
 
-            var immutableSource = _shadesSource.ToArray();
-            if (immutableSource.Length != _shadesBitmaps.Count)
+            foreach (var shadeInfo in _shadeInfos.Values)
             {
-                return;
-            }
+                var shadow = _cache.GetOrCreate(shadeInfo.Hash, () => CreateBitmap(shadeInfo));
 
-            for (int i = 0; i < immutableSource.Length; i++)
-            {
-                var info = ShadeInfo.FromShade(Context, immutableSource[i]);
-                var shadow = _shadesBitmaps[i];
-
-                float x = source.GetX() + info.OffsetX - MaxRadius;
-                float y = source.GetY() + info.OffsetY - MaxRadius;
+                float x = source.GetX() + shadeInfo.OffsetX - MaxRadius;
+                float y = source.GetY() + shadeInfo.OffsetY - MaxRadius;
 
                 InternalLogger.Debug(LogTag, () => $"OnDraw( {x}x, {y}y )");
 
@@ -151,10 +157,18 @@ namespace Sharpnado.Shades.Droid
             }
 
             base.OnDraw(canvas);
+            LogPerf(LogTag, stopWatch);
         }
 
-        private void CreateAndDrawBitmaps()
+        private static void LogPerf(string tag, Stopwatch stopwatch, [CallerMemberName] string methodName = "caller")
         {
+            InternalLogger.Debug(tag, () => $"{methodName}: ran in {stopwatch.ElapsedMilliseconds:0000} ms");
+        }
+
+        private void RefreshBitmaps()
+        {
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
             DisposeBitmaps();
 
             if (!_weakSource.TryGetTarget(out var source) || !HasMinimumSize(source))
@@ -162,82 +176,88 @@ namespace Sharpnado.Shades.Droid
                 return;
             }
 
-            InternalLogger.Debug(LogTag, "CreateAndDrawBitmaps()");
-            var immutableSource = _shadesSource.ToArray();
-            for (int i = 0; i < immutableSource.Length; i++)
+            InternalLogger.Debug(LogTag, "RefreshBitmaps()");
+            foreach (var shade in _shadesSource)
             {
-                CreateBitmap(i);
+                InsertBitmap(shade);
             }
 
-            DrawBitmaps(immutableSource);
+            LogPerf(LogTag, stopWatch);
         }
 
-        private void CreateBitmap(int shadeInfoIndex)
+        private void RefreshBitmap(Shade shade)
+        {
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+            DisposeBitmaps();
+
+            if (!_weakSource.TryGetTarget(out var source) || !HasMinimumSize(source))
+            {
+                return;
+            }
+
+            InternalLogger.Debug(LogTag, $"RefreshBitmap( shade: {shade} )");
+            if (_shadeInfos.TryGetValue(shade, out var shadeInfo))
+            {
+                _shadeInfos.Remove(shade);
+                _cache.Remove(shadeInfo.Hash);
+            }
+
+            InsertBitmap(shade);
+
+            LogPerf(LogTag, stopWatch);
+        }
+
+        private void InsertBitmap(Shade shade)
         {
             if (!_weakSource.TryGetTarget(out var source) || !HasMinimumSize(source))
             {
                 return;
             }
 
-            _lastSourceWidth = source.MeasuredWidth;
-            _lastSourceHeight = source.MeasuredHeight;
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
 
-            InternalLogger.Debug(LogTag, () => $"CreateBitmaps( shadeInfoIndex: {shadeInfoIndex}, sourceWidth: {_lastSourceWidth}, sourceHeight: {_lastSourceHeight})");
+            InternalLogger.Debug(LogTag, () => $"InsertBitmap( shade: {shade}, sourceWidth: {source.MeasuredWidth}, sourceHeight: {source.MeasuredHeight})");
 
-            _shadesBitmaps.Insert(
-                shadeInfoIndex,
-                Bitmap.CreateBitmap(
-                    _lastSourceWidth + 2 * MaxRadius,
-                    _lastSourceHeight + 2 * MaxRadius,
-                    Bitmap.Config.Argb8888));
+            var shadeInfo = ShadeInfo.FromShade(Context, shade, _cornerRadius, source);
+            _shadeInfos.Add(shade, shadeInfo);
+
+            _cache.Add(shadeInfo.Hash, () => CreateBitmap(shadeInfo));
+            LogPerf(LogTag, stopWatch);
         }
 
-        private void DrawBitmap(int shadeInfoIndex, Shade shade)
+        private Bitmap CreateBitmap(ShadeInfo shadeInfo)
         {
-            InternalLogger.Debug(LogTag, () => $"DrawBitmap( shadeInfoIndex: {shadeInfoIndex})");
-            if (!_weakSource.TryGetTarget(out var source))
-            {
-                return;
-            }
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+            var shadow = Bitmap.CreateBitmap(
+                shadeInfo.Width,
+                shadeInfo.Height,
+                Bitmap.Config.Argb8888);
 
-            if (shadeInfoIndex >= _shadesBitmaps.Count)
-            {
-                InternalLogger.Warn(
-                    LogTag, $"DrawBitmap => Couldn't find a bitmap at index {shadeInfoIndex}, possibly CreateBitmap wasn't run because the measurement has not have been made yet");
-                return;
-            }
-
-            var info = ShadeInfo.FromShade(Context, shade);
-            var shadow = _shadesBitmaps[shadeInfoIndex];
-
-            shadow.EraseColor(Color.Transparent);
-
-            InternalLogger.Debug(
-                LogTag,
-                () =>
-                    $"DrawBitmap( shadeInfoIndex: {shadeInfoIndex}, sourceWidth: {source.MeasuredWidth}, sourceHeight: {source.MeasuredHeight}, bitmapWidth: {shadow.Width}, bitmapHeight: {shadow.Height})");
-            InternalLogger.Debug(LogTag, () => info.ToString());
+            InternalLogger.Debug(LogTag, () => $"CreateBitmap( shadeInfo: {shadeInfo} )");
             RectF rect = new RectF(
-                MaxRadius,
-                MaxRadius,
-                source.MeasuredWidth + MaxRadius,
-                source.MeasuredHeight + MaxRadius);
+                ShadeInfo.Padding,
+                ShadeInfo.Padding,
+                shadeInfo.Width - ShadeInfo.Padding,
+                shadeInfo.Height - ShadeInfo.Padding);
 
             using var bitmapCanvas = new Canvas(shadow);
-            using var paint = new Paint { Color = info.Color };
+            using var paint = new Paint { Color = shadeInfo.Color };
             bitmapCanvas.DrawRoundRect(
                 rect,
                 _cornerRadius,
                 _cornerRadius,
                 paint);
 
-            if (info.BlurRadius < 1)
+            if (shadeInfo.BlurRadius < 1)
             {
-                return;
+                return shadow;
             }
 
             const int MaxBlur = 25;
-            float blurAmount = info.BlurRadius > MaxRadius ? MaxRadius : info.BlurRadius;
+            float blurAmount = shadeInfo.BlurRadius > MaxRadius ? MaxRadius : shadeInfo.BlurRadius;
             while (blurAmount > 0)
             {
                 Allocation input = Allocation.CreateFromBitmap(
@@ -265,51 +285,68 @@ namespace Sharpnado.Shades.Droid
                 script.ForEach(output);
                 output.CopyTo(shadow);
             }
+
+            LogPerf(LogTag, stopWatch);
+            return shadow;
         }
 
-        private void DrawBitmaps(Shade[] immutableSource)
+        private void DisposeBitmap(Shade shade)
         {
-            InternalLogger.Debug(LogTag, "DrawBitmaps()");
-            for (int i = 0; i < immutableSource.Length; i++)
-            {
-                DrawBitmap(i, immutableSource[i]);
-            }
-        }
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+            InternalLogger.Debug(LogTag, () => $"DisposeBitmap( shade: {shade} )");
+            var shadeInfo = _shadeInfos[shade];
+            _shadeInfos.Remove(shade);
 
-        private void DisposeBitmap(int index)
-        {
-            InternalLogger.Debug(LogTag, () => $"DisposeBitmap( index: {index} )");
-            var bitmap = _shadesBitmaps[index];
-            _shadesBitmaps.RemoveAt(index);
-            bitmap.Recycle();
-            bitmap.Dispose();
+            _cache.Remove(shadeInfo.Hash);
+            LogPerf(LogTag, stopWatch);
         }
 
         private void DisposeBitmaps()
         {
-            if (_shadesBitmaps.Count == 0)
+            if (_shadeInfos.Count == 0)
             {
                 return;
             }
 
-            InternalLogger.Debug(LogTag, $"DisposeBitmaps()");
-            foreach (var bitmap in _shadesBitmaps)
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+            InternalLogger.Debug(LogTag, () => $"DisposeBitmaps()");
+            foreach (var shadeInfo in _shadeInfos.Values)
             {
-                bitmap.Recycle();
-                bitmap.Dispose();
+                _cache.Remove(shadeInfo.Hash);
             }
 
-            _shadesBitmaps.Clear();
+            _shadeInfos.Clear();
+            LogPerf(LogTag, stopWatch);
         }
 
-        private struct ShadeInfo
+        private void UpdateShadeInfo(Shade shade)
         {
-            private ShadeInfo(Color color, float blurRadius, float offsetX, float offsetY)
+            if (!_weakSource.TryGetTarget(out var source))
+            {
+                return;
+            }
+
+            InternalLogger.Debug(LogTag, () => $"UpdateShadeInfo( shade: {shade} )");
+
+            _shadeInfos[shade] = ShadeInfo.FromShade(Context, shade, _cornerRadius, source);
+        }
+
+        private readonly struct ShadeInfo
+        {
+            public const int Padding = MaxRadius;
+
+            private ShadeInfo(Color color, float blurRadius, float offsetX, float offsetY, float cornerRadius, int width, int height)
             {
                 Color = color;
                 BlurRadius = blurRadius;
                 OffsetX = offsetX;
                 OffsetY = offsetY;
+                CornerRadius = cornerRadius;
+                Width = width;
+                Height = height;
+                Hash = $"{Width}:{Height},{Color},{BlurRadius},{CornerRadius}";
             }
 
             public Color Color { get; }
@@ -320,7 +357,15 @@ namespace Sharpnado.Shades.Droid
 
             public float OffsetY { get; }
 
-            public static ShadeInfo FromShade(Context context, Shade shade)
+            public float CornerRadius { get; }
+
+            public int Width { get; }
+
+            public int Height { get; }
+
+            public string Hash { get; }
+
+            public static ShadeInfo FromShade(Context context, Shade shade, float cornerRadius, View shadowsSource)
             {
                 // float blurCoeff = 1f + (float)shade.BlurRadius / 20f;
 
@@ -328,20 +373,14 @@ namespace Sharpnado.Shades.Droid
                     shade.Color.MultiplyAlpha(shade.Opacity).ToAndroid(),
                     context.ToPixels(shade.BlurRadius) * 2,
                     context.ToPixels(shade.Offset.X),
-                    context.ToPixels(shade.Offset.Y));
+                    context.ToPixels(shade.Offset.Y),
+                    cornerRadius,
+                    shadowsSource.MeasuredWidth + 2 * Padding,
+                    shadowsSource.MeasuredHeight + 2 * Padding);
             }
 
-            public override string ToString()
-            {
-                var builder = new StringBuilder();
-                builder.AppendLine($"ShadeInfo( Offset: {{ X: {OffsetX}, Y: {OffsetY} }}, ");
-                builder.AppendLine(
-                    $"    Color=> R:{Color.R}, G:{Color.G}, B:{Color.B}, Alpha:{Color.A}, BlurRadius: {BlurRadius} )");
-                builder.AppendLine(
-                    $"    BlurRadius: {BlurRadius} )");
-
-                return builder.ToString();
-            }
+            public override string ToString() =>
+                $"ShadeInfo( Offset: {OffsetX};{OffsetY}, Size: {Width}x{Height}, Color: {Color}, BlurRadius: {BlurRadius} )";
         }
     }
 }

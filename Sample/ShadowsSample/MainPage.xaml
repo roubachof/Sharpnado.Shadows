@@ -5,6 +5,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:shades="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
              xmlns:views="clr-namespace:ShadowsSample.Views;assembly=ShadowsSample"
              BackgroundColor="{DynamicResource DynamicBackgroundColor}"
              BackgroundImageSource="{DynamicResource DynamicBackgroundImageSource}">
@@ -31,6 +32,17 @@
                    HorizontalOptions="End"
                    FontFamily="{StaticResource FontItalic}"
                    Text="The above logo is made of 7 different shades." />
+
+            <shades:Shadows CornerRadius="10" Shades="{shades:NeumorphismShades}">
+                <Button Style="{StaticResource TextHeadline}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
+                        Clicked="OnNavigateToShadowsListClicked"
+                        CornerRadius="10"
+                        Text="Navigate to List of Shadows"
+                        TextColor="Gray" />
+            </shades:Shadows>
 
             <Label Style="{StaticResource TextHeadline}"
                    Margin="{StaticResource HeaderMargin}"

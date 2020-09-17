@@ -3,6 +3,34 @@
 
 <ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+    <Style x:Key="ImageBase" TargetType="Image">
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="Aspect" Value="AspectFit" />
+    </Style>
+
+    <Style x:Key="ImageSmallLarge"
+           BasedOn="{StaticResource ImageBase}"
+           TargetType="Image">
+        <Setter Property="WidthRequest" Value="{StaticResource SizeSmallLargeIcon}" />
+        <Setter Property="HeightRequest" Value="{StaticResource SizeSmallLargeIcon}" />
+    </Style>
+
+    <Style x:Key="ImageMediumSmall"
+           BasedOn="{StaticResource ImageBase}"
+           TargetType="Image">
+        <Setter Property="WidthRequest" Value="{StaticResource SizeMediumSmallIcon}" />
+        <Setter Property="HeightRequest" Value="{StaticResource SizeMediumSmallIcon}" />
+    </Style>
+
+    <Style x:Key="ImageMedium"
+           BasedOn="{StaticResource ImageBase}"
+           TargetType="Image">
+        <Setter Property="WidthRequest" Value="{StaticResource SizeMediumIcon}" />
+        <Setter Property="HeightRequest" Value="{StaticResource SizeMediumIcon}" />
+    </Style>
+
+
     <Style x:Key="ImageSmall" TargetType="Image">
         <Setter Property="WidthRequest" Value="15" />
         <Setter Property="HeightRequest" Value="15" />

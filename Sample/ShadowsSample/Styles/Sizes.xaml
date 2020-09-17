@@ -8,6 +8,10 @@
     <x:Double x:Key="SpacingMedium">20</x:Double>
     <x:Double x:Key="SpacingLarge">30</x:Double>
 
+
+    <x:Double x:Key="HeightToolbar">60</x:Double>
+
+
     <Thickness x:Key="ThicknessTiny">5</Thickness>
     <Thickness x:Key="ThicknessSmall">10</Thickness>
     <Thickness x:Key="ThicknessMedium">20</Thickness>

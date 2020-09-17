@@ -1,4 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+
+using Sharpnado.Tasks;
 
 using Xamarin.Forms;
 
@@ -21,6 +24,11 @@ namespace ShadowsSample
         {
             base.OnAppearing();
             BeCreative.OnAppearing();
+        }
+
+        private void OnNavigateToShadowsListClicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new ShadowList());
         }
     }
 }

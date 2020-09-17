@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView x:Class="ShadowsSample.ListItemCustomEasing"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:effects="clr-namespace:Sharpnado.Presentation.Forms.Effects;assembly=Sharpnado.Presentation.Forms"
+             xmlns:images="clr-namespace:ShadowsSample.Images;assembly=ShadowsSample"
+             xmlns:materialFrame="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+             xmlns:shades="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows">
+
+    <!--<shades:Shadows.Shades>
+        <shades:ImmutableShades>
+            <shades:Shade BlurRadius="10"
+                          Opacity="1"
+                          Offset="-6,-6"
+                          Color="White" />
+            <shades:Shade BlurRadius="10"
+                          Opacity="1"
+                          Offset="6, 6"
+                          Color="#19000000" />
+        </shades:ImmutableShades>
+    </shades:Shadows.Shades>-->
+
+    <materialFrame:MaterialFrame x:Name="Container"
+                                 Margin="20,7,20,15"
+                                 Padding="20,15,10,0"
+                                 CornerRadius="10"
+                                 IsClippedToBounds="False"
+                                 LightThemeBackgroundColor="#F1F1F1"
+                                 MaterialTheme="Acrylic"
+                                 StyleId="Cell">
+        <Grid ColumnSpacing="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Row="0"
+                   Grid.RowSpan="3"
+                   Grid.Column="0"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Source="{images:ImageResource nyan_cat.png}" />
+
+            <Label Grid.Row="0"
+                   Grid.Column="1"
+                   Style="{StaticResource TextTitle}"
+                   VerticalOptions="End"
+                   Text="{Binding .}" />
+
+            <Label Grid.Row="1"
+                   Grid.Column="1"
+                   Style="{StaticResource TextBody}"
+                   VerticalOptions="Start"
+                   Text="Sharpnado" />
+
+            <Label Grid.Row="2"
+                   Grid.Column="1"
+                   Style="{StaticResource TextHeadline}"
+                   Text="999.99$"
+                   TextColor="DarkOrange" />
+
+            <Label x:Name="EasingLabel"
+                   Grid.Row="3"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Style="{StaticResource TextBody}"
+                   VerticalOptions="Center"
+                   Text="Show more details" />
+
+            <ContentView x:Name="ButtonExpand"
+                         Grid.Row="3"
+                         Grid.Column="1"
+                         Padding="10"
+                         HorizontalOptions="End"
+                         VerticalOptions="End"
+                         effects:ViewEffect.TouchFeedbackColor="DarkOrange">
+                <Image BackgroundColor="#F1F1F1" Source="{StaticResource IconChevronDownward}" />
+            </ContentView>
+        </Grid>
+    </materialFrame:MaterialFrame>
+</ContentView>

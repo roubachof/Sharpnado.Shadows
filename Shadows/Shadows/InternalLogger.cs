@@ -23,6 +23,18 @@ namespace Sharpnado.Shades
 
         public static bool EnableDebug { get; set; } = false;
 
+        public static string[] Filters { get; private set; } = new string[0];
+
+        /// <summary>
+        /// Separate tags you want to filter with pipe operator.
+        /// </summary>
+        /// <example>SetFilter("ShadowView|BitmapCache")</example>
+        /// <param name="filter"></param>
+        public static void SetFilter(string filter)
+        {
+            Filters = filter.Split('|');
+        }
+
         public static void Debug(string tag, Func<string> format)
         {
             if (!EnableDebug)
@@ -103,6 +115,23 @@ namespace Sharpnado.Shades
             if (!EnableLogging)
             {
                 return;
+            }
+
+            if (tag != null && Filters.Length > 0)
+            {
+                bool found = false;
+                foreach (var filter in Filters)
+                {
+                    if (found = tag.Contains(filter))
+                    {
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    return;
+                }
             }
 
             if (LoggerDelegate != null)

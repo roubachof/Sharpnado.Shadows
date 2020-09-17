@@ -54,6 +54,9 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Sharpnado.Presentation.Forms">
+      <Version>1.7.1</Version>
+    </PackageReference>
     <PackageReference Include="Sharpnado.TaskMonitor">
       <Version>1.0.0</Version>
     </PackageReference>

@@ -14,10 +14,11 @@ namespace ShadowsSample
             }
             else
             {
-                MainPage = new MainPage();
+                MainPage = new NavigationPage(new MainPage());
             }
 
-            Sharpnado.Shades.Initializer.Initialize(true, true);
+            Sharpnado.Shades.Initializer.Initialize(true, true, filter: "Renderer");
+
         }
 
         protected override void OnStart()

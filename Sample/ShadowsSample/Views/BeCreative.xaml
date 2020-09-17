@@ -6,8 +6,8 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       mc:Ignorable="d"
                       xmlns:images="clr-namespace:ShadowsSample.Images;assembly=ShadowsSample"
-                      xmlns:views="clr-namespace:ShadowsSample.Views;assembly=ShadowsSample"
-                      xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows">
+                      xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+                      xmlns:views="clr-namespace:ShadowsSample.Views;assembly=ShadowsSample">
     <Frame Padding="0" StyleId="3333">
         <Frame.BorderColor>
             <OnPlatform x:TypeArguments="Color">
@@ -103,7 +103,8 @@
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         Margin="0,50,0,0"
-                        CornerRadius="10">
+                        CornerRadius="10"
+                        StyleId="Cat">
                 <sh:Shadows.Shades>
                     <sh:ImmutableShades>
                         <sh:Shade BlurRadius="1"

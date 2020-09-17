@@ -18,11 +18,13 @@ namespace Sharpnado.Shades
         /// <param name="loggerEnable">If false, nothing will be logged.</param>
         /// <param name="debugLogEnable">If false, only debug level will not be logged.</param>
         /// <param name="loggerDelegate">You can add your own implementation of the logger (else the default one will be used).</param>
-        public static void Initialize(bool loggerEnable, bool debugLogEnable = false, LoggerDelegate loggerDelegate = null)
+        /// <param name="filter"></param>
+        public static void Initialize(bool loggerEnable, bool debugLogEnable = false, LoggerDelegate loggerDelegate = null, string filter = null)
         {
             InternalLogger.EnableDebug = debugLogEnable;
             InternalLogger.EnableLogging = loggerEnable;
             InternalLogger.LoggerDelegate = loggerDelegate;
+            InternalLogger.SetFilter(filter);
         }
     }
 }

@@ -11,6 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Images\ableton.png" />
     <None Remove="Images\azure.png" />
     <None Remove="Images\background.jpg" />
@@ -56,7 +62,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Sharpnado.Presentation.Forms" Version="1.6.0" />
+    <PackageReference Include="Sharpnado.Presentation.Forms" Version="1.7.1" />
     <PackageReference Include="Sharpnado.TaskMonitor" Version="1.0.0" />
     <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.4.0" />
     <PackageReference Include="Xamarin.Forms" Version="4.6.0.847" />
@@ -68,12 +74,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="ListItemCustomEasing.xaml.cs">
+      <DependentUpon>ListItemCustomEasing.xaml</DependentUpon>
+    </Compile>
     <Compile Update="MainPageLandscape.xaml.cs">
       <DependentUpon>MainPageLandscape.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="ShadowListCustomEasing.xaml.cs">
+      <DependentUpon>ShadowListCustomEasing.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="ListItemCustomEasing.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="ShadowList.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\BeCreative.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

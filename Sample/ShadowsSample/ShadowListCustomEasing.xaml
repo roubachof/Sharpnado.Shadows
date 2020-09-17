@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ShadowsSample.ShadowListCustomEasing"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customViews="clr-namespace:ShadowsSample.CustomViews;assembly=ShadowsSample"
+             xmlns:images="clr-namespace:ShadowsSample.Images;assembly=ShadowsSample"
+             xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+             xmlns:shadowsSample="clr-namespace:ShadowsSample;assembly=ShadowsSample"
+             BackgroundColor="#E6E6E6"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <CollectionView Grid.Row="1"
+                            Header=""
+                            SelectionMode="None">
+                <CollectionView.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Xamarin.Forms is good</x:String>
+                        <x:String>Flutter is good</x:String>
+                        <x:String>Developers can be good</x:String>
+                        <x:String>Developers can be bad</x:String>
+                    </x:Array>
+                </CollectionView.ItemsSource>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <shadowsSample:ListItemCustomEasing />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <sh:Shadows Grid.Row="0">
+                <sh:Shadows.Shades>
+                    <sh:ImmutableShades>
+                        <sh:Shade BlurRadius="10"
+                                  Opacity="1"
+                                  Offset="0, 6"
+                                  Color="#19000000" />
+                    </sh:ImmutableShades>
+                </sh:Shadows.Shades>
+                <customViews:Toolbar Title="It's Not About The Tech Bruh!"
+                                     BackgroundColor="Orange"
+                                     ForegroundColor="White"
+                                     ShowBackButton="True" />
+            </sh:Shadows>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
+
+
+<!--<DataTemplate>
+                    <sh:Shadows>
+                        <Frame Margin="20"
+                               IsClippedToBounds="False"
+                               StyleId="Cell">
+                            <Frame.BorderColor>
+                                <OnPlatform x:TypeArguments="Color">
+                                    <OnPlatform.Platforms>
+                                        <On Platform="Tizen" Value="Transparent" />
+                                    </OnPlatform.Platforms>
+                                </OnPlatform>
+                            </Frame.BorderColor>
+                            <Grid RowSpacing="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="70" />
+                                    <RowDefinition Height="100" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       Style="{StaticResource TextBodySecondary}"
+                                       Margin="0,0,0,20"
+                                       Text="{Binding .}" />
+
+                                <sh:Shadows x:Name="ButtonPlusNeuShadows"
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            CornerRadius="40"
+                                            Shades="{sh:NeumorphismShades}">
+                                    <ImageButton WidthRequest="60"
+                                                 HeightRequest="60"
+                                                 Padding="20"
+                                                 HorizontalOptions="Center"
+                                                 VerticalOptions="Center"
+                                                 BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
+                                                 CornerRadius="30"
+                                                 Source="{StaticResource IconPlusGray}" />
+                                </sh:Shadows>
+
+                                <sh:Shadows Grid.Row="1"
+                                            Grid.Column="1"
+                                            CornerRadius="10"
+                                            Shades="{sh:NeumorphismShades}">
+                                    <Button Style="{StaticResource TextHeadline}"
+                                            WidthRequest="120"
+                                            HeightRequest="60"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"
+                                            BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
+                                            CornerRadius="10"
+                                            Text="Reset"
+                                            TextColor="Gray" />
+                                </sh:Shadows>
+
+                                <sh:Shadows Grid.Row="2"
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="2"
+                                            CornerRadius="30"
+                                            Shades="{sh:NeumorphismShades}">
+
+                                    <Frame HeightRequest="60"
+                                           Margin="15,20"
+                                           Padding="0"
+                                           VerticalOptions="Center"
+                                           BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
+                                           CornerRadius="30"
+                                           IsClippedToBounds="True">
+                                        <Frame.BorderColor>
+                                            <OnPlatform x:TypeArguments="Color">
+                                                <OnPlatform.Platforms>
+                                                    <On Platform="Tizen" Value="Transparent" />
+                                                </OnPlatform.Platforms>
+                                            </OnPlatform>
+                                        </Frame.BorderColor>
+                                    </Frame>
+                                </sh:Shadows>
+                            </Grid>
+                        </Frame>
+                    </sh:Shadows>
+                </DataTemplate>-->

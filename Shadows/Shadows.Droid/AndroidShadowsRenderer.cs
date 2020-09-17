@@ -15,6 +15,8 @@ namespace Sharpnado.Shades.Droid
     {
         private ShadowView _shadowView;
 
+        private static int instanceCount;
+
         public AndroidShadowsRenderer(Context context)
             : base(context)
         {
@@ -26,7 +28,11 @@ namespace Sharpnado.Shades.Droid
 
             if (e.NewElement == null)
             {
-                _shadowView.Dispose();
+                if (!_shadowView.IsNullOrDisposed())
+                {
+                    _shadowView.RemoveFromParent();
+                    _shadowView.Dispose();
+                }
             }
         }
 
@@ -34,10 +40,17 @@ namespace Sharpnado.Shades.Droid
         {
             base.Dispose(disposing);
 
-            InternalLogger.Debug("Renderer", $"Disposed( disposing: {disposing} )");
+            InternalLogger.Debug($"Renderer | {Element?.StyleId}", $"Disposed( disposing: {disposing} )");
             if (disposing)
             {
-                _shadowView?.Dispose();
+                if (!_shadowView.IsNullOrDisposed())
+                {
+                    _shadowView.RemoveFromParent();
+                    _shadowView.Dispose();
+                    instanceCount--;
+
+                    InternalLogger.Debug($"Renderer | {Element?.StyleId}", $"now {instanceCount} instances");
+                }
             }
         }
 
@@ -60,6 +73,9 @@ namespace Sharpnado.Shades.Droid
                         _shadowView.UpdateShades(Element.Shades);
 
                         AddView(_shadowView, 0);
+                        instanceCount++;
+
+                        InternalLogger.Debug($"Renderer | {Element?.StyleId}", $"now {instanceCount} instances");
                     }
 
                     break;
@@ -78,7 +94,7 @@ namespace Sharpnado.Shades.Droid
         {
             base.OnLayout(changed, l, t, r, b);
 
-            InternalLogger.Debug("Renderer", $"OnLayout( {l}l, {t}t, {r}r, {b}b )");
+            // InternalLogger.Debug($"Renderer | {Element?.StyleId}", $"OnLayout( {l}l, {t}t, {r}r, {b}b )");
 
             var children = GetChildAt(1);
             if (children == null)
@@ -86,11 +102,7 @@ namespace Sharpnado.Shades.Droid
                 return;
             }
 
-            InternalLogger.Debug("Renderer", $"this: {GetX()}x, {GetY()}y, {MeasuredWidth}w, {MeasuredHeight}h");
-
-            InternalLogger.Debug("Renderer", $"child: {children.GetX()}x, {children.GetY()}y, {children.MeasuredWidth}w, {children.MeasuredHeight}h");
-
-            _shadowView?.Layout(MeasuredWidth, MeasuredHeight);
+            _shadowView?.Layout(children.MeasuredWidth, children.MeasuredHeight);
         }
     }
 }
