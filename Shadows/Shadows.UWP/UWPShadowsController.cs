@@ -159,7 +159,7 @@ namespace Sharpnado.Shades.UWP
 
             InternalLogger.Debug(
                 LogTag,
-                $"shadowSource: {{ ActualOffset: {_shadowSource.ActualOffset}, ActualSize: {_shadowSource.ActualSize}, Margin: {_shadowSource.Margin} }}");
+                () => $"shadowSource: {{ Offset: {offset}, Size: {width}x{height}, Margin: {_shadowSource.Margin} }}");
 
             for (int i = 0; i < _shadesSource.Count(); i++)
             {
@@ -168,7 +168,8 @@ namespace Sharpnado.Shades.UWP
 
                 InternalLogger.Debug(
                     LogTag,
-                    $"shadowHost: {{ ActualOffset: {shadowHost.ActualOffset}, ActualSize: {shadowHost.ActualSize}, Margin: {shadowHost.Margin} }}");
+                    () => $"shadowHost: {{ Size: {shadowHost.ActualWidth}x{shadowHost.ActualHeight}, Margin: {shadowHost.Margin} }}");
+
                 Canvas.SetLeft(shadowHost, offset.X + SafeMargin);
                 Canvas.SetTop(shadowHost, offset.Y + SafeMargin);
 

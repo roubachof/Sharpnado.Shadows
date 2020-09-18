@@ -21,6 +21,9 @@ On `iOS` add this line after `Xamarin.Forms.Forms.Init()` and before `LoadApplic
 
 `Sharpnado.Shades.iOS.iOSShadowsRenderer.Initialize();`
 
+In `UWP`, you must register the renderers assembly like this, before `Xamarin.Forms.Forms.Init()`:
+
+`var rendererAssemblies = new[] { typeof(UWPShadowsRenderer).GetTypeInfo().Assembly }; `
 
 On `Tizen` add this line after `Xamarin.Forms.Forms.Init()` and before `LoadApplication(new App())`.
 

@@ -32,6 +32,11 @@ Mandatory initialization on iOS:
     Xamarin.Forms.Forms.Init();
     Sharpnado.Shades.iOS.iOSShadowsRenderer.Initialize();
 
+Mandatory initialization on UWP:
+
+    var rendererAssemblies = new[] { typeof(UWPShadowsRenderer).GetTypeInfo().Assembly };
+    Xamarin.Forms.Forms.Init(e, rendererAssemblies);
+
 Mandatory initialization on Tizen:
 
     Xamarin.Forms.Forms.Init();
