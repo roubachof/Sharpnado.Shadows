@@ -6,7 +6,8 @@
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             mc:Ignorable="d"
             xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
-            CornerRadius="3">
+            CornerRadius="3"
+            StyleId="Logo">
 
     <sh:Shadows.Shades>
         <sh:ImmutableShades>

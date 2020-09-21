@@ -13,18 +13,20 @@
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="80" />
+                <RowDefinition Height="200" />
 
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <renderedViews:HorizontalListView Grid.Row="1"
-                                              ColumnCount="1"
-                                              ItemHeight="140"
-                                              ListLayout="Grid">
-                <!--<CollectionView.Header>
+            <views:Logo Grid.Row="0"
+                        Margin="0,0,0,60"
+                        HorizontalOptions="Center"
+                        VerticalOptions="End" />
+            <CollectionView Grid.Row="1" ItemSizingStrategy="MeasureFirstItem">
+                <CollectionView.Header>
                     <sh:Shadows Margin="20,20"
                                 CornerRadius="10"
-                                Shades="{sh:NeumorphismShades}">
+                                Shades="{sh:NeumorphismShades}"
+                                StyleId="ButtonShadows">
                         <Button Style="{StaticResource TextHeadline}"
                                 HorizontalOptions="Center"
                                 VerticalOptions="Center"
@@ -34,8 +36,8 @@
                                 Text="Navigate to Main page"
                                 TextColor="Gray" />
                     </sh:Shadows>
-                </CollectionView.Header>-->
-                <renderedViews:HorizontalListView.ItemsSource>
+                </CollectionView.Header>
+                <CollectionView.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
                         <x:String>Xamarin.Forms is good</x:String>
                         <x:String>Flutter is good</x:String>
@@ -50,92 +52,74 @@
                         <x:String>Developers can be good</x:String>
                         <x:String>Developers can be bad</x:String>
                     </x:Array>
-                </renderedViews:HorizontalListView.ItemsSource>
-                <renderedViews:HorizontalListView.ItemTemplate>
+                </CollectionView.ItemsSource>
+                <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <ContentView>
-                                <sh:Shadows Margin="20,10" StyleId="Cell">
-                                    <Frame IsClippedToBounds="False">
-                                        <Frame.BorderColor>
-                                            <OnPlatform x:TypeArguments="Color">
-                                                <OnPlatform.Platforms>
-                                                    <On Platform="Tizen" Value="Transparent" />
-                                                </OnPlatform.Platforms>
-                                            </OnPlatform>
-                                        </Frame.BorderColor>
-                                        <Grid RowSpacing="10">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="50" />
-                                                <RowDefinition Height="70" />
-                                            </Grid.RowDefinitions>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
+                        <ContentView>
+                            <sh:Shadows Margin="20,10" StyleId="Cell">
+                                <Frame IsClippedToBounds="False">
+                                    <Frame.BorderColor>
+                                        <OnPlatform x:TypeArguments="Color">
+                                            <OnPlatform.Platforms>
+                                                <On Platform="Tizen" Value="Transparent" />
+                                            </OnPlatform.Platforms>
+                                        </OnPlatform>
+                                    </Frame.BorderColor>
+                                    <Grid RowSpacing="10">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="80" />
+                                            <RowDefinition Height="70" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
 
-                                            <Label Grid.Row="0"
-                                                   Grid.Column="0"
-                                                   Grid.ColumnSpan="2"
-                                                   Style="{StaticResource TextBodySecondary}"
-                                                   Margin="0,0,0,20"
-                                                   Text="Since you can apply many shadows to any view, implementing #neumorphism is a walking piece of cake in the park!" />
+                                        <Label Grid.Row="0"
+                                               Grid.Column="0"
+                                               Grid.ColumnSpan="2"
+                                               Style="{StaticResource TextBodySecondary}"
+                                               Margin="0,0,0,20"
+                                               Text="Since you can apply many shadows to any view, implementing #neumorphism is a walking piece of cake in the park!" />
 
-                                            <sh:Shadows x:Name="ButtonPlusNeuShadows"
-                                                        Grid.Row="1"
-                                                        Grid.Column="0"
-                                                        CornerRadius="40"
-                                                        Shades="{sh:NeumorphismShades}"
-                                                        StyleId="Cell">
-                                                <ImageButton WidthRequest="60"
-                                                             HeightRequest="60"
-                                                             Padding="20"
-                                                             HorizontalOptions="Center"
-                                                             VerticalOptions="Center"
-                                                             BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
-                                                             CornerRadius="30"
-                                                             Source="{StaticResource IconPlusGray}" />
-                                            </sh:Shadows>
+                                        <sh:Shadows x:Name="ButtonPlusNeuShadows"
+                                                    Grid.Row="1"
+                                                    Grid.Column="0"
+                                                    CornerRadius="40"
+                                                    Shades="{sh:NeumorphismShades}"
+                                                    StyleId="CellImageButton">
+                                            <ImageButton WidthRequest="60"
+                                                         HeightRequest="60"
+                                                         Padding="20"
+                                                         HorizontalOptions="Center"
+                                                         VerticalOptions="Start"
+                                                         BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
+                                                         CornerRadius="30"
+                                                         Source="{StaticResource IconPlusGray}" />
+                                        </sh:Shadows>
 
-                                            <sh:Shadows Grid.Row="1"
-                                                        Grid.Column="1"
-                                                        CornerRadius="10"
-                                                        Shades="{sh:NeumorphismShades}"
-                                                        StyleId="Cell">
-                                                <Button Style="{StaticResource TextHeadline}"
-                                                        WidthRequest="120"
-                                                        HeightRequest="60"
-                                                        HorizontalOptions="Center"
-                                                        VerticalOptions="Center"
-                                                        BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
-                                                        CornerRadius="10"
-                                                        Text="Reset"
-                                                        TextColor="Gray" />
-                                            </sh:Shadows>
-                                        </Grid>
-                                    </Frame>
-                                </sh:Shadows>
-                            </ContentView>
-                        </ViewCell>
+                                        <sh:Shadows Grid.Row="1"
+                                                    Grid.Column="1"
+                                                    CornerRadius="10"
+                                                    Shades="{sh:NeumorphismShades}"
+                                                    StyleId="CellButton">
+                                            <Button Style="{StaticResource TextHeadline}"
+                                                    WidthRequest="120"
+                                                    HeightRequest="60"
+                                                    HorizontalOptions="Center"
+                                                    VerticalOptions="Start"
+                                                    BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
+                                                    CornerRadius="10"
+                                                    Text="Reset"
+                                                    TextColor="Gray" />
+                                        </sh:Shadows>
+                                    </Grid>
+                                </Frame>
+                            </sh:Shadows>
+                        </ContentView>
                     </DataTemplate>
-                </renderedViews:HorizontalListView.ItemTemplate>
-            </renderedViews:HorizontalListView>
-
-            <sh:Shadows Grid.Row="0">
-                <sh:Shadows.Shades>
-                    <sh:ImmutableShades>
-                        <sh:Shade BlurRadius="10"
-                                  Opacity="1"
-                                  Offset="0, 6"
-                                  Color="#19000000" />
-                    </sh:ImmutableShades>
-                </sh:Shadows.Shades>
-                <customViews:Toolbar Title="It's Not About The Tech Bruh!"
-                                     BackgroundColor="Orange"
-                                     ForegroundColor="White"
-                                     ShowBackButton="True" />
-            </sh:Shadows>
-
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
         </Grid>
     </ContentPage.Content>

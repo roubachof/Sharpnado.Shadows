@@ -13,9 +13,11 @@ namespace Sharpnado.Shades.Droid
 {
     public class AndroidShadowsRenderer : ViewRenderer<Shadows, FrameLayout>
     {
+        private static int instanceCount;
+
         private ShadowView _shadowView;
 
-        private static int instanceCount;
+        private string _tag;
 
         public AndroidShadowsRenderer(Context context)
             : base(context)
@@ -40,7 +42,7 @@ namespace Sharpnado.Shades.Droid
         {
             base.Dispose(disposing);
 
-            InternalLogger.Debug($"Renderer | {Element?.StyleId}", $"Disposed( disposing: {disposing} )");
+            InternalLogger.Debug($"Renderer | {_tag}", $"Disposed( disposing: {disposing} )");
             if (disposing)
             {
                 if (!_shadowView.IsNullOrDisposed())
@@ -49,7 +51,7 @@ namespace Sharpnado.Shades.Droid
                     _shadowView.Dispose();
                     instanceCount--;
 
-                    InternalLogger.Debug($"Renderer | {Element?.StyleId}", $"now {instanceCount} instances");
+                    InternalLogger.Debug($"Renderer | {_tag}", $"now {instanceCount} instances");
                 }
             }
         }
@@ -67,15 +69,19 @@ namespace Sharpnado.Shades.Droid
                         return;
                     }
 
+                    _tag = Element.StyleId;
+
                     if (_shadowView == null)
                     {
+                        InternalLogger.Debug($"Renderer | {_tag}", $"Create ShadowView");
+
                         _shadowView = new ShadowView(Context, content, Context.ToPixels(Element.CornerRadius));
                         _shadowView.UpdateShades(Element.Shades);
 
                         AddView(_shadowView, 0);
                         instanceCount++;
 
-                        InternalLogger.Debug($"Renderer | {Element?.StyleId}", $"now {instanceCount} instances");
+                        InternalLogger.Debug($"Renderer | {_tag}", $"now {instanceCount} instances");
                     }
 
                     break;
@@ -94,7 +100,7 @@ namespace Sharpnado.Shades.Droid
         {
             base.OnLayout(changed, l, t, r, b);
 
-            // InternalLogger.Debug($"Renderer | {Element?.StyleId}", $"OnLayout( {l}l, {t}t, {r}r, {b}b )");
+            // InternalLogger.Debug($"Renderer | {_tag}", $"OnLayout( {l}l, {t}t, {r}r, {b}b )");
 
             var children = GetChildAt(1);
             if (children == null)

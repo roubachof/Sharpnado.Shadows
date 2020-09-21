@@ -7,8 +7,9 @@
                       mc:Ignorable="d"
                       xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
                       xmlns:tabs="clr-namespace:Sharpnado.Presentation.Forms.CustomViews.Tabs;assembly=Sharpnado.Presentation.Forms"
-                      xmlns:views="clr-namespace:ShadowsSample.Views;assembly=ShadowsSample">
-    <Frame IsClippedToBounds="False" StyleId="3333">
+                      xmlns:views="clr-namespace:ShadowsSample.Views;assembly=ShadowsSample"
+                      StyleId="Neumorphism">
+    <Frame IsClippedToBounds="False">
         <Frame.BorderColor>
             <OnPlatform x:TypeArguments="Color">
                 <OnPlatform.Platforms>
@@ -34,10 +35,10 @@
                    Margin="0,0,0,20"
                    Text="Since you can apply many shadows to any view, implementing #neumorphism is a walking piece of cake in the park!" />
 
-            <sh:Shadows Grid.Row="1"
+            <sh:Shadows x:Name="ButtonPlusNeuShadows"
+                        Grid.Row="1"
                         Grid.Column="0"
                         CornerRadius="40"
-                        x:Name="ButtonPlusNeuShadows"
                         Shades="{sh:NeumorphismShades}">
                 <ImageButton WidthRequest="60"
                              HeightRequest="60"
@@ -45,8 +46,8 @@
                              HorizontalOptions="Center"
                              VerticalOptions="Center"
                              BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
-                             CornerRadius="30"
                              Clicked="ImageButtonOnClicked"
+                             CornerRadius="30"
                              Source="{StaticResource IconPlusGray}" />
             </sh:Shadows>
 

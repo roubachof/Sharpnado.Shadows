@@ -8,8 +8,9 @@
                       xmlns:images="clr-namespace:ShadowsSample.Images;assembly=ShadowsSample"
                       xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
                       xmlns:system="clr-namespace:System;assembly=netstandard"
-                      xmlns:views="clr-namespace:ShadowsSample.Views;assembly=ShadowsSample">
-    <Frame Padding="0" StyleId="3333">
+                      xmlns:views="clr-namespace:ShadowsSample.Views;assembly=ShadowsSample"
+                      StyleId="DynamicShadows">
+    <Frame Padding="0">
         <Frame.BorderColor>
             <OnPlatform x:TypeArguments="Color">
                 <OnPlatform.Platforms>

@@ -68,10 +68,10 @@ namespace Sharpnado.Shades.Droid
         {
         }
 
-        public string LogTag { get; }
-
         public static Predicate<View> HasMinimumSize =>
             view => view.MeasuredWidth >= MinimumSize && view.MeasuredHeight >= 5;
+
+        public string LogTag { get; }
 
         public void Layout(int width, int height)
         {
@@ -84,12 +84,6 @@ namespace Sharpnado.Shades.Droid
 
             Measure(width, height);
             Layout(0, 0, width, height);
-
-            //if (ShouldDrawBitmaps)
-            //{
-            //    RefreshBitmaps();
-            //    Invalidate();
-            //}
         }
 
         protected override void OnSizeChanged(int w, int h, int oldw, int oldh)
@@ -121,7 +115,7 @@ namespace Sharpnado.Shades.Droid
                 {
                     shadeNotifyCollection.CollectionChanged -= ShadesSourceCollectionChanged;
                 }
-
+                
                 if (!_renderScript.IsNullOrDisposed())
                 {
                     _renderScript.Destroy();
@@ -136,9 +130,10 @@ namespace Sharpnado.Shades.Droid
 
         protected override void OnDraw(Canvas canvas)
         {
+#if DEBUG
             var stopWatch = new Stopwatch();
             stopWatch.Start();
-
+#endif
             if (!_weakSource.TryGetTarget(out var source))
             {
                 return;
@@ -157,7 +152,9 @@ namespace Sharpnado.Shades.Droid
             }
 
             base.OnDraw(canvas);
+#if DEBUG
             LogPerf(LogTag, stopWatch);
+#endif
         }
 
         private static void LogPerf(string tag, Stopwatch stopwatch, [CallerMemberName] string methodName = "caller")
@@ -167,8 +164,10 @@ namespace Sharpnado.Shades.Droid
 
         private void RefreshBitmaps()
         {
+#if DEBUG
             var stopWatch = new Stopwatch();
             stopWatch.Start();
+#endif
             DisposeBitmaps();
 
             if (!_weakSource.TryGetTarget(out var source) || !HasMinimumSize(source))
@@ -181,14 +180,17 @@ namespace Sharpnado.Shades.Droid
             {
                 InsertBitmap(shade);
             }
-
+#if DEBUG
             LogPerf(LogTag, stopWatch);
+#endif
         }
 
         private void RefreshBitmap(Shade shade)
         {
+#if DEBUG
             var stopWatch = new Stopwatch();
             stopWatch.Start();
+#endif
             DisposeBitmaps();
 
             if (!_weakSource.TryGetTarget(out var source) || !HasMinimumSize(source))
@@ -204,8 +206,9 @@ namespace Sharpnado.Shades.Droid
             }
 
             InsertBitmap(shade);
-
+#if DEBUG
             LogPerf(LogTag, stopWatch);
+#endif
         }
 
         private void InsertBitmap(Shade shade)
@@ -214,23 +217,27 @@ namespace Sharpnado.Shades.Droid
             {
                 return;
             }
-
+#if DEBUG
             var stopWatch = new Stopwatch();
             stopWatch.Start();
-
+#endif
             InternalLogger.Debug(LogTag, () => $"InsertBitmap( shade: {shade}, sourceWidth: {source.MeasuredWidth}, sourceHeight: {source.MeasuredHeight})");
 
             var shadeInfo = ShadeInfo.FromShade(Context, shade, _cornerRadius, source);
             _shadeInfos.Add(shade, shadeInfo);
 
             _cache.Add(shadeInfo.Hash, () => CreateBitmap(shadeInfo));
+#if DEBUG
             LogPerf(LogTag, stopWatch);
+#endif
         }
 
         private Bitmap CreateBitmap(ShadeInfo shadeInfo)
         {
+#if DEBUG
             var stopWatch = new Stopwatch();
             stopWatch.Start();
+#endif
             var shadow = Bitmap.CreateBitmap(
                 shadeInfo.Width,
                 shadeInfo.Height,
@@ -285,21 +292,26 @@ namespace Sharpnado.Shades.Droid
                 script.ForEach(output);
                 output.CopyTo(shadow);
             }
-
+#if DEBUG
             LogPerf(LogTag, stopWatch);
+#endif
             return shadow;
         }
 
         private void DisposeBitmap(Shade shade)
         {
+#if DEBUG
             var stopWatch = new Stopwatch();
             stopWatch.Start();
+#endif
             InternalLogger.Debug(LogTag, () => $"DisposeBitmap( shade: {shade} )");
             var shadeInfo = _shadeInfos[shade];
             _shadeInfos.Remove(shade);
 
             _cache.Remove(shadeInfo.Hash);
+#if DEBUG
             LogPerf(LogTag, stopWatch);
+#endif
         }
 
         private void DisposeBitmaps()
@@ -308,9 +320,10 @@ namespace Sharpnado.Shades.Droid
             {
                 return;
             }
-
+#if DEBUG
             var stopWatch = new Stopwatch();
             stopWatch.Start();
+#endif
             InternalLogger.Debug(LogTag, () => $"DisposeBitmaps()");
             foreach (var shadeInfo in _shadeInfos.Values)
             {
@@ -318,7 +331,9 @@ namespace Sharpnado.Shades.Droid
             }
 
             _shadeInfos.Clear();
+#if DEBUG
             LogPerf(LogTag, stopWatch);
+#endif
         }
 
         private void UpdateShadeInfo(Shade shade)
