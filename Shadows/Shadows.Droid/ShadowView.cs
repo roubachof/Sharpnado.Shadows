@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 using Android.Content;
 using Android.Graphics;
@@ -107,25 +105,21 @@ namespace Sharpnado.Shades.Droid
         {
             base.Dispose(disposing);
 
-            if (disposing)
+            InternalLogger.Debug(LogTag, $"Dispose( disposing: {disposing} )");
+
+            if (_shadesSource is INotifyCollectionChanged shadeNotifyCollection)
             {
-                InternalLogger.Debug(LogTag, "Dispose()");
-
-                if (_shadesSource is INotifyCollectionChanged shadeNotifyCollection)
-                {
-                    shadeNotifyCollection.CollectionChanged -= ShadesSourceCollectionChanged;
-                }
-                
-                if (!_renderScript.IsNullOrDisposed())
-                {
-                    _renderScript.Destroy();
-                }
-
-                UnsubscribeAllShades();
-                DisposeBitmaps();
-
-                _isDisposed = true;
+                shadeNotifyCollection.CollectionChanged -= ShadesSourceCollectionChanged;
             }
+
+            if (!_renderScript.IsNullOrDisposed())
+            {
+                _renderScript.Destroy();
+            }
+
+            DisposeBitmaps();
+
+            _isDisposed = true;
         }
 
         protected override void OnDraw(Canvas canvas)

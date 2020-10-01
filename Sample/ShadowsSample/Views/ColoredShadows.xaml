@@ -6,7 +6,7 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       mc:Ignorable="d"
                       xmlns:images="clr-namespace:ShadowsSample.Images;assembly=ShadowsSample"
-                      xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+                      xmlns:sho="http://sharpnado.com"
                       xmlns:tabs="clr-namespace:Sharpnado.Presentation.Forms.CustomViews.Tabs;assembly=Sharpnado.Presentation.Forms"
                       xmlns:views="clr-namespace:ShadowsSample.Views;assembly=ShadowsSample"
                       StyleId="ColoredShadows">
@@ -36,59 +36,59 @@
                    Margin="15,15"
                    Text="Enter a world of colored shadows." />
 
-            <sh:Shadows Grid.Row="1"
-                        Grid.Column="0"
-                        x:Name="ButtonPlusColoredShadows"
-                        CornerRadius="40"
-                        Shades="{sh:SingleShade Offset='0, 10',
-                                                Opacity=0.7,
-                                                Color=Violet}">
+            <sho:Shadows x:Name="ButtonPlusColoredShadows"
+                         Grid.Row="1"
+                         Grid.Column="0"
+                         CornerRadius="40"
+                         Shades="{sho:SingleShade Offset='0, 10',
+                                                  Opacity=0.7,
+                                                  Color=Violet}">
                 <ImageButton WidthRequest="60"
                              HeightRequest="60"
                              Padding="20"
                              HorizontalOptions="Center"
                              VerticalOptions="Center"
                              BackgroundColor="Violet"
-                             CornerRadius="30"
                              Clicked="ImageButtonOnClicked"
+                             CornerRadius="30"
                              Source="{StaticResource IconPlusWhite}" />
-            </sh:Shadows>
+            </sho:Shadows>
 
-            <sh:Shadows Grid.Row="1"
-                        Grid.Column="1"
-                        Margin="0,10,0,0"
-                        CornerRadius="40">
-                <sh:Shadows.Shades>
-                    <sh:ImmutableShades>
-                        <sh:Shade BlurRadius="10"
-                                  Opacity="0.5"
-                                  Offset="8,8"
-                                  Color="Yellow" />
-                        <sh:Shade BlurRadius="10"
-                                  Opacity="0.5"
-                                  Offset="-8,-6"
-                                  Color="Violet" />
-                    </sh:ImmutableShades>
-                </sh:Shadows.Shades>
+            <sho:Shadows Grid.Row="1"
+                         Grid.Column="1"
+                         Margin="0,10,0,0"
+                         CornerRadius="40">
+                <sho:Shadows.Shades>
+                    <sho:ImmutableShades>
+                        <sho:Shade BlurRadius="10"
+                                   Opacity="0.5"
+                                   Offset="8,8"
+                                   Color="Yellow" />
+                        <sho:Shade BlurRadius="10"
+                                   Opacity="0.5"
+                                   Offset="-8,-6"
+                                   Color="Violet" />
+                    </sho:ImmutableShades>
+                </sho:Shadows.Shades>
                 <Image WidthRequest="120"
                        Margin="-20,0,0,0"
                        HorizontalOptions="Center"
                        VerticalOptions="Center"
                        Source="{images:ImageResource nyan_cat.png}" />
-            </sh:Shadows>
+            </sho:Shadows>
 
-            <sh:Shadows Grid.Row="2"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        CornerRadius="3">
-                <sh:Shadows.Shades>
-                    <sh:ImmutableShades>
-                        <sh:Shade BlurRadius="10"
-                                  Opacity="0.5"
-                                  Offset="0,-8"
-                                  Color="DeepSkyBlue" />
-                    </sh:ImmutableShades>
-                </sh:Shadows.Shades>
+            <sho:Shadows Grid.Row="2"
+                         Grid.Column="0"
+                         Grid.ColumnSpan="2"
+                         CornerRadius="3">
+                <sho:Shadows.Shades>
+                    <sho:ImmutableShades>
+                        <sho:Shade BlurRadius="10"
+                                   Opacity="0.5"
+                                   Offset="0,-8"
+                                   Color="DeepSkyBlue" />
+                    </sho:ImmutableShades>
+                </sho:Shadows.Shades>
                 <tabs:TabHostView HeightRequest="60"
                                   VerticalOptions="End"
                                   BackgroundColor="DeepSkyBlue"
@@ -108,7 +108,7 @@
                                             UnselectedIconColor="White" />
                     </tabs:TabHostView.Tabs>
                 </tabs:TabHostView>
-            </sh:Shadows>
+            </sho:Shadows>
         </Grid>
     </Frame>
 </views:ShadowsElement>

@@ -13,6 +13,10 @@ namespace Sharpnado.Shades.iOS
 {
     public class iOSShadowsRenderer : VisualElementRenderer<Shadows>
     {
+        private static int instanceCount;
+
+        private string _tag = nameof(iOSShadowsRenderer);
+
         private iOSShadowsController _shadowsController;
 
         private CALayer _shadowsLayer;
@@ -41,6 +45,10 @@ namespace Sharpnado.Shades.iOS
                 _shadowsLayer?.Dispose();
                 _shadowsLayer = null;
             }
+
+            instanceCount--;
+
+            InternalLogger.Debug(_tag, () => $"Disposed( disposing: {disposing} ) => {instanceCount} instances");
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<Shadows> e)
@@ -92,6 +100,9 @@ namespace Sharpnado.Shades.iOS
 
             _shadowsController = new iOSShadowsController(shadowSource, _shadowsLayer,  formsElement.CornerRadius);
             _shadowsController.UpdateShades(formsElement.Shades);
+
+            instanceCount++;
+            InternalLogger.Debug(_tag, () => $"Create ShadowView => {instanceCount} instances");
         }
     }
 }

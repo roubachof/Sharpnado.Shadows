@@ -47,23 +47,28 @@ Mandatory initialization on Tizen:
       <dependencies>
 
         <group targetFramework=".NETStandard2.0">
+          <dependency id="ThomasLevesque.WeakEvent" version="4.1.0" />
           <dependency id="Xamarin.Forms" version="3.6.0.220655" exclude="Build,Analyzers"/>
         </group>
 
         <group targetFramework="Xamarin.iOS10">
+          <dependency id="ThomasLevesque.WeakEvent" version="4.1.0" />
           <dependency id="Xamarin.Forms" version="3.6.0.220655" exclude="Build,Analyzers"/>
         </group>
 
         <group targetFramework="MonoAndroid10">
+          <dependency id="ThomasLevesque.WeakEvent" version="4.1.0" />
           <dependency id="Xamarin.Forms" version="3.6.0.220655" exclude="Build,Analyzers"/>
         </group>
 
         <group targetFramework="uap10.0.16299">
+          <dependency id="ThomasLevesque.WeakEvent" version="4.1.0" />
           <dependency id="Xamarin.Forms" version="3.6.0.220655" exclude="Build,Analyzers"/>
           <dependency id="Microsoft.UI.Xaml" version="2.1.190606001" />
         </group>
 
         <group targetFramework="tizen40">
+          <dependency id="ThomasLevesque.WeakEvent" version="4.1.0" />
           <dependency id="Xamarin.Forms" version="3.6.0.220655" exclude="Build,Analyzers"/>
           <dependency id="Tizen.NET" version="4.0.0" />
           <dependency id="SkiaSharp.Views" version="1.68.3" />

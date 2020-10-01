@@ -17,7 +17,7 @@ namespace Sharpnado.Shades.Droid
 
         private ShadowView _shadowView;
 
-        private string _tag;
+        private string _tag = nameof(AndroidShadowsRenderer);
 
         public AndroidShadowsRenderer(Context context)
             : base(context)
@@ -42,18 +42,15 @@ namespace Sharpnado.Shades.Droid
         {
             base.Dispose(disposing);
 
-            InternalLogger.Debug($"Renderer | {_tag}", $"Disposed( disposing: {disposing} )");
-            if (disposing)
+            if (!_shadowView.IsNullOrDisposed())
             {
-                if (!_shadowView.IsNullOrDisposed())
-                {
-                    _shadowView.RemoveFromParent();
-                    _shadowView.Dispose();
-                    instanceCount--;
-
-                    InternalLogger.Debug($"Renderer | {_tag}", $"now {instanceCount} instances");
-                }
+                _shadowView.RemoveFromParent();
+                _shadowView.Dispose();
             }
+
+            instanceCount--;
+
+            InternalLogger.Debug(_tag, () => $"Disposed( disposing: {disposing} ) => {instanceCount} instances");
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -69,19 +66,22 @@ namespace Sharpnado.Shades.Droid
                         return;
                     }
 
-                    _tag = Element.StyleId;
+                    if (!string.IsNullOrWhiteSpace(Element.StyleId))
+                    {
+                        _tag += $" | {Element.StyleId}@{Element.InstanceNumber}";
+                    }
 
                     if (_shadowView == null)
                     {
-                        InternalLogger.Debug($"Renderer | {_tag}", $"Create ShadowView");
-
                         _shadowView = new ShadowView(Context, content, Context.ToPixels(Element.CornerRadius));
                         _shadowView.UpdateShades(Element.Shades);
 
-                        AddView(_shadowView, 0);
-                        instanceCount++;
+                        Element.WeakCollectionChanged += _shadowView.ShadesSourceCollectionChanged;
 
-                        InternalLogger.Debug($"Renderer | {_tag}", $"now {instanceCount} instances");
+                        AddView(_shadowView, 0);
+
+                        instanceCount++;
+                        InternalLogger.Debug(_tag, () => $"Create ShadowView => {instanceCount} instances");
                     }
 
                     break;
@@ -100,7 +100,7 @@ namespace Sharpnado.Shades.Droid
         {
             base.OnLayout(changed, l, t, r, b);
 
-            // InternalLogger.Debug($"Renderer | {_tag}", $"OnLayout( {l}l, {t}t, {r}r, {b}b )");
+            InternalLogger.Debug(_tag, () => $"OnLayout( {l}l, {t}t, {r}r, {b}b )");
 
             var children = GetChildAt(1);
             if (children == null)

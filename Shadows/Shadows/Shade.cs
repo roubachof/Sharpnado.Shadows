@@ -1,4 +1,8 @@
-﻿using System.Text;
+﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using WeakEvent;
+
 using Xamarin.Forms;
 
 namespace Sharpnado.Shades
@@ -37,6 +41,14 @@ namespace Sharpnado.Shades
 
         private static readonly Point DefaultOffset = new Point(0, 8);
 
+        private readonly WeakEventSource<PropertyChangedEventArgs> _weakPropertyChangedSource = new WeakEventSource<PropertyChangedEventArgs>();
+
+        public event EventHandler<PropertyChangedEventArgs> WeakPropertyChanged
+        {
+            add => _weakPropertyChangedSource.Subscribe(value);
+            remove => _weakPropertyChangedSource.Unsubscribe(value);
+        }
+
         public Point Offset
         {
             get => (Point)GetValue(OffsetProperty);
@@ -71,5 +83,17 @@ namespace Sharpnado.Shades
 
         public override string ToString() =>
             $"{{ Offset: {Offset}, Color: {{A={Color.A}, R={Color.R}, G={Color.G}, B={Color.B}}}, Opacity: {Opacity}, BlurRadius: {BlurRadius} }}";
+
+        public Shade Clone()
+        {
+            return new Shade { BlurRadius = BlurRadius, Color = Color, Offset = Offset, Opacity = Opacity };
+        }
+
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            base.OnPropertyChanged(propertyName);
+
+            _weakPropertyChangedSource.Raise(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

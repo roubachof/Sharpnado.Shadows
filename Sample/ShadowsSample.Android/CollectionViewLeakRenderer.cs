@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
+﻿using Android.Content;
 
 using ShadowsSample.Droid;
 
 using Sharpnado.Presentation.Forms.Droid.Helpers;
-using Sharpnado.Shades.Droid;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -29,24 +18,26 @@ namespace ShadowsSample.Droid
         {
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            System.Diagnostics.Debug.WriteLine(ItemsViewAdapter);
+        //protected override void Dispose(bool disposing)
+        //{
+        //    System.Diagnostics.Debug.WriteLine(ItemsViewAdapter);
 
-            if (!disposing)
-            {
-                base.Dispose(false);
-                return;
-            }
+        //    if (!disposing)
+        //    {
+        //        base.Dispose(false);
+        //        return;
+        //    }
 
-            var children = GetChildren();
-            base.Dispose(true);
-            DisposeChildren(children);
-        }
+        //    var children = GetChildren();
+        //    base.Dispose(true);
+        //    DisposeChildren(children);
+        //}
 
         private ItemContentView[] GetChildren()
         {
             System.Diagnostics.Debug.WriteLine($"GetChildren() => count: {ChildCount}");
+
+            
             var result = new ItemContentView[ChildCount];
             for (int childCount = ChildCount, i = 0; i < childCount; ++i)
             {

@@ -4,8 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:effects="clr-namespace:Sharpnado.Presentation.Forms.Effects;assembly=Sharpnado.Presentation.Forms"
              xmlns:images="clr-namespace:ShadowsSample.Images;assembly=ShadowsSample"
-             xmlns:materialFrame="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
-             xmlns:shades="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows">
+             xmlns:materialFrame="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame">
 
     <!--<shades:Shadows.Shades>
         <shades:ImmutableShades>

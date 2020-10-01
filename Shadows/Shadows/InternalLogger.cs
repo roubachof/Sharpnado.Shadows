@@ -32,7 +32,7 @@ namespace Sharpnado.Shades
         /// <param name="filter"></param>
         public static void SetFilter(string filter)
         {
-            Filters = filter.Split('|');
+            Filters = filter == null ? new string[0] : filter.Split('|');
         }
 
         public static void Debug(string tag, Func<string> format)

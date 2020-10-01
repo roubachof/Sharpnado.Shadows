@@ -107,6 +107,61 @@ For example, you can add a shadow to a rounded button:
 
 <img src="Docs/rounded_button.png" height="180"/>
 
+### Choose your Shade Collection
+
+You can use several type of `IEnumerable<Shade>`:
+
+#### 1. ReadOnlyCollection<Shade>
+
+This is what you want to use most of the time.
+All the different `IMarkupExtension` like `ImmutableShades, NeumorphismShades, SingleShade`, return a `ReadOnlyCollection<Shade>`.
+If you use a `ReadOnlyCollection<Shade>`, all shades will be cloned to be sure the immutability is respected.
+It means, you can specify shades as static objects in your `ResourceDictionary`, it won't create any leak or view hierarchy issues.
+
+```xml
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows">
+    <sh:SingleShade x:Key="ShadowTop"
+                    BlurRadius="6"
+                    Opacity="0.15"
+                    Offset="0,-8"
+                    Color="{StaticResource ShadowsColor}" />
+
+    <sh:SingleShade x:Key="ShadowBottom"
+                    BlurRadius="6"
+                    Opacity="0.1"
+                    Offset="0,5"
+                    Color="{StaticResource ShadowsColor}" />
+
+    <sh:SingleShade x:Key="ShadowAccentBottom"
+                    BlurRadius="6"
+                    Opacity="0.4"
+                    Offset="0,4"
+                    Color="{StaticResource AccentColor}" />
+
+    <sh:ImmutableShades x:Key="ShadowNone" />
+
+    <sh:NeumorphismShades x:Key="ShadowNeumorphism" />
+
+    <sh:NeumorphismShades x:Key="ShadowThinNeumorphism"
+                          LowerOffset="8, 6"
+                          UpperOffset="-8,-6" />
+</ResourceDictionary>
+```
+
+#### 2. ObservableCollection<Shade>
+
+Only if you want to dynamically add or remove shade during the view lifetime.
+
+#### 3. All other IEnumerable<Shade>
+
+If you want to modify a shade property during the view lifetime.
+
+**IMPORTANT**: if you don't use a `ReadOnlyCollection<Shade>` please be sure to declare your `Shade` as transient. 
+It means you should declare a new instance of `Shade` for each `Shadows` views. For example, in code-behind with `new Shade()`, or in xaml with `Shades` property. 
+Just don't reference static instances of shade from `ResourceDictionary` with `StaticResource` references, or even in a C# class.
+
 ### Shades
 
 The `Shadows` component has only 2 properties:
@@ -252,8 +307,8 @@ Have a look at the `BeCreative.xaml` file and its code-behind.
 
 To have a better control of your shades, `Shadows` provides 2 kinds of `MarkupExtension`:
 
-1. One immutable collection of shades: `ImmutableShades`
-2. One mutable collection: `ShadesStack`
+1. One immutable collection of shades: `ImmutableShades` (readonly type)
+2. One mutable collection: `ShadeStack` (observable collection type)
 
 Use the first one if the shade collection will not change and the second one if you want to dynamically add or remove shades.
 
@@ -297,7 +352,7 @@ It will remove some xaml elements:
 
 ## Performance
 
-* On `Android`, shadows are created thanks to `RenderScript`. Bitmaps are cached and only recreated when needed
+* On `Android`, shadows are created thanks to `RenderScript`. Bitmaps are cached in a global `BitmapCache`. For a particular color, size and blur, you will only have one instance alive.
 * On `iOS`, a `Shade` is implemented with a simple `CALayer`
 * On `UWP`, `Shade` is implemented with `SpriteVisual` drop shadows.
 * On `Tizen`, `Shade` is implemented with `SkiaSharp`.

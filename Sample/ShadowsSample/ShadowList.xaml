@@ -2,40 +2,42 @@
 <ContentPage x:Class="ShadowsSample.ShadowList"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:customViews="clr-namespace:ShadowsSample.CustomViews;assembly=ShadowsSample"
-             xmlns:effects="clr-namespace:Sharpnado.Presentation.Forms.Effects;assembly=Sharpnado.Presentation.Forms"
-             xmlns:images="clr-namespace:ShadowsSample.Images;assembly=ShadowsSample"
-             xmlns:renderedViews="clr-namespace:Sharpnado.Presentation.Forms.RenderedViews;assembly=Sharpnado.Presentation.Forms"
-             xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
-             xmlns:shadowsSample="clr-namespace:ShadowsSample;assembly=ShadowsSample"
+             xmlns:sho="http://sharpnado.com"
              xmlns:views="clr-namespace:ShadowsSample.Views;assembly=ShadowsSample"
+             BackgroundColor="{DynamicResource DynamicBackgroundColor}"
              NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="200" />
-
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <views:Logo Grid.Row="0"
                         Margin="0,0,0,60"
                         HorizontalOptions="Center"
-                        VerticalOptions="End" />
+                        VerticalOptions="End">
+                <views:Logo.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="LogoOnTapped"/>
+                </views:Logo.GestureRecognizers>
+            </views:Logo>
             <CollectionView Grid.Row="1" ItemSizingStrategy="MeasureFirstItem">
                 <CollectionView.Header>
-                    <sh:Shadows Margin="20,20"
-                                CornerRadius="10"
-                                Shades="{sh:NeumorphismShades}"
-                                StyleId="ButtonShadows">
-                        <Button Style="{StaticResource TextHeadline}"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center"
-                                BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
-                                Clicked="OnNavigateToMainPageClicked"
-                                CornerRadius="10"
-                                Text="Navigate to Main page"
-                                TextColor="Gray" />
-                    </sh:Shadows>
+                    <ContentView>
+                        <sho:Shadows Margin="20"
+                                     CornerRadius="10"
+                                     Shades="{sho:NeumorphismShades}"
+                                     StyleId="HeaderButtonShadows">
+                            <Button Style="{StaticResource TextHeadline}"
+                                    Padding="10"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
+                                    Clicked="OnNavigateToMainPageClicked"
+                                    CornerRadius="10"
+                                    Text="Navigate to Main page"
+                                    TextColor="Gray" />
+                        </sho:Shadows>
+                    </ContentView>
                 </CollectionView.Header>
                 <CollectionView.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
@@ -56,7 +58,7 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <ContentView>
-                            <sh:Shadows Margin="20,10" StyleId="Cell">
+                            <sho:Shadows Margin="20,10" StyleId="Cell">
                                 <Frame IsClippedToBounds="False">
                                     <Frame.BorderColor>
                                         <OnPlatform x:TypeArguments="Color">
@@ -82,12 +84,12 @@
                                                Margin="0,0,0,20"
                                                Text="Since you can apply many shadows to any view, implementing #neumorphism is a walking piece of cake in the park!" />
 
-                                        <sh:Shadows x:Name="ButtonPlusNeuShadows"
-                                                    Grid.Row="1"
-                                                    Grid.Column="0"
-                                                    CornerRadius="40"
-                                                    Shades="{sh:NeumorphismShades}"
-                                                    StyleId="CellImageButton">
+                                        <sho:Shadows x:Name="ButtonPlusNeuShadows"
+                                                     Grid.Row="1"
+                                                     Grid.Column="0"
+                                                     CornerRadius="40"
+                                                     Shades="{sho:NeumorphismShades}"
+                                                     StyleId="CellImageButton">
                                             <ImageButton WidthRequest="60"
                                                          HeightRequest="60"
                                                          Padding="20"
@@ -96,13 +98,13 @@
                                                          BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
                                                          CornerRadius="30"
                                                          Source="{StaticResource IconPlusGray}" />
-                                        </sh:Shadows>
+                                        </sho:Shadows>
 
-                                        <sh:Shadows Grid.Row="1"
-                                                    Grid.Column="1"
-                                                    CornerRadius="10"
-                                                    Shades="{sh:NeumorphismShades}"
-                                                    StyleId="CellButton">
+                                        <sho:Shadows Grid.Row="1"
+                                                     Grid.Column="1"
+                                                     CornerRadius="10"
+                                                     Shades="{sho:NeumorphismShades}"
+                                                     StyleId="CellButton">
                                             <Button Style="{StaticResource TextHeadline}"
                                                     WidthRequest="120"
                                                     HeightRequest="60"
@@ -112,10 +114,10 @@
                                                     CornerRadius="10"
                                                     Text="Reset"
                                                     TextColor="Gray" />
-                                        </sh:Shadows>
+                                        </sho:Shadows>
                                     </Grid>
                                 </Frame>
-                            </sh:Shadows>
+                            </sho:Shadows>
                         </ContentView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

@@ -43,16 +43,7 @@ namespace Sharpnado.Shades.Droid
             }
 
             InternalLogger.Debug(LogTag, () => $"UpdateShades( shadesSource: {shadesSource} )");
-            if (_shadesSource is INotifyCollectionChanged previousNotifyCollectionChanged)
-            {
-                previousNotifyCollectionChanged.CollectionChanged -= ShadesSourceCollectionChanged;
-            }
-
             _shadesSource = shadesSource;
-            if (_shadesSource is INotifyCollectionChanged notifyCollectionChanged)
-            {
-                notifyCollectionChanged.CollectionChanged += ShadesSourceCollectionChanged;
-            }
 
             DisposeBitmaps();
             for (int i = 0; i < _shadesSource.Count(); i++)
@@ -63,7 +54,7 @@ namespace Sharpnado.Shades.Droid
             Invalidate();
         }
 
-        private void ShadesSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        public void ShadesSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (_isDisposed)
             {
@@ -88,7 +79,6 @@ namespace Sharpnado.Shades.Droid
                     }
 
                     Invalidate();
-
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
@@ -102,23 +92,14 @@ namespace Sharpnado.Shades.Droid
         {
             InternalLogger.Debug(LogTag, () => $"InsertShade( insertIndex: {insertIndex}, shade: {shade} )");
             InsertBitmap(shade);
-            shade.PropertyChanged += ShadePropertyChanged;
+            shade.WeakPropertyChanged += ShadePropertyChanged;
         }
 
         private void RemoveShade(int removedIndex, Shade shade)
         {
             InternalLogger.Debug(LogTag, () => $"RemoveShade( removedIndex: {removedIndex} )");
-            shade.PropertyChanged -= ShadePropertyChanged;
+            shade.WeakPropertyChanged -= ShadePropertyChanged;
             DisposeBitmap(shade);
-        }
-
-        private void UnsubscribeAllShades()
-        {
-            InternalLogger.Debug(LogTag, () => $"UnsubscribeAllShades() with count: {_shadesSource?.Count()}");
-            foreach (var shade in _shadesSource)
-            {
-                shade.PropertyChanged -= ShadePropertyChanged;
-            }
         }
 
         private void ShadePropertyChanged(object sender, PropertyChangedEventArgs e)

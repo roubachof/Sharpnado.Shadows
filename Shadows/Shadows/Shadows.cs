@@ -1,6 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Linq;
+
+using WeakEvent;
+
 using Xamarin.Forms;
 
 namespace Sharpnado.Shades
@@ -19,9 +25,27 @@ namespace Sharpnado.Shades
             typeof(Shadows),
             defaultValueCreator: (bo) => new ObservableCollection<Shade> { new Shade { Parent = (Shadows)bo } },
             validateValue: (bo, v) => v is IEnumerable<Shade>,
-            propertyChanged: ShadesPropertyChanged);
+            propertyChanged: ShadesPropertyChanged,
+            coerceValue: CoerceShades);
 
         private const int DefaultCornerRadius = 0;
+
+        private static int instanceCount = 0;
+
+        private readonly WeakEventSource<NotifyCollectionChangedEventArgs> _weakCollectionChangedSource = new WeakEventSource<NotifyCollectionChangedEventArgs>();
+
+        public Shadows()
+        {
+            InstanceNumber = ++instanceCount;
+        }
+
+        public event EventHandler<NotifyCollectionChangedEventArgs> WeakCollectionChanged
+        {
+            add => _weakCollectionChangedSource.Subscribe(value);
+            remove => _weakCollectionChangedSource.Unsubscribe(value);
+        }
+
+        public int InstanceNumber { get; }
 
         public int CornerRadius
         {
@@ -45,9 +69,22 @@ namespace Sharpnado.Shades
             }
         }
 
+        private static object CoerceShades(BindableObject bindable, object value)
+        {
+            if (!(value is ReadOnlyCollection<Shade> readonlyCollection))
+            {
+                return value;
+            }
+
+            return new ReadOnlyCollection<Shade>(
+                readonlyCollection.Select(s => s.Clone())
+                    .ToList());
+        }
+
         private static void ShadesPropertyChanged(BindableObject bindable, object oldvalue, object newvalue)
         {
             var shadows = (Shadows)bindable;
+            var enumerableShades = (IEnumerable<Shade>)newvalue;
 
             if (oldvalue != null)
             {
@@ -56,14 +93,14 @@ namespace Sharpnado.Shades
                     oldCollection.CollectionChanged -= shadows.OnShadeCollectionChanged;
                 }
 
-                foreach (var shade in (IEnumerable<Shade>)oldvalue)
+                foreach (var shade in enumerableShades)
                 {
                     shade.Parent = null;
                     shade.BindingContext = null;
                 }
             }
 
-            foreach (var shade in (IEnumerable<Shade>)newvalue)
+            foreach (var shade in enumerableShades)
             {
                 shade.Parent = shadows;
                 SetInheritedBindingContext(shade, shadows.BindingContext);
@@ -84,6 +121,7 @@ namespace Sharpnado.Shades
                     {
                         newShade.Parent = this;
                         SetInheritedBindingContext(newShade, BindingContext);
+                        _weakCollectionChangedSource.Raise(this, e);
                     }
 
                     break;
@@ -94,6 +132,7 @@ namespace Sharpnado.Shades
                     {
                         oldShade.Parent = null;
                         oldShade.BindingContext = null;
+                        _weakCollectionChangedSource.Raise(this, e);
                     }
 
                     break;

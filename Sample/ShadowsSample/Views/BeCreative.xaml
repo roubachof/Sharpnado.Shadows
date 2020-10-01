@@ -6,7 +6,7 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       mc:Ignorable="d"
                       xmlns:images="clr-namespace:ShadowsSample.Images;assembly=ShadowsSample"
-                      xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+                      xmlns:sho="http://sharpnado.com"
                       xmlns:views="clr-namespace:ShadowsSample.Views;assembly=ShadowsSample"
                       StyleId="BeCreative">
     <Frame Padding="0">
@@ -35,17 +35,17 @@
                    Margin="15,15"
                    Text="Thinking outside the box with Xamarin.Forms and Sharpnado.Shadows." />
 
-            <sh:Shadows Grid.Row="2"
-                        Grid.Column="0"
-                        CornerRadius="12">
-                <sh:Shadows.Shades>
-                    <sh:ImmutableShades>
-                        <sh:Shade BlurRadius="0"
-                                  Opacity="0.5"
-                                  Offset="6,-6"
-                                  Color="#00BFFF" />
-                    </sh:ImmutableShades>
-                </sh:Shadows.Shades>
+            <sho:Shadows Grid.Row="2"
+                         Grid.Column="0"
+                         CornerRadius="12">
+                <sho:Shadows.Shades>
+                    <sho:ImmutableShades>
+                        <sho:Shade BlurRadius="0"
+                                   Opacity="0.5"
+                                   Offset="6,-6"
+                                   Color="#00BFFF" />
+                    </sho:ImmutableShades>
+                </sho:Shadows.Shades>
                 <Button Style="{StaticResource TextHeadline}"
                         HeightRequest="60"
                         Padding="20,15,20,23"
@@ -55,27 +55,27 @@
                         CornerRadius="12"
                         Text="3D  Button"
                         TextColor="White" />
-            </sh:Shadows>
+            </sho:Shadows>
 
-            <sh:Shadows Grid.Row="2"
-                        Grid.Column="1"
-                        CornerRadius="40">
-                <sh:Shadows.Shades>
-                    <sh:ImmutableShades>
-                        <sh:Shade BlurRadius="10"
-                                  Opacity="0.5"
-                                  Offset="25,-15"
-                                  Color="Violet" />
-                        <sh:Shade BlurRadius="10"
-                                  Opacity="0.5"
-                                  Offset="0,15"
-                                  Color="DeepSkyBlue" />
-                        <sh:Shade BlurRadius="10"
-                                  Opacity="0.5"
-                                  Offset="-25,-15"
-                                  Color="Yellow" />
-                    </sh:ImmutableShades>
-                </sh:Shadows.Shades>
+            <sho:Shadows Grid.Row="2"
+                         Grid.Column="1"
+                         CornerRadius="40">
+                <sho:Shadows.Shades>
+                    <sho:ImmutableShades>
+                        <sho:Shade BlurRadius="10"
+                                   Opacity="0.5"
+                                   Offset="25,-15"
+                                   Color="Violet" />
+                        <sho:Shade BlurRadius="10"
+                                   Opacity="0.5"
+                                   Offset="0,15"
+                                   Color="DeepSkyBlue" />
+                        <sho:Shade BlurRadius="10"
+                                   Opacity="0.5"
+                                   Offset="-25,-15"
+                                   Color="Yellow" />
+                    </sho:ImmutableShades>
+                </sho:Shadows.Shades>
                 <Label Style="{StaticResource TextHeadline}"
                        WidthRequest="80"
                        HeightRequest="80"
@@ -88,7 +88,7 @@
                        MaxLines="2"
                        Text="Cotton Balls"
                        TextColor="White" />
-            </sh:Shadows>
+            </sho:Shadows>
 
             <Image x:Name="NyanBackground"
                    Grid.Row="0"
@@ -99,41 +99,41 @@
                    Opacity="0"
                    Source="{images:ImageResource background.jpg}" />
 
-            <sh:Shadows x:Name="CatShadows"
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        Margin="0,50,0,0"
-                        CornerRadius="10"
-                        StyleId="Cat">
-                <sh:Shadows.Shades>
-                    <sh:ImmutableShades>
-                        <sh:Shade BlurRadius="1"
-                                  Opacity="1"
-                                  Offset="-30,-30"
-                                  Color="#FE0000" />
-                        <sh:Shade BlurRadius="1"
-                                  Opacity="1"
-                                  Offset="-25,-25"
-                                  Color="#FD9A00" />
-                        <sh:Shade BlurRadius="1"
-                                  Opacity="1"
-                                  Offset="-20,-20"
-                                  Color="#FFFF01" />
-                        <sh:Shade BlurRadius="1"
-                                  Opacity="1"
-                                  Offset="-15,-15"
-                                  Color="#32FF02" />
-                        <sh:Shade BlurRadius="1"
-                                  Opacity="1"
-                                  Offset="-10,-10"
-                                  Color="#009AFC" />
-                        <sh:Shade BlurRadius="1"
-                                  Opacity="1"
-                                  Offset="-5,-5"
-                                  Color="#6833FD" />
-                    </sh:ImmutableShades>
-                </sh:Shadows.Shades>
+            <sho:Shadows x:Name="CatShadows"
+                         Grid.Row="1"
+                         Grid.Column="0"
+                         Grid.ColumnSpan="2"
+                         Margin="0,50,0,0"
+                         CornerRadius="10"
+                         StyleId="Cat">
+                <sho:Shadows.Shades>
+                    <sho:ImmutableShades>
+                        <sho:Shade BlurRadius="1"
+                                   Opacity="1"
+                                   Offset="-30,-30"
+                                   Color="#FE0000" />
+                        <sho:Shade BlurRadius="1"
+                                   Opacity="1"
+                                   Offset="-25,-25"
+                                   Color="#FD9A00" />
+                        <sho:Shade BlurRadius="1"
+                                   Opacity="1"
+                                   Offset="-20,-20"
+                                   Color="#FFFF01" />
+                        <sho:Shade BlurRadius="1"
+                                   Opacity="1"
+                                   Offset="-15,-15"
+                                   Color="#32FF02" />
+                        <sho:Shade BlurRadius="1"
+                                   Opacity="1"
+                                   Offset="-10,-10"
+                                   Color="#009AFC" />
+                        <sho:Shade BlurRadius="1"
+                                   Opacity="1"
+                                   Offset="-5,-5"
+                                   Color="#6833FD" />
+                    </sho:ImmutableShades>
+                </sho:Shadows.Shades>
                 <ImageButton WidthRequest="100"
                              Padding="5"
                              HorizontalOptions="Center"
@@ -142,7 +142,7 @@
                              Clicked="CatOnTapped"
                              CornerRadius="10"
                              Source="{images:ImageResource nyan_cat.png}" />
-            </sh:Shadows>
+            </sho:Shadows>
 
         </Grid>
     </Frame>

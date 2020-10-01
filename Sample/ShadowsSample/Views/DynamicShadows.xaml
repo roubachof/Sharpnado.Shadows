@@ -6,7 +6,7 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       mc:Ignorable="d"
                       xmlns:images="clr-namespace:ShadowsSample.Images;assembly=ShadowsSample"
-                      xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+                      xmlns:sho="http://sharpnado.com"
                       xmlns:system="clr-namespace:System;assembly=netstandard"
                       xmlns:views="clr-namespace:ShadowsSample.Views;assembly=ShadowsSample"
                       StyleId="DynamicShadows">
@@ -88,13 +88,13 @@
                        Placeholder="Blur" />
             </Grid>
 
-            <sh:Shadows x:Name="CatShadows"
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        CornerRadius="10">
-                <sh:Shadows.Shades>
-                    <sh:ShadeStack />
-                </sh:Shadows.Shades>
+            <sho:Shadows x:Name="CatShadows"
+                         Grid.Row="2"
+                         Grid.Column="0"
+                         CornerRadius="10">
+                <sho:Shadows.Shades>
+                    <sho:ShadeStack />
+                </sho:Shadows.Shades>
                 <Frame WidthRequest="80"
                        Padding="10"
                        HorizontalOptions="Center"
@@ -110,7 +110,7 @@
                     </Frame.BorderColor>
                     <Image Source="{images:ImageResource nyan_cat.png}" />
                 </Frame>
-            </sh:Shadows>
+            </sho:Shadows>
 
             <ScrollView Grid.Row="2" Grid.Column="1">
                 <StackLayout x:Name="StackLayout">
@@ -136,14 +136,14 @@
                 </StackLayout>
             </ScrollView>
 
-            <sh:Shadows Grid.Row="3"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        CornerRadius="3"
-                        Shades="{sh:SingleShade Opacity=1,
-                                                Color=White,
-                                                BlurRadius=10,
-                                                Offset='0,-10'}">
+            <sho:Shadows Grid.Row="3"
+                         Grid.Column="0"
+                         Grid.ColumnSpan="2"
+                         CornerRadius="3"
+                         Shades="{sho:SingleShade Opacity=1,
+                                                  Color=White,
+                                                  BlurRadius=10,
+                                                  Offset='0,-10'}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -168,7 +168,7 @@
                             Text="Remove"
                             TextColor="Gray" />
                 </Grid>
-            </sh:Shadows>
+            </sho:Shadows>
         </Grid>
     </Frame>
 </views:ShadowsElement>

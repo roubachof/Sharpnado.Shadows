@@ -34,15 +34,15 @@ namespace ShadowsSample.Droid
 
             LoadApplication(new App());
 
-            TaskMonitor.Create(
-                async () =>
-                    {
-                        while (true)
-                        {
-                            BitmapCache.Instance?.Log();
-                            await Task.Delay(10000);
-                        }
-                    });
+            //TaskMonitor.Create(
+            //    async () =>
+            //        {
+            //            while (true)
+            //            {
+            //                BitmapCache.Instance?.Log();
+            //                await Task.Delay(10000);
+            //            }
+            //        });
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

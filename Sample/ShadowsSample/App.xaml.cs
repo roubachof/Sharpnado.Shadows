@@ -17,7 +17,7 @@ namespace ShadowsSample
                 MainPage = new NavigationPage(new MainPage());
             }
 
-            Sharpnado.Shades.Initializer.Initialize(true, true, filter: "Renderer");
+            Sharpnado.Shades.Initializer.Initialize(true, true, filter: "ShadowsRenderer");
 
         }
 
