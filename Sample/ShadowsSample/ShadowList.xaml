@@ -17,7 +17,7 @@
                         HorizontalOptions="Center"
                         VerticalOptions="End">
                 <views:Logo.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="LogoOnTapped"/>
+                    <TapGestureRecognizer Tapped="LogoOnTapped" />
                 </views:Logo.GestureRecognizers>
             </views:Logo>
             <CollectionView Grid.Row="1" ItemSizingStrategy="MeasureFirstItem">
@@ -28,7 +28,7 @@
                                      Shades="{sho:NeumorphismShades}"
                                      StyleId="HeaderButtonShadows">
                             <Button Style="{StaticResource TextHeadline}"
-                                    Padding="10"
+                                    Padding="20,10"
                                     HorizontalOptions="Center"
                                     VerticalOptions="Center"
                                     BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
@@ -59,7 +59,7 @@
                     <DataTemplate>
                         <ContentView>
                             <sho:Shadows Margin="20,10" StyleId="Cell">
-                                <Frame IsClippedToBounds="False">
+                                <Frame Margin="5,10,5,5" IsClippedToBounds="False">
                                     <Frame.BorderColor>
                                         <OnPlatform x:TypeArguments="Color">
                                             <OnPlatform.Platforms>
@@ -69,8 +69,8 @@
                                     </Frame.BorderColor>
                                     <Grid RowSpacing="10">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="80" />
                                             <RowDefinition Height="70" />
+                                            <RowDefinition Height="80" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
@@ -87,6 +87,7 @@
                                         <sho:Shadows x:Name="ButtonPlusNeuShadows"
                                                      Grid.Row="1"
                                                      Grid.Column="0"
+                                                     Margin="0,0,0,10"
                                                      CornerRadius="40"
                                                      Shades="{sho:NeumorphismShades}"
                                                      StyleId="CellImageButton">
@@ -102,6 +103,7 @@
 
                                         <sho:Shadows Grid.Row="1"
                                                      Grid.Column="1"
+                                                     Margin="0,0,0,10"
                                                      CornerRadius="10"
                                                      Shades="{sho:NeumorphismShades}"
                                                      StyleId="CellButton">
