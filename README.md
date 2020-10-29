@@ -17,15 +17,29 @@ Get it from NuGet:
 
 ## Initialization
 
-On `iOS` add this line after `Xamarin.Forms.Forms.Init()` and before `LoadApplication(new App())`.
+* On Core project in `App.xaml.cs`:
+
+For the namespace schema to work, you need to call initializer from App.xaml.cs like this:
+
+```csharp
+public App()
+{
+    InitializeComponent();
+
+    Sharpnado.Shades.Initializer.Initialize(loggerEnable: false);
+    ...
+}
+```
+
+* On `iOS` add this line after `Xamarin.Forms.Forms.Init()` and before `LoadApplication(new App())`.
 
 `Sharpnado.Shades.iOS.iOSShadowsRenderer.Initialize();`
 
-In `UWP`, you must register the renderers assembly like this, before `Xamarin.Forms.Forms.Init()`:
+* On `UWP`, you must register the renderers assembly like this, before `Xamarin.Forms.Forms.Init()`:
 
 `var rendererAssemblies = new[] { typeof(UWPShadowsRenderer).GetTypeInfo().Assembly }; `
 
-On `Tizen` add this line after `Xamarin.Forms.Forms.Init()` and before `LoadApplication(new App())`.
+* On `Tizen` add this line after `Xamarin.Forms.Forms.Init()` and before `LoadApplication(new App())`.
 
 `Sharpnado.Shades.Tizen.TizenShadowsRenderer.Initialize();`
 
