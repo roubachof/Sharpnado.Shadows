@@ -53,11 +53,11 @@ Add as **many** **custom** shadows as you like to any `Xamarin.Forms` view (`And
 * Animate any of these property and make the shadows dance around your elements
 *  No `AndroidX` or `SkiaSharp` dependency required (except Tizen), only `Xamarin.Forms`
 
-## Animate shadows
+## Animating shadows
 
 Rendering `Shadows` is cpu intensive (especially on Android).
 
-**Using Xamarin.Forms animation API whith shadows is totally fine**: it won't recreate the Shadows bitmaps.
+**Using Xamarin.Forms animation API whith shadows is totally fine**: it won't recreate the `Shadows` bitmaps.
 
 However, animating the color, blur, opacity or size of a `Shade`, will result in creating **multiple bitmap on Android**.
 
@@ -409,6 +409,8 @@ It will remove some xaml elements:
 ```
 
 ## Performance
+
+**Warning**: be sure to have the latest version of `Shadows` installed. Very big performance improvements (bitmap caching) have been implement in version 1.2.
 
 * On `Android`, shadows are created thanks to `RenderScript`. Bitmaps are cached in a global `BitmapCache`. For a particular color, size and blur, you will only have one instance alive.
 * On `iOS`, a `Shade` is implemented with a simple `CALayer`
