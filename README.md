@@ -53,6 +53,50 @@ Add as **many** **custom** shadows as you like to any `Xamarin.Forms` view (`And
 * Animate any of these property and make the shadows dance around your elements
 *  No `AndroidX` or `SkiaSharp` dependency required (except Tizen), only `Xamarin.Forms`
 
+## Animate shadows
+
+Rendering `Shadows` is cpu intensive (especially on Android).
+
+**Using Xamarin.Forms animation API whith shadows is totally fine**: it won't recreate the Shadows bitmaps.
+
+However, animating the color, blur, opacity or size of a `Shade`, will result in creating **multiple bitmap on Android**.
+
+Therefore if you want to animate the size of a view which is using `Shadows`, you should "disable" the shadows during the animation.
+
+```xml
+<sh:Shadows x:Name="MyViewShadows"
+            CornerRadius="30"
+            Shades="{sh:SingleShade Offset='0, 10',
+                                    Opacity=0.7,
+                                    Color=Violet}">
+    <mine:SuperCustomView x:Name="MyView" />
+</sh:Shadows>
+```
+
+```csharp
+private async Task MyViewTotallyFineAnimations()
+{
+    // Nothing to disable here
+    await MyView.RotateXTo(90);
+    await MyView.ScaleTo(2);
+    await MyView.RotateXTo(0);
+    await MyView.ScaleTo(1);
+}
+
+private async Task MyViewNeedsDisableShadowsAnimation()
+{
+    var shades = MyViewShadows.Shades;
+    
+    // Disabling shadows
+    MyViewShadows.Shades = new List<Shades>();
+
+    await MyView.AnimateWidthRequestAsync();
+    
+    // Restoring shadows
+    MyViewShadows.Shades = shades;
+}
+```
+
 ## Shadows for Xamarin.Forms components creators
 
 `Shadows` has been developed with modularity in mind, making it really easy to integrate into your own components.
