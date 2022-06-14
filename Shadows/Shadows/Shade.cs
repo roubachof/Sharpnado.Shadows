@@ -89,6 +89,11 @@ namespace Sharpnado.Shades
             return new Shade { BlurRadius = BlurRadius, Color = Color, Offset = Offset, Opacity = Opacity };
         }
 
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+        }
+
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);

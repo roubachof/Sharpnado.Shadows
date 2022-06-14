@@ -65,7 +65,7 @@ namespace Sharpnado.Shades
 
             foreach (var shade in Shades)
             {
-                SetInheritedBindingContext(shade, BindingContext);
+                shade.BindingContext = BindingContext;
             }
         }
 
@@ -103,7 +103,7 @@ namespace Sharpnado.Shades
             foreach (var shade in enumerableShades)
             {
                 shade.Parent = shadows;
-                SetInheritedBindingContext(shade, shadows.BindingContext);
+                shade.BindingContext = shadows.BindingContext;
             }
 
             if (newvalue is INotifyCollectionChanged newCollection)
@@ -120,7 +120,7 @@ namespace Sharpnado.Shades
                     foreach (Shade newShade in e.NewItems)
                     {
                         newShade.Parent = this;
-                        SetInheritedBindingContext(newShade, BindingContext);
+                        newShade.BindingContext = BindingContext;
                         _weakCollectionChangedSource.Raise(this, e);
                     }
 

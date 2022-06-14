@@ -11,13 +11,13 @@
         <Setter Property="CornerRadius" Value="10" />
         <Setter Property="Shades">
             <sh:ImmutableShades>
-                <sh:Shade BlurRadius="8"
+                <sh:Shade BlurRadius="15"
                           Opacity="1"
                           Offset="-10,-10"
                           Color="White" />
-                <sh:Shade BlurRadius="10"
+                <sh:Shade BlurRadius="15"
                           Opacity="1"
-                          Offset="6, 6"
+                          Offset="10, 10"
                           Color="#19000000" />
             </sh:ImmutableShades>
         </Setter>

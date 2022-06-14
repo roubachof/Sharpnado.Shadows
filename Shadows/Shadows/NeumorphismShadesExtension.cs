@@ -20,7 +20,7 @@ namespace Sharpnado.Shades
         {
             _upperShade = new Shade
                 {
-                    BlurRadius = 10,
+                    BlurRadius = 15,
                     Opacity = 1,
                     Offset = new Point(-10, -10),
                     Color = Color.White,
@@ -28,9 +28,9 @@ namespace Sharpnado.Shades
 
             _lowerShade = new Shade
                 {
-                    BlurRadius = 10,
+                    BlurRadius = 15,
                     Opacity = 1,
-                    Offset = new Point(6, 6),
+                    Offset = new Point(10, 10),
                     Color = LowerShadeColor,
                 };
 

@@ -88,7 +88,7 @@ namespace Sharpnado.Shades.Droid
         {
             base.OnSizeChanged(w, h, oldw, oldh);
 
-            if (w <= MinimumSize || h <= MinimumSize)
+            if (w <= MinimumSize || h <= MinimumSize || _isDisposed)
             {
                 return;
             }
@@ -128,7 +128,7 @@ namespace Sharpnado.Shades.Droid
             var stopWatch = new Stopwatch();
             stopWatch.Start();
 #endif
-            if (!_weakSource.TryGetTarget(out var source))
+            if (!_weakSource.TryGetTarget(out var source) || _renderScript.IsNullOrDisposed())
             {
                 return;
             }
@@ -207,7 +207,9 @@ namespace Sharpnado.Shades.Droid
 
         private void InsertBitmap(Shade shade)
         {
-            if (!_weakSource.TryGetTarget(out var source) || !HasMinimumSize(source))
+            if (!_weakSource.TryGetTarget(out var source)
+                || !HasMinimumSize(source)
+                || _renderScript.IsNullOrDisposed())
             {
                 return;
             }

@@ -39,7 +39,7 @@ namespace Sharpnado.Shades.iOS
 
         public void OnLayoutSubLayers()
         {
-            if (_shadowsLayer == null || _shadowSource == null || _shadowSource.Frame == CGRect.Empty)
+            if (_isDisposed || _shadowsLayer == null || _shadowSource == null || _shadowSource.Frame == CGRect.Empty)
             {
                 return;
             }
