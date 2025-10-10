@@ -25,16 +25,57 @@
     
     <Version>2.0.0</Version>
     <Authors>Jean-Marie Alfonsi</Authors>
-    <Description>Add as many custom shadows as you like to any .NET MAUI view (Android, iOS, Windows, MacCatalyst). You can set Color, Opacity, Blur, Offset and CornerRadius. Easily achieve neumorphism.</Description>
+    <Description>Sharpnado.Maui.Shadows adds high-quality, customizable drop shadows to any .NET MAUI view on Android, iOS, Windows, and MacCatalyst. Define multiple shades per view with Color, Opacity, BlurRadius, and Offset, and match corners with CornerRadius for pixel-perfect results. Android supports a selectable blur algorithm via BlurType (Gpu or StackBlur). Built on modern MAUI handlers with platform-optimized implementations (RenderEffect/RenderScript on Android, CALayer on iOS/MacCatalyst, WinUI 3 Composition on Windows), weak events to prevent leaks, and global bitmap caching for performance. Includes XAML markup extensions (SingleShade, ImmutableShades, ShadeStack, NeumorphismShades) for concise, reusable definitions.</Description>
     <PackageProjectUrl>https://github.com/roubachof/Sharpnado.Shadows</PackageProjectUrl>
     <RepositoryUrl>https://github.com/roubachof/Sharpnado.Shadows</RepositoryUrl>
-    <PackageTags>maui;android;ios;windows;maccatalyst;shadow;blur;color;shadows;neumorphism</PackageTags>
+    <PackageTags>maui;android;ios;windows;maccatalyst;shadow;shadows;blur;drop-shadow;neumorphism;ui;ux</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>shadows.png</PackageIcon>
+    <PackageReadmeFile>PACKAGE_README.md</PackageReadmeFile>
+    <PackageReleaseNotes>
+      Version 2.0.0 - Major release for .NET 9 MAUI
+      
+      NEW FEATURES:
+      * Full .NET 9 MAUI support with modern handlers architecture
+      * Android: New BlurType property (Gpu/StackBlur) for blur algorithm selection
+      * Android: Improved GPU-based blur rendering with advanced options
+      * Android: Enhanced memory management and bitmap caching
+      * iOS/MacCatalyst: Complete rewrite using modern ViewHandler architecture
+      * Windows: Full WinUI 3 support with Composition API
+      * MacCatalyst: Full platform support with native blur effects
+      
+      IMPROVEMENTS:
+      * Complete handler refactoring for all platforms (Android, iOS, Windows, MacCatalyst)
+      * Fixed memory leaks in Windows handler (SizeChanged event subscription)
+      * Improved null safety with nullable reference types throughout
+      * Enhanced logging and debugging capabilities
+      * Better error handling and bounds checking
+      * Consistent use of WeakEvents to prevent memory leaks
+      * Modern C# patterns and practices
+      
+      BREAKING CHANGES:
+      * Minimum target framework: .NET 9
+      * Legacy Xamarin.Forms support moved to separate package
+      * Initialization API updated for MAUI handlers
+      * Assembly name changed to Sharpnado.Maui.Shadows
+      
+      PLATFORMS:
+      * Android API 21+
+      * iOS 12.2+
+      * Windows 10.0.17763.0+
+      * MacCatalyst 15.0+
+    </PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.110" />
     <PackageReference Include="ThomasLevesque.WeakEvent" Version="4.1.0" />
+  </ItemGroup>
+
+  <!-- Pack README and icon into the NuGet package -->
+  <ItemGroup>
+    <None Include="PACKAGE_README.md" Pack="true" PackagePath="/" />
+    <None Include="../Docs/shadows.png" Pack="true" PackagePath="/" />
   </ItemGroup>
 
 </Project>

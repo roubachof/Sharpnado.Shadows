@@ -45,16 +45,6 @@ public class ShadowsHandler() : ContentViewHandler(ShadowsMapper)
         return platformView;
     }
 
-    protected override void ConnectHandler(Microsoft.Maui.Platform.ContentView platformView)
-    {
-        base.ConnectHandler(platformView);
-    }
-
-    public override Size GetDesiredSize(double widthConstraint, double heightConstraint)
-    {
-        return base.GetDesiredSize(widthConstraint, heightConstraint);
-    }
-
     public override void PlatformArrange(Rect rect)
     {
         base.PlatformArrange(rect);
