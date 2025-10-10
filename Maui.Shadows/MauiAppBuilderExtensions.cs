@@ -34,8 +34,7 @@ public static class MauiAppBuilderExtensions
 #elif IOS || MACCATALYST
             handlers.AddHandler<Shadows, Platforms.iOS.ShadowsHandler>();
 #elif WINDOWS
-            // Windows handler to be implemented
-            // handlers.AddHandler<Shadows, Platforms.Windows.ShadowsHandler>();
+            handlers.AddHandler<Shadows, Platforms.Windows.ShadowsHandler>();
 #endif
         });
 

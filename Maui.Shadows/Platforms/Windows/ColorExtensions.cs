@@ -8,9 +8,9 @@ namespace Sharpnado.Shades.Platforms.Windows;
 /// </summary>
 internal static class ColorExtensions
 {
-    public static Brush ToBrush(this Color color)
+    public static Microsoft.UI.Xaml.Media.Brush ToBrush(this Color color)
     {
-        return new SolidColorBrush(color.ToWindowsColor());
+        return new Microsoft.UI.Xaml.Media.SolidColorBrush(color.ToWindowsColor());
     }
 
     public static global::Windows.UI.Color ToWindowsColor(this Color color)
