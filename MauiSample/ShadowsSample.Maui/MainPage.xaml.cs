@@ -25,6 +25,11 @@ namespace ShadowsSample.Maui
             base.OnAppearing();
             // BeCreative.OnAppearing();
 
+            if (Navigation.NavigationStack.Count == 1)
+            {
+                BackButtonShadows.IsVisible = false;
+            }
+
             MainThread.BeginInvokeOnMainThread(async () =>
                 {
                     GC.Collect();
@@ -49,6 +54,11 @@ namespace ShadowsSample.Maui
         }
 
         private void LogoOnTapped(object sender, EventArgs e)
+        {
+            Navigation.PopAsync();
+        }
+
+        private void OnBackButtonClicked(object? sender, EventArgs e)
         {
             Navigation.PopAsync();
         }

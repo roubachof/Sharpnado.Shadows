@@ -13,6 +13,7 @@
         <OnPlatform.Platforms>
             <On Platform="Android" Value="Font-Awesome-5-Free-Solid-900.otf#Font Awesome 5 Free" />
             <On Platform="iOS" Value="Font Awesome 5 Free Solid" />
+            <On Platform="MacCatalyst" Value="Font Awesome 5 Free Solid" />
             <On Platform="UWP" Value="Assets/Fonts/FontAwesome5Free-Solid.ttf#Font Awesome 5 Free Solid" />
         </OnPlatform.Platforms>
     </OnPlatform>
@@ -21,6 +22,7 @@
         <OnPlatform.Platforms>
             <On Platform="Android" Value="Font-Awesome-5-Free-Regular-400.otf#Font Awesome 5 Free" />
             <On Platform="iOS" Value="Font Awesome 5 Free Regular" />
+            <On Platform="MacCatalyst" Value="Font Awesome 5 Free Regular" />
             <On Platform="UWP" Value="Assets/Fonts/FontAwesome5Free-Regular.ttf#Font Awesome 5 Free Regular" />
         </OnPlatform.Platforms>
     </OnPlatform>
@@ -99,6 +101,12 @@
     <FontImageSource x:Key="IconPlusGray"
                      FontFamily="{StaticResource FontAwesome}"
                      Glyph="{x:Static fontAwesome:IconFont.Plus}"
+                     Size="{StaticResource SizeMediumIcon}"
+                     Color="Gray" />
+
+    <FontImageSource x:Key="LeftArrowGray"
+                     FontFamily="{StaticResource FontAwesome}"
+                     Glyph="{x:Static fontAwesome:IconFont.ArrowLeft}"
                      Size="{StaticResource SizeMediumIcon}"
                      Color="Gray" />
 

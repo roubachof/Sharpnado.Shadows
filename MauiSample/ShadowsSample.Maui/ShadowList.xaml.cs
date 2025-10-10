@@ -24,5 +24,10 @@ namespace ShadowsSample.Maui
         {
             Navigation.PopAsync();
         }
+
+        private void OnBackButtonClicked(object? sender, EventArgs e)
+        {
+            Navigation.PopAsync();
+        }
     }
 }

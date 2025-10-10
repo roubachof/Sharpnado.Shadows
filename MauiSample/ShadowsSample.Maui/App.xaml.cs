@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls;
+using ShadowsSample.Maui.Helpers;
 
 namespace ShadowsSample.Maui
 {
@@ -20,6 +21,11 @@ namespace ShadowsSample.Maui
 
         protected override void OnStart()
         {
+#if MACCATALYST
+            // Diagnostic: List all available fonts on MacCatalyst
+            FontDiagnostics.ListAllFonts();
+            FontDiagnostics.TestFontAwesome();
+#endif
         }
 
         protected override void OnSleep()

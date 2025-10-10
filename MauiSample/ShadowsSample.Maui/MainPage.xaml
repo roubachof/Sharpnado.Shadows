@@ -8,16 +8,21 @@
              BackgroundImageSource="{DynamicResource DynamicBackgroundImageSource}">
 
     <ScrollView>
-        <StackLayout Spacing="10">
-            <StackLayout.Padding>
-                <OnPlatform x:TypeArguments="Thickness">
-                    <OnPlatform.Platforms>
-                        <On Platform="Android" Value="20,80,20,60" />
-                        <On Platform="iOS" Value="20,60,20,60" />
-                        <On Platform="UWP" Value="20,80,20,20" />
-                    </OnPlatform.Platforms>
-                </OnPlatform>
-            </StackLayout.Padding>
+        <StackLayout Spacing="10" Padding="20,20,20,60">
+
+            <sho:Shadows x:Name="BackButtonShadows"
+                         CornerRadius="30"
+                         Shades="{sho:NeumorphismShades}">
+                <ImageButton WidthRequest="60"
+                             HeightRequest="60"
+                             Padding="20"
+                             HorizontalOptions="Start"
+                             VerticalOptions="Center"
+                             BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
+                             CornerRadius="30"
+                             Clicked="OnBackButtonClicked"
+                             Source="{StaticResource LeftArrowGray}" />
+            </sho:Shadows>
 
             <views:Logo HeightRequest="80"
                         Margin="0,0,0,10"

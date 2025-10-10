@@ -9,10 +9,23 @@
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="200" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="120" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <views:Logo Grid.Row="0"
+            <sho:Shadows CornerRadius="30" Shades="{sho:NeumorphismShades}">
+                <ImageButton WidthRequest="60"
+                             HeightRequest="60"
+                             Margin="20"
+                             Padding="20"
+                             HorizontalOptions="Start"
+                             VerticalOptions="Center"
+                             BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
+                             CornerRadius="30"
+                             Clicked="OnBackButtonClicked"
+                             Source="{StaticResource LeftArrowGray}" />
+            </sho:Shadows>
+            <views:Logo Grid.Row="1"
                         Margin="0,0,0,60"
                         HorizontalOptions="Center"
                         VerticalOptions="End">
@@ -20,7 +33,7 @@
                     <TapGestureRecognizer Tapped="LogoOnTapped" />
                 </views:Logo.GestureRecognizers>
             </views:Logo>
-            <CollectionView Grid.Row="1" ItemSizingStrategy="MeasureFirstItem">
+            <CollectionView Grid.Row="2" ItemSizingStrategy="MeasureFirstItem">
                 <CollectionView.Header>
                     <ContentView>
                         <sho:Shadows Margin="20"

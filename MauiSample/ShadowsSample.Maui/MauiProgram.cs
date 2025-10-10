@@ -33,8 +33,8 @@ public static class MauiProgram
 				fonts.AddFont("ka1.ttf", "KarmaticArcade");
 				
 				// Font Awesome fonts (for icons)
-				fonts.AddFont("Font-Awesome-5-Free-Solid-900.otf", "FontAwesomeSolid");
-				fonts.AddFont("Font-Awesome-5-Free-Regular-400.otf", "FontAwesomeRegular");
+				fonts.AddFont("Font-Awesome-5-Free-Solid-900.ttf", "FontAwesomeSolid");
+				fonts.AddFont("Font-Awesome-5-Free-Regular-400.ttf", "FontAwesomeRegular");
 				fonts.AddFont("Font-Awesome-5-Brands-Regular-400.otf", "FontAwesomeBrands");
 			});
 
