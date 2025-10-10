@@ -7,8 +7,9 @@ namespace Sharpnado.Shades.Platforms.Windows;
 /// <summary>
 /// MAUI handler for Shadows component on Windows.
 /// Uses WinUI 3 Composition API for shadow rendering.
+/// Custom ViewHandler that manages a Grid container with shadows canvas and content.
 /// </summary>
-public class ShadowsHandler : ContentViewHandler
+public class ShadowsHandler : ViewHandler<Shadows, Grid>
 {
     private static int _instanceCount;
     private string _tag = nameof(ShadowsHandler);
@@ -20,20 +21,21 @@ public class ShadowsHandler : ContentViewHandler
     {
     }
 
-    public static PropertyMapper<Shadows, ShadowsHandler> ShadowsMapper = new(Mapper)
+    public static PropertyMapper<Shadows, ShadowsHandler> ShadowsMapper = new(ViewMapper)
     {
         [nameof(Shadows.CornerRadius)] = MapCornerRadius,
         [nameof(Shadows.Shades)] = MapShades,
     };
 
-    protected override ContentPanel CreatePlatformView()
+    protected override Grid CreatePlatformView()
     {
         if (VirtualView is not Shadows shadowsView)
         {
             throw new InvalidOperationException($"VirtualView must be of type {nameof(Shadows)}");
         }
 
-        var platformView = base.CreatePlatformView();
+        // Create a Grid container that will hold shadows canvas and content
+        var grid = new Grid();
 
         if (!string.IsNullOrWhiteSpace(shadowsView.StyleId))
         {
@@ -42,10 +44,10 @@ public class ShadowsHandler : ContentViewHandler
 
         InternalLogger.Debug(_tag, () => $"CreatePlatformView() => {++_instanceCount} instances");
 
-        return platformView;
+        return grid;
     }
 
-    protected override void ConnectHandler(ContentPanel platformView)
+    protected override void ConnectHandler(Grid platformView)
     {
         base.ConnectHandler(platformView);
 
@@ -54,21 +56,45 @@ public class ShadowsHandler : ContentViewHandler
             return;
         }
 
-        // Wait for content to be available
-        if (platformView.Children.Count > 0 && platformView.Children[0] is Panel contentPanel)
+        // Create shadow canvas
+        _shadowsCanvas = new Canvas();
+        platformView.Children.Add(_shadowsCanvas);
+
+        // Create and add content view
+        if (shadowsView.Content != null)
         {
-            PackChild(platformView, contentPanel, shadowsView);
+            var contentView = shadowsView.Content.ToPlatform(MauiContext!);
+            platformView.Children.Add(contentView);
+
+            // Create shadow controller
+            _shadowsController = new WindowsShadowsController(_shadowsCanvas, contentView, shadowsView.CornerRadius);
+            _shadowsController.UpdateShades(shadowsView.Shades);
+
+            // Subscribe to collection changes
+            shadowsView.WeakCollectionChanged += _shadowsController.ShadesSourceCollectionChanged;
+
+            InternalLogger.Debug(_tag, () => "ShadowController created");
         }
     }
 
-    protected override void DisconnectHandler(ContentPanel platformView)
+    protected override void DisconnectHandler(Grid platformView)
     {
+        if (VirtualView is Shadows shadowsView)
+        {
+            if (_shadowsController != null)
+            {
+                shadowsView.WeakCollectionChanged -= _shadowsController.ShadesSourceCollectionChanged;
+            }
+        }
+
         if (_shadowsController != null)
         {
             _shadowsController.Dispose();
             _shadowsController = null;
         }
 
+        // Clear platform view children
+        platformView.Children.Clear();
         _shadowsCanvas = null;
 
         _instanceCount--;
@@ -85,29 +111,5 @@ public class ShadowsHandler : ContentViewHandler
     public static void MapShades(ShadowsHandler handler, Shadows shadowsView)
     {
         handler._shadowsController?.UpdateShades(shadowsView.Shades);
-    }
-
-    private void PackChild(ContentPanel platformView, Panel contentPanel, Shadows shadowsView)
-    {
-        if (_shadowsController != null)
-        {
-            return; // Already created
-        }
-
-        _shadowsCanvas = new Canvas();
-
-        // Insert shadows canvas before content
-        platformView.Children.Insert(0, _shadowsCanvas);
-
-        _shadowsController = new WindowsShadowsController(_shadowsCanvas, contentPanel, shadowsView.CornerRadius);
-        _shadowsController.UpdateShades(shadowsView.Shades);
-
-        // Subscribe to collection changes
-        if (VirtualView is Shadows shadows)
-        {
-            shadows.WeakCollectionChanged += _shadowsController.ShadesSourceCollectionChanged;
-        }
-
-        InternalLogger.Debug(_tag, () => "ShadowController created");
     }
 }

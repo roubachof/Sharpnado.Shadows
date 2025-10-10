@@ -46,6 +46,9 @@ internal partial class WindowsShadowsController : IDisposable
         {
             InternalLogger.Debug(LogTag, "Dispose()");
 
+            // Unsubscribe from size changed event to prevent memory leak
+            _shadowSource.SizeChanged -= ShadowSourceSizeChanged;
+
             if (_shadesSource is INotifyCollectionChanged shadeNotifyCollection)
             {
                 shadeNotifyCollection.CollectionChanged -= ShadesSourceCollectionChanged;
