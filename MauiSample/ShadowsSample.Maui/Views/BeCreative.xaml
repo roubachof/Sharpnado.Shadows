@@ -32,6 +32,8 @@
                    Text="Thinking outside the box with Xamarin.Forms and Sharpnado.Shadows." />
 
             <sho:Shadows Grid.Row="2"
+                         VerticalOptions="Center"
+                         HorizontalOptions="Center"
                          Grid.Column="0"
                          CornerRadius="12">
                 <sho:Shadows.Shades>
@@ -45,8 +47,6 @@
                 <Button Style="{StaticResource TextHeadline}"
                         HeightRequest="60"
                         Padding="20,15,20,23"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"
                         BackgroundColor="#00BFFF"
                         CornerRadius="12"
                         TextColor="White"
@@ -55,6 +55,8 @@
 
             <sho:Shadows Grid.Row="2"
                          Grid.Column="1"
+                         VerticalOptions="Center"
+                         HorizontalOptions="Center"
                          CornerRadius="40">
                 <sho:Shadows.Shades>
                     <sho:ImmutableShades>
@@ -75,8 +77,6 @@
                 <Label Style="{StaticResource TextHeadline}"
                        WidthRequest="80"
                        HeightRequest="80"
-                       HorizontalOptions="Center"
-                       VerticalOptions="Center"
                        HorizontalTextAlignment="Center"
                        VerticalTextAlignment="Center"
                        BackgroundColor="Transparent"

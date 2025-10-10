@@ -10,14 +10,14 @@
     <ScrollView>
         <StackLayout Spacing="10" Padding="20,20,20,60">
 
-            <sho:Shadows x:Name="BackButtonShadows"
+            <sho:Shadows x:Name="BackButtonShadows"    
+                         HorizontalOptions="Start"
+                         VerticalOptions="Center"
                          CornerRadius="30"
                          Shades="{sho:NeumorphismShades}">
                 <ImageButton WidthRequest="60"
                              HeightRequest="60"
                              Padding="20"
-                             HorizontalOptions="Start"
-                             VerticalOptions="Center"
                              BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
                              CornerRadius="30"
                              Clicked="OnBackButtonClicked"
@@ -40,13 +40,13 @@
                    Text="The above logo is made of 7 different shades." />
 
             <sho:Shadows AndroidBlurType="StackBlur"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center"
                          CornerRadius="10"
                          Shades="{sho:NeumorphismShades}">
                 <Button Style="{StaticResource TextHeadline}"
                         Margin="0,0,0,20"
                         Padding="10"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"
                         BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
                         CornerRadius="10"
                         TextColor="Gray"

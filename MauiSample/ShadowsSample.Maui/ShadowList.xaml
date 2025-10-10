@@ -13,13 +13,14 @@
                 <RowDefinition Height="120" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <sho:Shadows CornerRadius="30" Shades="{sho:NeumorphismShades}">
+            <sho:Shadows CornerRadius="30"
+                         Margin="20"
+                         VerticalOptions="Center"
+                         HorizontalOptions="Start"
+                         Shades="{sho:NeumorphismShades}">
                 <ImageButton WidthRequest="60"
                              HeightRequest="60"
-                             Margin="20"
-                             Padding="20"
-                             HorizontalOptions="Start"
-                             VerticalOptions="Center"
+                             Padding="17"
                              BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
                              CornerRadius="30"
                              Clicked="OnBackButtonClicked"
@@ -37,13 +38,13 @@
                 <CollectionView.Header>
                     <ContentView>
                         <sho:Shadows Margin="20"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Center"
                                      CornerRadius="10"
                                      Shades="{sho:NeumorphismShades}"
                                      StyleId="HeaderButtonShadows">
                             <Button Style="{StaticResource TextHeadline}"
                                     Padding="20,10"
-                                    HorizontalOptions="Center"
-                                    VerticalOptions="Center"
                                     BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
                                     CornerRadius="10"
                                     TextColor="Gray"

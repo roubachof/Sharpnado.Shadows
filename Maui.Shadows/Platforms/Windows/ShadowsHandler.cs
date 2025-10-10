@@ -1,6 +1,7 @@
 using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
 using Microsoft.UI.Xaml.Controls;
+using Grid = Microsoft.UI.Xaml.Controls.Grid;
 
 namespace Sharpnado.Shades.Platforms.Windows;
 

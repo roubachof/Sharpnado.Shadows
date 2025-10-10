@@ -86,6 +86,8 @@
 
             <sho:Shadows x:Name="CatShadows"
                          Grid.Row="2"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center"
                          Grid.Column="0"
                          CornerRadius="10">
                 <sho:Shadows.Shades>
