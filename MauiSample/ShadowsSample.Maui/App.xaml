@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application x:Class="ShadowsSample.Maui.App"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Colors.xaml" />
+                <ResourceDictionary Source="/Styles/Entry.xaml" />
+                <ResourceDictionary Source="/Styles/Global.xaml" />
+                <ResourceDictionary Source="/Styles/Sizes.xaml" />
+                <ResourceDictionary Source="/Styles/Text.xaml" />
+                <ResourceDictionary Source="/Styles/Labels.xaml" />
+                <ResourceDictionary Source="/Styles/Icons.xaml" />
+                <ResourceDictionary Source="/Styles/Buttons.xaml" />
+                <ResourceDictionary Source="/Styles/Frame.xaml" />
+                <ResourceDictionary Source="/Styles/Shadows.xaml" />
+                <ResourceDictionary Source="/Styles/Image.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

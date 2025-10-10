@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ShadowsSample.Maui.MainPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sho="http://sharpnado.com"
+             xmlns:views="clr-namespace:ShadowsSample.Maui.Views;assembly=ShadowsSample.Maui"
+             BackgroundColor="{DynamicResource DynamicBackgroundColor}"
+             BackgroundImageSource="{DynamicResource DynamicBackgroundImageSource}">
+
+    <ScrollView>
+        <StackLayout Spacing="10" Padding="20,20,20,60">
+
+            <sho:Shadows x:Name="BackButtonShadows"    
+                         HorizontalOptions="Start"
+                         VerticalOptions="Center"
+                         CornerRadius="30"
+                         Shades="{sho:NeumorphismShades}">
+                <ImageButton WidthRequest="60"
+                             HeightRequest="60"
+                             Padding="20"
+                             BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
+                             CornerRadius="30"
+                             Clicked="OnBackButtonClicked"
+                             Source="{StaticResource LeftArrowGray}" />
+            </sho:Shadows>
+
+            <views:Logo HeightRequest="80"
+                        Margin="0,0,0,10"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                <views:Logo.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="LogoOnTapped" />
+                </views:Logo.GestureRecognizers>
+            </views:Logo>
+
+            <Label Style="{StaticResource TextBodySecondary}"
+                   Margin="0,0,0,10"
+                   HorizontalOptions="End"
+                   FontFamily="{StaticResource FontItalic}"
+                   Text="The above logo is made of 7 different shades." />
+
+            <sho:Shadows AndroidBlurType="StackBlur"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center"
+                         CornerRadius="10"
+                         Shades="{sho:NeumorphismShades}">
+                <Button Style="{StaticResource TextHeadline}"
+                        Margin="0,0,0,20"
+                        Padding="10"
+                        BackgroundColor="{DynamicResource DynamicFrameBackgroundColor}"
+                        CornerRadius="10"
+                        TextColor="Gray"
+                        Clicked="OnNavigateToShadowsListClicked"
+                        Text="Navigate to List of Shadows" />
+            </sho:Shadows>
+
+            <Label Style="{StaticResource TextHeadline}"
+                   Margin="{StaticResource HeaderMargin}"
+                   TextColor="{DynamicResource DynamicPrimaryOnBackgroundColor}"
+                   Text="Custom Shadows for any View" />
+
+            <views:DynamicShadows />
+
+            <Label Style="{StaticResource TextHeadline}"
+                   Margin="{StaticResource HeaderMargin}"
+                   TextColor="{DynamicResource DynamicPrimaryOnBackgroundColor}"
+                   Text="Colored Shadows for any View" />
+
+            <views:ColoredShadows />
+
+            <Label Style="{StaticResource TextHeadline}"
+                   Margin="{StaticResource HeaderMargin}"
+                   TextColor="{DynamicResource DynamicPrimaryOnBackgroundColor}"
+                   Text="Neumorphism made easy" />
+
+            <views:Neumorphism />
+
+            <Label Style="{StaticResource TextHeadline}"
+                   Margin="{StaticResource HeaderMargin}"
+                   TextColor="{DynamicResource DynamicPrimaryOnBackgroundColor}"
+                   Text="Be Creative!" />
+
+            <views:BeCreative x:Name="BeCreative" />
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
