@@ -23,7 +23,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <LangVersion>latest</LangVersion>
     
-    <Version>2.0.1</Version>
+    <Version>2.0.2</Version>
     <Authors>Jean-Marie Alfonsi</Authors>
     <Description>Sharpnado.Maui.Shadows adds high-quality, customizable drop shadows to any .NET MAUI view on Android, iOS, Windows, and MacCatalyst. Define multiple shades per view with Color, Opacity, BlurRadius, and Offset, and match corners with CornerRadius for pixel-perfect results. Android supports a selectable blur algorithm via BlurType (Gpu or StackBlur). Built on modern MAUI handlers with platform-optimized implementations (RenderEffect/RenderScript on Android, CALayer on iOS/MacCatalyst, WinUI 3 Composition on Windows), weak events to prevent leaks, and global bitmap caching for performance. Includes XAML markup extensions (SingleShade, ImmutableShades, ShadeStack, NeumorphismShades) for concise, reusable definitions.</Description>
     <PackageProjectUrl>https://github.com/roubachof/Sharpnado.Shadows</PackageProjectUrl>
@@ -38,13 +38,12 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageReleaseNotes>
-      Version 2.0.1 - Windows Platform Inclusion
+      Version 2.0.2 - Windows Content Margin Fix
       
-      PACKAGING FIX:
-      * Re-release to include Windows platform binaries (net9.0-windows10.0.19041.0)
-      * Previous 2.0.0 release was missing Windows support due to being packaged on macOS
-      
-      No code changes from v2.0.0.
+      BUGFIX:
+      * Fixed Windows (WinUI) platform: Content margin property is now properly applied
+      * Handler now manually transfers MAUI margin to native platform view
+      * Resolves issue where Border/Frame margins were ignored in WinUI Grid layout
       
       See documentation: https://github.com/roubachof/Sharpnado.Shadows
     </PackageReleaseNotes>
