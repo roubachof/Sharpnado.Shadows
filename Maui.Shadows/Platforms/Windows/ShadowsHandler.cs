@@ -1,5 +1,6 @@
 using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Grid = Microsoft.UI.Xaml.Controls.Grid;
 
@@ -17,6 +18,7 @@ public class ShadowsHandler : ViewHandler<Shadows, Grid>
 
     private WindowsShadowsController? _shadowsController;
     private Canvas? _shadowsCanvas;
+    private FrameworkElement? _contentPlatformView;
 
     public ShadowsHandler() : base(ShadowsMapper)
     {
@@ -64,11 +66,20 @@ public class ShadowsHandler : ViewHandler<Shadows, Grid>
         // Create and add content view
         if (shadowsView.Content != null)
         {
-            var contentView = shadowsView.Content.ToPlatform(MauiContext!);
-            platformView.Children.Add(contentView);
+            _contentPlatformView = shadowsView.Content.ToPlatform(MauiContext!);
+            
+            // Manually apply MAUI margin to the platform view
+            var contentMargin = shadowsView.Content.Margin;
+            _contentPlatformView.Margin = new Microsoft.UI.Xaml.Thickness(
+                contentMargin.Left,
+                contentMargin.Top,
+                contentMargin.Right,
+                contentMargin.Bottom);
+            
+            platformView.Children.Add(_contentPlatformView);
 
             // Create shadow controller
-            _shadowsController = new WindowsShadowsController(_shadowsCanvas, contentView, shadowsView.CornerRadius);
+            _shadowsController = new WindowsShadowsController(_shadowsCanvas, _contentPlatformView, shadowsView.CornerRadius);
             _shadowsController.UpdateShades(shadowsView.Shades);
 
             // Subscribe to collection changes
@@ -97,6 +108,7 @@ public class ShadowsHandler : ViewHandler<Shadows, Grid>
         // Clear platform view children
         platformView.Children.Clear();
         _shadowsCanvas = null;
+        _contentPlatformView = null;
 
         _instanceCount--;
         InternalLogger.Debug(_tag, () => $"Disposed => {_instanceCount} instances");
